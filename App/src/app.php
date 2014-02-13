@@ -21,4 +21,12 @@ $app->register(new ServiceControllerServiceProvider());
 $app->register(new TwigServiceProvider());
 $app->register(new SwiftmailerServiceProvider());
 
+require_once __DIR__.'/lib/util_provider.php';
+
+$app->register(new SqlHelperUtilServiceProvider());
+$app->register(new ValidatorHelperUtilServiceProvider());
+$app->register(new AppHelperUtilServiceProvider());
+$app->register(new AuthHelperUtilServiceProvider());
+$app->register(new EmailHelperUtilServiceProvider());
+
 return $app;

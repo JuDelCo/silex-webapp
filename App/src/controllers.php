@@ -5,12 +5,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 
+// Control de errores
+require_once __DIR__.'/error_handler.php';
+
 // Ruta por defecto
 $app->match('{fallback_url}', function($fallback_url) use ($app)
 {
 	$app['monolog']->addError('Ruta no encontrada: "' . rawurlencode($fallback_url) . '"');	
 	
-	return new Response('Pagina no encontrada', 404);
+	return new Response('Error 404 - Página no encontrada', 404);
 })
 ->bind('rt_error_not_found')->assert('fallback_url', '^(?!_profiler/)(.+)');
 
