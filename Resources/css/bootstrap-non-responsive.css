@@ -1,0 +1,115 @@
+/* 
+ * Custom CSS style (all pages)
+ */
+
+/* Full page height */
+html, body
+{
+	height: 100% !important;
+}
+
+/* Main Container Style */
+body > div.container
+{
+	min-height: 100%;
+}
+
+/* Form Inline Style */
+.form-inline .form-group
+{
+	display: inline-block;
+	margin-bottom: 0;
+	vertical-align: middle;
+}
+.form-inline .form-control
+{
+	display: block;
+}
+
+/* 
+ * Twitter Bootstrap 3.1.0 - Non-responsive overrides
+ * Disable the responsive-ness of the container, grid system, and navbar
+ */
+
+/* Reset the container */
+div.container
+{
+	max-width: none !important;
+	width: 1200px !important; /* 970px -> 1200px */
+}
+
+/* Navbar styles */
+.container .navbar-header,
+.container .navbar-collapse
+{
+	margin-right: 0;
+	margin-left: 0;
+	border-top: 0;
+}
+
+/* Always float the navbar header */
+.navbar-header
+{
+	float: left;
+}
+
+/* Undo the collapsing navbar */
+.navbar-collapse
+{
+	display: block !important;
+	height: auto !important;
+	padding-bottom: 0;
+	overflow: visible !important;
+	padding-right: 15px !important;
+	padding-left: 15px !important;
+}
+.navbar-toggle
+{
+	display: none;
+}
+.navbar-brand
+{
+	margin-left: -15px;
+}
+
+/* Always apply the floated nav */
+.navbar-nav
+{
+	float: left;
+	margin: 0;
+}
+.navbar-nav > li
+{
+	float: left;
+}
+.navbar-nav > li > a
+{
+	padding: 15px;
+}
+
+/* Redeclare since we override the float above */
+.navbar-nav.navbar-right
+{
+	float: right;
+}
+
+/* Undo custom dropdowns */
+.navbar .navbar-nav .open .dropdown-menu
+{
+	position: absolute;
+	float: left;
+	background-color: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+.navbar-nav .open .dropdown-menu > li > a,
+.navbar-nav .open .dropdown-menu .dropdown-header
+{
+	padding: 3px 20px;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a
+{
+	color: #333333;
+}

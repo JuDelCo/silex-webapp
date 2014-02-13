@@ -1,0 +1,276 @@
+
+/* CSS General ----------------------------------------------------------------- */
+
+	body
+	{
+		background-color: #F7F7FF;
+	}
+
+	body > div.container
+	{
+		/*box-shadow: 0 9px 0px 0px white, 0 -9px 0px 0px white, 12px 0 15px -4px #C8C8C8, -12px 0 15px -4px #C8C8C8;*/
+		box-shadow: 3px 0 15px -4px #C8C8C8, -3px 0 15px -4px #C8C8C8;
+		border-left: 1px solid #DDDDDD;
+		border-right: 1px solid #DDDDDD;
+		background-color: #FFFFFF;
+		padding: 15px;
+		padding-top: 85px !important; /* Header: (40px+30px) + 15px padding */
+	}
+	
+	select
+	{
+		cursor: pointer;
+	}
+
+	textarea
+	{
+		resize: none !important;
+	}
+
+	table
+	{
+		font-size: 12px;
+	}
+
+	input[type=text]:hover,
+	select:hover,
+	textarea:hover
+	{
+		border: 1px solid #66AFE9;
+	}
+
+	input[readonly],
+	textarea[readonly]
+	{
+		cursor: text !important;
+		border: 1px solid #CCCCCC !important;
+	}
+
+	select[readonly]
+	{
+		cursor: default !important;
+		border: 1px solid #CCCCCC !important;
+	}
+
+	div.obligatorio,
+	input.obligatorio,
+	select.obligatorio,
+	textarea.obligatorio
+	{
+		background-color: #E6F3FF !important;
+		border: 1px solid #428BCA !important;
+	}
+
+	input[type=radio]:checked + em
+	{
+		font-weight: bold;
+	}
+
+	th.table-header
+	{
+		background-color: #428BCA;
+		color: #FFFFFF;
+	}
+
+	div.ajax-loading-input,
+	div.ajax-loading-select
+	{
+		height: 16px;
+		width: 16px;
+		float: right;
+		position: relative;
+		top: -23px;
+		left: -10px;
+		cursor: progress;
+		background-image: url("/Resources/img/ajax-loader_small.gif");
+		background-size: 16px 16px;
+	}
+
+	div.ajax-loading-select
+	{
+		left: -35px;
+	}
+
+	div.panel-header-left
+	{
+		float: left;
+		height: 100%;
+		border: 1px solid #DDDDDD;
+		font-weight: bold;
+		font-size: 12px;
+		padding-left: 15px;
+		padding-top: 25px;
+		color: #999999;
+		width: 150px;
+		background-color: #f5f5f5;
+		position: absolute;
+		top: 0px;
+		left: 15px;
+		border-radius: 4px;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+
+	div.tooltip-inner,
+	div.popover
+	{
+		white-space: pre;
+		max-width: none;
+	}
+
+	div.tab-content div.row > div
+	{
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	div.tab-content div.row > div:first-child
+	{
+		padding-left: 15px;
+	}
+	div.tab-content div.row > div:last-child
+	{
+		padding-right: 15px;
+	}
+
+	div.tab-content div.form-group
+	{
+		margin-bottom: 3px;
+	}
+	div.tab-content div.form-group > label
+	{
+		margin-left: 3px;
+		margin-bottom: 2px;
+		font-size: 12px;
+	}
+
+	div.panel
+	{
+		margin-bottom: 10px;
+		background-color: #FBFBFB;
+		box-shadow: 0px 0px 1px 1px #F0F0F0;
+	}
+
+	table.table-hover > tbody > tr:hover > td
+	{
+		background-color: #E6F3FF !important;
+	}
+
+	div.cell_outer
+	{
+		position: relative;
+	}
+	div.cell_outer > div.cell_inner
+	{
+		overflow: hidden;
+		white-space: nowrap;
+		position: absolute;
+		width: 100%;
+	}
+	
+	div.menu-alt > div.container ul.navbar-nav > li > a.info-label
+	{
+		cursor: default;
+	}
+	div.menu-alt > div.container ul.navbar-nav > li > a.info-label:hover
+	{
+		color: #777777;
+	}
+
+	.navbar .open .dropdown-menu > li > a
+	{
+		color: #333333;
+	}
+	.navbar .open .dropdown-menu > li > a:hover,
+	.navbar .open .dropdown-menu > li > a:focus,
+	.navbar .open .dropdown-menu > .active > a,
+	.navbar .open .dropdown-menu > .active > a:hover,
+	.navbar .open .dropdown-menu > .active > a:focus
+	{
+		color: #FFFFFF !important;
+		background-color: #428BCA !important;
+		background-image: none;
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+	}
+	.navbar .open .dropdown-menu > .disabled > a,
+	.navbar .open .dropdown-menu > .disabled > a:hover,
+	.navbar .open .dropdown-menu > .disabled > a:focus
+	{
+		color: #999999 !important;
+		background-color: transparent !important;
+		background-image: none;
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+	}
+	
+/* CSS Header (Navbar) ----------------------------------------------------------------- */
+
+	div.menu-main
+	{
+		min-height: 40px;
+	}
+
+	div.menu-main > div.container div > a,
+	div.menu-main > div.container ul.navbar-nav > li > a
+	{
+		padding: 10px 15px;
+	}
+
+	div.menu-main li.menu-user button
+	{
+		margin: 5px;
+	}
+
+	div.menu-main li.menu-user a
+	{
+		cursor: pointer;
+	}
+
+	div.menu-alt
+	{
+		min-height: 30px;
+		margin-top: 40px;
+		border-bottom: 1px solid #CCCCCC;
+	}
+
+	div.menu-alt > div.container div > a,
+	div.menu-alt > div.container ul.navbar-nav > li > a
+	{
+		padding: 6px 15px 4px 15px;
+	}
+
+	div.menu-alt > div.container ul.navbar-nav > li > a
+	{
+		font-size: 12px;
+	}
+
+	div.menu-alt li.menu-search div.input-group
+	{
+		width: 150px;
+		line-height: 0px;
+		padding-top: 5px;
+	}
+
+	div.menu-alt li.menu-search div.input-group,
+	div.menu-alt li.menu-search button,
+	div.menu-alt li.menu-search input
+	{
+		height: 20px;
+	}
+
+	div.menu-alt li.menu-search input
+	{
+		padding: 0px 10px;
+	}
+
+	div.menu-alt li.navbar-info-label
+	{
+		cursor: default;
+		margin-top: 4px;
+	}
+
+	div.menu-alt li.navbar-info-label > span
+	{
+		background-color: #326999;
+		font-weight: normal;
+	}
+
+/* ------------------------------------------------------------------------------------- */
