@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>{{ header_title|default('Título') }}</title>
+	<meta charset="utf-8">
+	<meta name="robots" content="noindex,nofollow" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	
+	{% block header_css_main %}
+		{{ resource_css_bootstrap|raw }}
+		{{ resource_css_bootstrap_non_responsive|raw }}
+		{{ resource_css_bootstrap_theme|raw }}
+		{{ resource_css_bootstrap_dropdown_submenu|raw }}
+		{{ resource_css_main|raw }}
+	{% endblock header_css_main %}
+
+	{% block header_css_alt %}
+	{% endblock header_css_alt %}
+</head>
+<body>
+	{% block body_header %}
+	{% endblock body_header %}
+
+	{% block body_content %}
+		<div class="container">
+			{% block body_container %}
+			{% endblock body_container %}
+		</div>
+	{% endblock body_content %}
+
+	{% block body_footer %}
+	{% endblock body_footer %}
+
+	{% block body_javascript_main %}
+		{{ resource_js_jquery|raw }}
+		{{ resource_js_bootstrap|raw }}
+		{{ resource_js_jquery_util|raw }}
+		<!--[if lte IE 8]>
+			{{ resource_js_respond|raw }}
+		<![endif]-->
+	{% endblock body_javascript_main %}
+
+	{% block body_javascript_alt %}
+	{% endblock body_javascript_alt %}
+</body>
+</html>

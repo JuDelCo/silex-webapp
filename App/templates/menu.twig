@@ -1,0 +1,101 @@
+
+<div class="menu-alt navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				{% block menu_alt_left_html %}
+				{% endblock menu_alt_left_html %}
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				{% block menu_alt_right_html %}
+				{% endblock menu_alt_right_html %}
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div class="menu-main navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header" style="height: 40px;">
+			{% block menu_title %}
+				<a href="{{ path('rt_root') }}" class="navbar-brand" style="font-size: 17px;" title="Menú principal">
+					<span class="glyphicon glyphicon-home"></span>
+					&nbsp;{{ menu_main_title|default('Inicio') }}
+				</a>
+			{% endblock menu_title %}
+		</div>
+		<div class="navbar-collapse collapse">
+			{% block menu_left_html %}
+				<ul class="nav navbar-nav">
+
+					{% if 'menu_EXAMPLE' in app.session.get('user.menu') %}
+						<li id="li_menu_EXAMPLE" class="dropdown">
+							<a tabindex="-1" style="cursor: pointer;" class="dropdown-toggle" data-toggle="dropdown">EXAMPLE <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-submenu">
+									<a style="cursor: pointer;">EXAMPLE</a>
+									<ul class="dropdown-menu">
+										<li class="disabled">
+											<a>
+												<span class="glyphicon glyphicon-star"></span>
+												&nbsp;EXAMPLE
+											</a>
+										</li>
+										<li>
+											<a href="{{ path('rt_main') }}">
+												<span class="glyphicon glyphicon-star"></span>
+												&nbsp;EXAMPLE
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu disabled">
+									<a style="cursor: pointer;">EXAMPLE</a>
+									<ul class="dropdown-menu">
+										<li>&nbsp;</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					{% endif %}
+
+				</ul>
+			{% endblock menu_left_html %}
+			{% block menu_right_html %}
+				<ul class="nav navbar-nav navbar-right">
+					<li class="menu-user">
+						{% if app.session.get('user.id') is empty %}
+							<a href="{{ path('rt_usr_login') }}" style="color: #333333; padding: 0px; margin: 5px;">
+								<button type="button" class="btn btn-default btn-sm" style="margin: 0px;">
+										<span class="glyphicon glyphicon-lock"></span>
+										&nbsp;<b>Identificarse</b>
+								</button>
+							</a>
+						{% else %}
+							<button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+								<span class="glyphicon glyphicon-user"></span>&nbsp;
+								<b>Usuario:</b> {{ app.session.get('user.username') }}&nbsp;
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="{{ path('rt_usr_password_change') }}">
+										<span class="glyphicon glyphicon-edit"></span>&nbsp;
+										Cambiar contraseña
+									</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="{{ path('rt_usr_logout') }}">
+										<span class="glyphicon glyphicon-off"></span>&nbsp;
+										Cerrar sesión
+									</a>
+								</li>
+							</ul>
+						{% endif %}
+					</li>
+				</ul>
+			{% endblock menu_right_html %}
+		</div>
+	</div>
+</div>

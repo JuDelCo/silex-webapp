@@ -1,0 +1,37 @@
+{% extends "layout.twig" %}
+
+{% set header_title = "Página Principal" %}
+
+{% block header_css_alt %}
+	<style>
+
+		.alert
+		{
+			width: 90%;
+			margin: 25px auto;
+			padding: 15px 35px 15px 28px;
+			background-color: #F7F7FF;
+		}
+
+		.check_button
+		{
+			float: right;
+			padding: 1px 10px;
+		}
+
+	</style>
+{% endblock header_css_alt %}
+
+{% block body_header %}
+	{% embed "menu.twig" %}
+		{% block menu_alt_left_html %}
+			<li>
+				<a class="info-label">Menú principal</a>
+			</li>
+		{% endblock menu_alt_left_html %}
+	{% endembed %}
+{% endblock body_header %}
+
+{% block body_container %}
+	<div class="alert" style="border: 1px solid #CCCCCC;">Página principal</div>
+{% endblock body_container %}

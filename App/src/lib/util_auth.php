@@ -13,7 +13,7 @@ class AuthHelperUtil
 
 	public function generateToken()
 	{
-		return hash('sha256', base_convert(sha1(uniqid(mt_rand() . $app['security.salt'], true)), 16, 36));
+		return hash('sha256', base_convert(sha1(uniqid(mt_rand() . $this->app['security.salt'], true)), 16, 36));
 	}
 
 	public function generateUniqueToken()
@@ -34,16 +34,13 @@ class AuthHelperUtil
 
 	public function isAuthenticated()
 	{
-		if($this->app['session']->isStarted())
+		$user_id = $this->app['session']->get('user_real.id', null);
+
+		if(! empty($user_id))
 		{
-			$user_id = $this->app['session']->get('user_real.id', null);
-
-			if(! empty($user_id))
-			{
-				return true;
-			}
+			return true;
 		}
-
+		
 		return false;
 	}
 

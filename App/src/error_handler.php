@@ -122,13 +122,15 @@ $app->error(function (\Exception $exception, $code) use ($app)
 
 	try
 	{
+		$email_dev = $app['email.sender'];
+
 		$email_msg = \Swift_Message::newInstance();
 		$email_msg->setSubject("[ERROR] $e_app_id ($e_environment) - Reporte del Error ($e_date)")
-			->setFrom('judelco.csc@gmail.com')
-			->setSender('judelco.csc@gmail.com')
-			->setReplyTo('judelco.csc@gmail.com')
-			->setReturnPath('judelco.csc@gmail.com')
-			->setTo('judelco.csc@gmail.com')
+			->setFrom($email_dev)
+			->setSender($email_dev)
+			->setReplyTo($email_dev)
+			->setReturnPath($email_dev)
+			->setTo($email_dev)
 			->setMaxLineLength(1000) // Nunca mayor de 1000 líneas! (RFC 2822)
 			->setPriority(2) // Highest (1), High (2), Normal (3), Low (4), Lowest (5)
 			->setContentType('text/html')

@@ -19,6 +19,8 @@ $app['db.options'] = array(
 	'password' => $db_conf['main']['password']
 );
 
+$app['email.sender'] = $mail_conf['main']['sender'];
+
 $app['swiftmailer.options'] = array(
 	'host'       => $mail_conf['main']['host'],
 	'port'       => $mail_conf['main']['port'],
