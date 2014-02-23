@@ -14,7 +14,7 @@
 		border-right: 1px solid #DDDDDD;
 		background-color: #FFFFFF;
 		padding: 15px;
-		padding-top: 85px !important; /* Header: (40px+30px) + 15px padding */
+		margin-top: 70px !important; /* Header: (40px+30px) */
 	}
 	
 	select
