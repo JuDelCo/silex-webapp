@@ -2367,8 +2367,8 @@ input[type="button"].btn-block {
 @font-face {
   font-family: 'Glyphicons Halflings';
 
-  src: url('../fonts/glyphicons-halflings-regular_3.1.0.eot');
-  src: url('../fonts/glyphicons-halflings-regular_3.1.0.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular_3.1.0.woff') format('woff'), url('../fonts/glyphicons-halflings-regular_3.1.0.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular_3.1.0.svg#glyphicons_halflingsregular') format('svg');
+  src: url('../fonts/glyphicons-halflings-regular.eot?v=3.1.0');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix&v=3.1.0') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff?v=3.1.0') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf?v=3.1.0') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular&v=3.1.0') format('svg');
 }
 .glyphicon {
   position: relative;
