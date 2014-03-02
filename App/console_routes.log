@@ -1,20 +1,20 @@
 
-/api/util/ajax/								| _method: POST
-/api/user/register/							| _method: POST
-/api/user/active/{token}/					| _method: POST | token: [a-zA-Z0-9]{64}
-/api/user/login/							| _method: POST
-/api/user/password/change/					| _method: POST
-/api/user/password/change/{token}/			| _method: POST | token: [a-zA-Z0-9]{64}
-/api/user/password/change/{token}/check/	| _method: POST | token: [a-zA-Z0-9]{64}
-/api/user/password/forgot/					| _method: POST
-/api/user/logout/							| _method: POST
-/											| _method: GET
-/index.{extension}							| _method: GET | extension: (php)|(html)
-/inicio/									| _method: GET
-/user/register/								| _method: GET
-/user/active/{token}/						| _method: GET | token: [a-zA-Z0-9]{64}
-/user/login/								| _method: GET|POST
-/user/password/change/						| _method: GET
-/user/password/change/{token}/				| _method: GET | token: [a-zA-Z0-9]{64}
-/user/password/forgot/						| _method: GET
-/user/logout/								| _method: GET
+/api/util/ajax/                            | _method: POST
+/api/user/register/                        | _method: POST
+/api/user/active/{token}/                  | _method: POST | token: [a-zA-Z0-9]{64}
+/api/user/login/                           | _method: POST
+/api/user/password/change/                 | _method: POST
+/api/user/password/change/{token}/         | _method: POST | token: [a-zA-Z0-9]{64}
+/api/user/password/change/{token}/check/   | _method: POST | token: [a-zA-Z0-9]{64}
+/api/user/password/forgot/                 | _method: POST
+/api/user/logout/                          | _method: POST
+/                                          | _method: GET
+/index.{extension}                         | _method: GET | extension: (php)|(html)
+/inicio/                                   | _method: GET
+/user/register/                            | _method: GET
+/user/active/{token}/                      | _method: GET | token: [a-zA-Z0-9]{64}
+/user/login/                               | _method: GET|POST
+/user/password/change/                     | _method: GET
+/user/password/change/{token}/             | _method: GET | token: [a-zA-Z0-9]{64}
+/user/password/forgot/                     | _method: GET
+/user/logout/                              | _method: GET
