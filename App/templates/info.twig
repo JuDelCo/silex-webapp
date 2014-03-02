@@ -1,34 +1,20 @@
 {% extends "layout.twig" %}
 
-{% set header_title = "Información" %}
-
-{% block header_css_alt %}
-	<style>
-
-		.alert
-		{ 
-			width: 90%;
-			margin: 25px auto;
-			padding: 15px 35px 15px 28px;
-			background-color: #F7F7FF;
-		}
-
-	</style>
-{% endblock header_css_alt %}
+{% set header_title = titulo|default('Información') %}
 
 {% block body_header %}
-	{% embed "menu.twig" %}
-		{% block menu_alt_left_html %}
+	{% embed "layout_menu.twig" %}
+		{% block menu_alt_html %}
 			<li>
-				<a class="info-label">Información</a>
+				<a style="cursor: default; color: #777777 !important;">{{ menu_alt_info_label|default('Información') }}</a>
 			</li>
-		{% endblock menu_alt_left_html %}
+		{% endblock menu_alt_html %}
 	{% endembed %}
 {% endblock body_header %}
 
 {% block body_container %}
-	<div class="alert" style="border: 1px solid #CCCCCC;">
+	<div class="alert alert-info" style="margin: 25px; padding: 15px 35px 15px 28px;">
 		<span class="glyphicon glyphicon-info-sign"></span>
-		&nbsp;{{ mensaje }}
+		&nbsp;{{ mensaje|default('Ha ocurrido un error. Por favor vuelva a intentarlo más tarde.') }}
 	</div>
 {% endblock body_container %}

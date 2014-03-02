@@ -1,0 +1,117 @@
+{% extends "layout.twig" %}
+
+{% block header_css_main %}
+	{{ parent() }}
+
+	<style>
+
+		body
+		{
+			background-color: transparent !important;
+		}
+
+		body > div.menu-main > div.container,
+		body > div.menu-alt  > div.container,
+		body > div.container
+		{
+			width: 100% !important;
+		}
+
+		body > div.container
+		{
+			border: none !important;
+		}
+
+		body > div.menu-alt,
+		body > div.container > div.main
+		{
+			margin-left: 250px !important;
+		}
+
+		body > div.menu-alt > div.container,
+		body > div.container > div.main
+		{
+			min-width: 950px;
+		}
+
+		body > div.container > div.sidebar
+		{
+			position: fixed;
+			top: 40px;
+			bottom: 0;
+			overflow-x: hidden;
+			overflow-y: auto;
+			background-color: #F8F8F8;
+			border-right: 1px solid #CCCCCC;
+			width: 250px;
+			z-index: 1;
+		}
+
+		body > div.container > div.main
+		{
+			margin-bottom: 30px;
+		}
+
+		body > div.container > div.main > div.footer-bar
+		{
+			position: fixed;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			min-height: 30px;
+			max-height: 30px;
+			background-color: #F8F8F8;
+			border-top: 1px solid #CCCCCC;
+			z-index: 1030;
+			margin-left: 250px;
+		}
+
+		body > div.container > div.main > div.footer-bar > div.container
+		{
+			min-width: 950px;
+			padding: 0px;
+		}
+
+		body > div.container > div.main > div.footer-bar > div.container > ul.nav
+		{
+			width: 100%;
+			padding: 0px 10px;
+		}
+
+		body > div.container > div.main > div.footer-bar > div > ul > li
+		{
+			padding: 4px 0px;
+		}
+
+		body > div.container > div.main > div.footer-bar > div > ul > li a,
+		body > div.container > div.main > div.footer-bar > div > ul > li label,
+		body > div.container > div.main > div.footer-bar > div > ul > li span
+		{
+			font-size: 12px;
+			font-weight: normal;
+		}
+
+	</style>
+{% endblock header_css_main %}
+
+{% block body_container %}
+	<div class="sidebar">
+		{% block body_sidebar %}
+		{% endblock body_sidebar %}
+	</div>
+	<div class="main">
+		{% block body_main %}
+		{% endblock body_main %}
+
+		{% block body_main_footer %}
+			<div class="footer-bar">
+				<div class="container">
+					<ul class="nav navbar-nav">
+						{% block body_main_footer_html %}
+						{% endblock body_main_footer_html %}
+					</ul>
+				</div>
+			</div>
+		{% endblock body_main_footer %}
+	</div>
+{% endblock body_container %}

@@ -9,8 +9,8 @@
 	{% block header_css_main %}
 		{{ resource_css_bootstrap|raw }}
 		{{ resource_css_bootstrap_non_responsive|raw }}
-		{{ resource_css_bootstrap_theme|raw }}
 		{{ resource_css_bootstrap_dropdown_submenu|raw }}
+		{{ resource_css_font_awesome|raw }}
 		{{ resource_css_main|raw }}
 	{% endblock header_css_main %}
 
@@ -35,9 +35,7 @@
 		{{ resource_js_jquery|raw }}
 		{{ resource_js_bootstrap|raw }}
 		{{ resource_js_jquery_util|raw }}
-		<!--[if lte IE 8]>
-			{{ resource_js_respond|raw }}
-		<![endif]-->
+		<!--[if lte IE 8]>{{ resource_js_respond|raw }}<![endif]-->
 	{% endblock body_javascript_main %}
 
 	{% block body_javascript_alt %}

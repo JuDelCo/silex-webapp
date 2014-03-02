@@ -23,14 +23,14 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app)
 	*/
 
 	$twig->addGlobal('resource_css_bootstrap',                  create_css_tag('bootstrap.css',                     '3.1.0_1'));
-	$twig->addGlobal('resource_css_bootstrap_non_responsive',   create_css_tag('bootstrap-non-responsive.css',      '3.1.0_1'));
+	$twig->addGlobal('resource_css_bootstrap_non_responsive',   create_css_tag('bootstrap-non-responsive.css',      '3.1.0_2'));
 	$twig->addGlobal('resource_css_bootstrap_theme',            create_css_tag('bootstrap-theme.css',               '3.1.0'));
 	$twig->addGlobal('resource_css_bootstrap_dropdown_submenu', create_css_tag('bootstrap-dropdown-submenu.css',    '3.0.1'));
 	$twig->addGlobal('resource_css_bootstrap_datepicker',       create_css_tag('bootstrap-datepicker.css',          '1.3.0-rc.6_1'));
 	$twig->addGlobal('resource_css_bootstrap_tagsinput',        create_css_tag('bootstrap-tagsinput.css',           '0.3.9'));
 	$twig->addGlobal('resource_css_bootstrap_modal',            create_css_tag('bootstrap-modal.css',               '2.2.4_1'));
 	$twig->addGlobal('resource_css_font_awesome',               create_css_tag('font-awesome.css',                  '4.0.3'));
-	$twig->addGlobal('resource_css_main',                       create_css_tag('main.css',                          '1.0.3'));
+	$twig->addGlobal('resource_css_main',                       create_css_tag('main.css',                          '1.0.4'));
 
 	$twig->addGlobal('resource_js_respond',                     create_js_tag('respond.js',                         '1.3.0'));
 	$twig->addGlobal('resource_js_jquery',                      create_js_tag('jquery.js',                          '1.11.0'));

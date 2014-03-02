@@ -1,32 +1,4 @@
 /* 
- * Custom CSS style (all pages)
- */
-
-/* Full page height */
-html, body
-{
-	height: 100% !important;
-}
-
-/* Main Container Style */
-body > div.container
-{
-	min-height: 100%;
-}
-
-/* Form Inline Style */
-.form-inline .form-group
-{
-	display: inline-block;
-	margin-bottom: 0;
-	vertical-align: middle;
-}
-.form-inline .form-control
-{
-	display: block;
-}
-
-/* 
  * Twitter Bootstrap 3.1.0 - Non-responsive overrides
  * Disable the responsive-ness of the container, grid system, and navbar
  */
@@ -35,41 +7,7 @@ body > div.container
 div.container
 {
 	max-width: none !important;
-	width: 1200px !important; /* 970px -> 1200px */
-}
-
-/* Navbar styles */
-.container .navbar-header,
-.container .navbar-collapse
-{
-	margin-right: 0;
-	margin-left: 0;
-	border-top: 0;
-}
-
-/* Always float the navbar header */
-.navbar-header
-{
-	float: left;
-}
-
-/* Undo the collapsing navbar */
-.navbar-collapse
-{
-	display: block !important;
-	height: auto !important;
-	padding-bottom: 0;
-	overflow: visible !important;
-	padding-right: 15px !important;
-	padding-left: 15px !important;
-}
-.navbar-toggle
-{
-	display: none;
-}
-.navbar-brand
-{
-	margin-left: -15px;
+	width: 100% !important;
 }
 
 /* Always apply the floated nav */
@@ -82,19 +20,9 @@ div.container
 {
 	float: left;
 }
-.navbar-nav > li > a
-{
-	padding: 15px;
-}
-
-/* Redeclare since we override the float above */
-.navbar-nav.navbar-right
-{
-	float: right;
-}
 
 /* Undo custom dropdowns */
-.navbar .navbar-nav .open .dropdown-menu
+.navbar-nav .open .dropdown-menu
 {
 	position: absolute;
 	float: left;
@@ -107,9 +35,30 @@ div.container
 .navbar-nav .open .dropdown-menu > li > a,
 .navbar-nav .open .dropdown-menu .dropdown-header
 {
+	color: #333333 !important;
 	padding: 3px 20px;
 }
-.navbar-inverse .navbar-nav .open .dropdown-menu > li > a
+.navbar-nav .open .dropdown-menu .divider
 {
-	color: #333333;
+	background-color: #E5E5E5 !important;
+}
+.navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar-nav .open .dropdown-menu > li > a:focus,
+.navbar-nav .open .dropdown-menu > .active > a,
+.navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar-nav .open .dropdown-menu > .active > a:focus
+{
+	color: #FFFFFF !important;
+	background-color: #428BCA !important;
+	background-image: none;
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+}
+.navbar-nav .open .dropdown-menu > .disabled > a,
+.navbar-nav .open .dropdown-menu > .disabled > a:hover,
+.navbar-nav .open .dropdown-menu > .disabled > a:focus
+{
+	color: #999999 !important;
+	background-color: transparent !important;
+	background-image: none;
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
 }

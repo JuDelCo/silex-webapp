@@ -1,0 +1,93 @@
+
+<div class="menu-alt navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<ul class="nav navbar-nav">
+			{% block menu_alt_html %}
+			{% endblock menu_alt_html %}
+		</ul>
+	</div>
+</div>
+
+<div class="menu-main navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<ul class="nav navbar-nav">
+			{% block menu_title %}
+				<li>
+					<a tabindex="-1" class="title" href="{{ path('rt_root') }}">
+						<span class="glyphicon glyphicon-home"></span>
+						&nbsp;{{ menu_main_title|default('Inicio') }}
+					</a>
+				</li>
+			{% endblock menu_title %}
+
+			{% block menu_html %}
+				{#
+					{% if 'menu_EXAMPLE' in app.session.get('user.menu') %}
+						<li id="li_menu_EXAMPLE" class="dropdown">
+							<a tabindex="-1" class="dropdown-toggle" data-toggle="dropdown">EXAMPLE <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-submenu">
+									<a>EXAMPLE</a>
+									<ul class="dropdown-menu">
+										<li class="disabled">
+											<a>
+												<span class="glyphicon glyphicon-star"></span>
+												&nbsp;EXAMPLE
+											</a>
+										</li>
+										<li>
+											<a href="{{ path('rt_main') }}">
+												<span class="glyphicon glyphicon-star"></span>
+												&nbsp;EXAMPLE
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu disabled">
+									<a>EXAMPLE</a>
+									<ul class="dropdown-menu">
+										<li>&nbsp;</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					{% endif %}
+				#}
+			{% endblock menu_html %}
+
+			{% block menu_user %}
+				{% if app.session.get('user.id') is empty %}
+					<li class="user_menu dropdown pull-right">
+						<a tabindex="-1" href="{{ path('rt_usr_login') }}">
+							<span class="glyphicon glyphicon-lock"></span>
+							&nbsp;<b>Identificarse</b>
+						</a>
+					</li>
+				{% else %}
+					<li class="user_menu dropdown pull-right">
+						<a tabindex="-1" class="dropdown-toggle" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-user"></span>
+							&nbsp;{{ app.session.get('user.username') }}
+							&nbsp;<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="{{ path('rt_usr_password_change') }}">
+									<span class="glyphicon glyphicon-edit"></span>&nbsp;
+									Cambiar contraseña
+								</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="{{ path('rt_usr_logout') }}">
+									<span class="glyphicon glyphicon-off"></span>&nbsp;
+									Cerrar sesión
+								</a>
+							</li>
+						</ul>
+					</li>
+				{% endif %}
+			{% endblock menu_user %}
+		</ul>
+	</div>
+</div>
