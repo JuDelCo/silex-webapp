@@ -23,7 +23,7 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app)
 	*/
 
 	$twig->addGlobal('resource_css_bootstrap',                  create_css_tag('bootstrap.css',                     '3.1.0_1'));
-	$twig->addGlobal('resource_css_bootstrap_non_responsive',   create_css_tag('bootstrap-non-responsive.css',      '3.1.0_2'));
+	$twig->addGlobal('resource_css_bootstrap_non_responsive',   create_css_tag('bootstrap-non-responsive.css',      '3.1.0_3'));
 	$twig->addGlobal('resource_css_bootstrap_theme',            create_css_tag('bootstrap-theme.css',               '3.1.0'));
 	$twig->addGlobal('resource_css_bootstrap_dropdown_submenu', create_css_tag('bootstrap-dropdown-submenu.css',    '3.0.1'));
 	$twig->addGlobal('resource_css_bootstrap_datepicker',       create_css_tag('bootstrap-datepicker.css',          '1.3.0-rc.6_1'));
@@ -46,12 +46,12 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app)
 
 	// Funciones Twig ---------------------------
 
-	$twig->addFunction(new Twig_SimpleFunction('resource_css', function ($lib_path, $version)
+	$twig->addFunction(new \Twig_SimpleFunction('resource_css', function ($lib_path, $version)
 	{
 		return create_css_tag($lib_path, $version);
 	}));
 	
-	$twig->addFunction(new Twig_SimpleFunction('resource_js', function ($lib_path, $version)
+	$twig->addFunction(new \Twig_SimpleFunction('resource_js', function ($lib_path, $version)
 	{
 		return create_js_tag($lib_path, $version);
 	}));

@@ -1,6 +1,7 @@
 <?php
 
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthHelperUtil
 {
@@ -40,7 +41,7 @@ class AuthHelperUtil
 		{
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -90,7 +91,7 @@ class AuthHelperUtil
 		}
 
 		// La ruta no puede ser visitada anónimamente (se ha revisado el array anterior)
-		if(! $this->app['util']->isAuthenticated())
+		if(! $this->isAuthenticated())
 		{
 			if($this->app['request']->getMethod() != "GET")
 			{
@@ -98,8 +99,8 @@ class AuthHelperUtil
 					'error' => 'Debes identificarte primero para poder realizar esa accion'), 400);
 			}
 
-			return $this->app->redirect($this->app['url_generator']->generate('rt_login') . 
-				'?path=' . $this->app->escape($this->app['request']->getRequestUri()));
+			return new Response($this->app['twig']->render('user/login_redirect.twig', 
+				array('redirect_path' => $this->app->escape($this->app['request']->getRequestUri()))));
 		}
 
 		$authorized = false;
@@ -110,7 +111,7 @@ class AuthHelperUtil
 			if(in_array($matched_route, $routes_info['routes']))
 			{
 				if(! isset($routes_info['roles']) || empty($routes_info['roles'])
-					|| $this->app['util']->isAuthorised($routes_info['roles']))
+					|| $this->isAuthorised($routes_info['roles']))
 				{
 					$authorized = true;
 				}
@@ -121,6 +122,12 @@ class AuthHelperUtil
 		
 		if(! $authorized)
 		{
+			if($this->app['request']->getMethod() != "GET")
+			{
+				return $this->app->json(array(
+					'error' => 'No tienes permisos suficientes para realizar esa accion'), 400);
+			}
+
 			return new Response($this->app['twig']->render('error.twig', array(
 				'mensaje' => 'Error - No tienes permisos suficientes para acceder')), 404);
 		}

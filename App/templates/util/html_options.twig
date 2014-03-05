@@ -3,6 +3,6 @@
 {% endif %}
 {% if data is not empty %}
 	{% for data_option in data %}
-		<option value="{{ data_option.id }}">{{ data_option.value }}</option>
+		<option value="{{ data_option.id }}">{% autoescape false %}{{ data_option.value }}{% endautoescape %}</option>
 	{% endfor %}
 {% endif %}

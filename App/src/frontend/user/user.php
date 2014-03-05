@@ -19,4 +19,17 @@ $user_controller->get('/password/forgot/', 'UserController::password_forgot')
 $user_controller->get('/logout/', 'UserController::logout')
 ->bind('rt_usr_logout');
 
+$user_controller->before(function () use ($app)
+{
+	$anonymous_routes = array('rt_usr_register','rt_usr_active','rt_usr_login',
+		'rt_usr_password_change_token','rt_usr_password_forgot','rt_usr_logout');
+	$role_controlled_routes = array(
+		array(
+			'routes' => array('rt_usr_password_change')
+		)
+	);
+
+	return $app['auth']->firewall($role_controlled_routes, $anonymous_routes);
+});
+
 return $user_controller;

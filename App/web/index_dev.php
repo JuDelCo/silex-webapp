@@ -8,7 +8,7 @@ function getClientIp()
 	}
 	else
 	{
-		$ip = @$_SERVER["REMOTE_ADDR"]; 
+		$ip = getenv("REMOTE_ADDR");
 	}
 
 	return $ip;

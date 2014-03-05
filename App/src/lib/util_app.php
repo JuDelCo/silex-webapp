@@ -11,6 +11,30 @@ class AppHelperUtil
 		$this->app = $app;
 	}
 
+	public function getClientIp()
+	{
+		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && eregi("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$",$_SERVER['HTTP_X_FORWARDED_FOR']))
+		{
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+		}
+		else
+		{
+			$ip = getenv("REMOTE_ADDR");
+		}
+
+		return $ip;
+	}
+
+	public function getHostname($ip)
+	{
+		return gethostbyaddr($ip);
+	}
+	
+	public function getClientHostname()
+	{
+		return $this->getHostname($this->getClientIp());
+	}
+
 	// Envuelve la variable proporcionada entre 2 tags HTML (útil para debugguear)
 	public function wrap($value, $wrap_start = '<pre>', $wrap_end = '</pre>')
 	{

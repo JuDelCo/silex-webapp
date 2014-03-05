@@ -24,4 +24,16 @@ $main_controller->get('/inicio/', function () use ($app)
 })
 ->bind('rt_main');
 
+$main_controller->before(function () use ($app)
+{
+	$anonymous_routes = array('rt_root','rt_index');
+	$role_controlled_routes = array(
+		array(
+			'routes' => array('rt_main')
+		)
+	);
+
+	return $app['auth']->firewall($role_controlled_routes, $anonymous_routes);
+});
+
 return $main_controller;

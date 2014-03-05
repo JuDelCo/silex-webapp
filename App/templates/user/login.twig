@@ -114,6 +114,7 @@
 				if(redirect_path != '')
 				{
 					window.location.href = redirect_path;
+					return;
 				}
 
 				window.location.href = "{{ path('rt_main') }}";

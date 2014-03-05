@@ -73,8 +73,8 @@ $app->error(function(\Exception $e, $code) use ($app, $logger)
 		$app['monolog']->addError($query['sql'], array(
 			'query.params' => $query['params'],
 			'query.types' => $query['types'],
-			'session.user_real.id' => ($app['session']->isStarted() ? $app['session']->get('user_real.id', 'null') : 'session_closed'), 
-			'session.user_real.usuario' => ($app['session']->isStarted() ? $app['session']->get('user_real.usuario', 'null') : 'session_closed')
+			'session.user_real.id' => ($app['auth']->isAuthenticated() ? $app['session']->get('user_real.id', 'null') : 'session_closed'), 
+			'session.user_real.usuario' => ($app['auth']->isAuthenticated() ? $app['session']->get('user_real.usuario', 'null') : 'session_closed')
 		));
 	}
 });

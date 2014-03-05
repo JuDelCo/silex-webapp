@@ -1,37 +1,37 @@
 // -----------------------------------
 
-Instalado (04/02/2014 19:40:00):
+Updated (05/03/2014 20:51:00 GMT+1):
 
 	fabpot/silex-skeleton (v1.0.1)
 		silex/silex (v1.1.2)
 			pimple/pimple (v1.1.1)
-			symfony/event-dispatcher (v2.4.1)
-			symfony/routing (v2.4.1)
-			symfony/http-foundation (v2.4.1)
-			symfony/http-kernel (v2.4.1)
+			symfony/event-dispatcher (v2.4.2)
+			symfony/routing (v2.4.2)
+			symfony/http-foundation (v2.4.2)
+			symfony/http-kernel (v2.4.2)
 				symfony/event-dispatcher
 				symfony/http-foundation
 				symfony/debug
 				psr/log (1.0.0)
 		silex/web-profiler (v1.0.2)
-			symfony/stopwatch (v2.4.1)
-			symfony/web-profiler-bundle (v2.4.1)
+			symfony/stopwatch (v2.4.2)
+			symfony/web-profiler-bundle (v2.4.2)
 				symfony/http-kernel
 				symfony/routing
 				symfony/twig-bridge
-		symfony/class-loader (v2.4.1)
-		symfony/console (v2.4.1)
-		symfony/debug (v2.4.1)
-		symfony/filesystem (v2.4.1)
-		symfony/finder (v2.4.1)
-		symfony/monolog-bridge (v2.4.1)
+		symfony/class-loader (v2.4.2)
+		symfony/console (v2.4.2)
+		symfony/debug (v2.4.2)
+		symfony/filesystem (v2.4.2)
+		symfony/finder (v2.4.2)
+		symfony/monolog-bridge (v2.4.2)
 			monolog/monolog (1.7.0)
 				psr/log
-		symfony/translation (v2.4.1)
-		symfony/twig-bridge (v2.4.1)
-			twig/twig (v1.15.0)
-			symfony/security-csrf (v2.4.1)
-				symfony/security-core (v2.4.1)
+		symfony/translation (v2.4.2)
+		symfony/twig-bridge (v2.4.2)
+			twig/twig (v1.15.1)
+			symfony/security-csrf (v2.4.2)
+				symfony/security-core (v2.4.2)
 		doctrine/dbal (2.3.4)
 			doctrine/common (v2.4.1)
 				doctrine/annotations (v1.1.2)

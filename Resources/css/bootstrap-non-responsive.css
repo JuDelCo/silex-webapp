@@ -52,6 +52,8 @@ div.container
 	background-color: #428BCA !important;
 	background-image: none;
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+	-webkit-transition: color 0.2s ease-out, background-color 0.2s ease-out;
+	        transition: color 0.2s ease-out, background-color 0.2s ease-out;
 }
 .navbar-nav .open .dropdown-menu > .disabled > a,
 .navbar-nav .open .dropdown-menu > .disabled > a:hover,
@@ -61,4 +63,6 @@ div.container
 	background-color: transparent !important;
 	background-image: none;
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
+	-webkit-transition: color 0.2s ease-out, background-color 0.2s ease-out;
+	        transition: color 0.2s ease-out, background-color 0.2s ease-out;
 }
