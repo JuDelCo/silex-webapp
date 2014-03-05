@@ -34,6 +34,7 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app)
 
 	$twig->addGlobal('resource_js_respond',                     create_js_tag('respond.js',                         '1.3.0'));
 	$twig->addGlobal('resource_js_jquery',                      create_js_tag('jquery.js',                          '1.11.0'));
+	$twig->addGlobal('resource_js_jquery2',                     create_js_tag('jquery2.js',                         '2.1.0'));
 	$twig->addGlobal('resource_js_jquery_util',                 create_js_tag('jquery.util.js',                     '1.0.4'));
 	$twig->addGlobal('resource_js_jquery_sha256',               create_js_tag('jquery.sha256.js',                   '1.1.0'));
 	$twig->addGlobal('resource_js_jquery_hotkeys',              create_js_tag('jquery.hotkeys.js',                  '0.1.0'));
