@@ -10,6 +10,8 @@ use Doctrine\DBAL\DBALException;
 require_once __DIR__.'/../../../ServerConf.php';
 
 $app['session.version'] = '1.0.0';
+$app['security.salt'] = $security_conf['main']['salt'];
+$app['email.sender'] = $mail_conf['main']['sender'];
 
 $app['db.options'] = array(
 	'driver'   => $db_conf['main']['driver'],
@@ -19,8 +21,6 @@ $app['db.options'] = array(
 	'password' => $db_conf['main']['password']
 );
 
-$app['email.sender'] = $mail_conf['main']['sender'];
-
 $app['swiftmailer.options'] = array(
 	'host'       => $mail_conf['main']['host'],
 	'port'       => $mail_conf['main']['port'],
@@ -29,8 +29,6 @@ $app['swiftmailer.options'] = array(
 	'encryption' => 'ssl',
 	'auth_mode'  => 'login'
 );
-
-$app['security.salt'] = $security_conf['main']['salt'];
 
 unset($db_conf, $mail_conf, $security_conf);
 

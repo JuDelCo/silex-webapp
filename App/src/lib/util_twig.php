@@ -30,12 +30,12 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app)
 	$twig->addGlobal('resource_css_bootstrap_tagsinput',        create_css_tag('bootstrap-tagsinput.css',           '0.3.9'));
 	$twig->addGlobal('resource_css_bootstrap_modal',            create_css_tag('bootstrap-modal.css',               '2.2.4_1'));
 	$twig->addGlobal('resource_css_font_awesome',               create_css_tag('font-awesome.css',                  '4.0.3'));
-	$twig->addGlobal('resource_css_main',                       create_css_tag('main.css',                          '1.0.4'));
+	$twig->addGlobal('resource_css_main',                       create_css_tag('main.css',                          '1.0.5'));
 
 	$twig->addGlobal('resource_js_respond',                     create_js_tag('respond.js',                         '1.3.0'));
 	$twig->addGlobal('resource_js_jquery',                      create_js_tag('jquery.js',                          '1.11.0'));
 	$twig->addGlobal('resource_js_jquery2',                     create_js_tag('jquery2.js',                         '2.1.0'));
-	$twig->addGlobal('resource_js_jquery_util',                 create_js_tag('jquery.util.js',                     '1.0.4'));
+	$twig->addGlobal('resource_js_jquery_util',                 create_js_tag('jquery.util.js',                     '1.0.5'));
 	$twig->addGlobal('resource_js_jquery_sha256',               create_js_tag('jquery.sha256.js',                   '1.1.0'));
 	$twig->addGlobal('resource_js_jquery_hotkeys',              create_js_tag('jquery.hotkeys.js',                  '0.1.0'));
 	$twig->addGlobal('resource_js_jquery_meio_mask',            create_js_tag('jquery.meio-mask.js',                '1.1.11'));
@@ -51,12 +51,12 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app)
 	{
 		return create_css_tag($lib_path, $version);
 	}));
-	
+
 	$twig->addFunction(new \Twig_SimpleFunction('resource_js', function ($lib_path, $version)
 	{
 		return create_js_tag($lib_path, $version);
 	}));
-	
+
 	$twig->addFunction(new \Twig_SimpleFunction('util_calc_size', function ($size)
 	{
 		$size = intval($size);

@@ -1,9 +1,9 @@
 /*!
- * CSS Base Util Library v1.0.4
+ * CSS Base Util Library v1.0.5
  *
  * Author: Juan Delgado Cobalea
  *
- * Last-Update: 2014-03-01
+ * Last-Update: 2014-03-09
  */
 
 /* CSS General (Base) -------------------------------------------------------------------------- */
@@ -49,6 +49,11 @@
 	textarea
 	{
 		resize: none !important;
+	}
+
+	button
+	{
+		transition: background-color 0.3s ease, border-color 0.3s ease;
 	}
 
 	input[type=text]:hover,
@@ -149,6 +154,7 @@
 	div.menu-main > div.container > ul.nav > li > a
 	{
 		padding: 10px 15px 9px 15px;
+		transition: color 0.3s ease;
 	}
 	div.menu-main > div.container > ul.nav > li > a.title
 	{

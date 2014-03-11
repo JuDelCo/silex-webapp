@@ -29,7 +29,7 @@ class AppHelperUtil
 	{
 		return gethostbyaddr($ip);
 	}
-	
+
 	public function getClientHostname()
 	{
 		return $this->getHostname($this->getClientIp());

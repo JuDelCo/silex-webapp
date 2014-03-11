@@ -1,9 +1,9 @@
 /*!
- * jQuery Util JavaScript Library v1.0.4
+ * jQuery Util JavaScript Library v1.0.5
  *
  * Author: Juan Delgado Cobalea
  *
- * Last-Update: 2014-01-31
+ * Last-Update: 2014-03-09
  */
 
 (function($)
@@ -278,13 +278,66 @@
 
 			return !(json === null);
 		},
+		strFileSize: function(value, decimals, showBytes)
+		{
+			decimals = $.getDefault(decimals, 2);
+			showBytes = $.getDefault(showBytes, true);
+
+			var string = '';
+			var size = parseInt(value);
+
+			var kilobyte = 1024;
+			var megabyte = kilobyte * 1024;
+			var gigabyte = megabyte * 1024;
+
+			if(isNaN(size))
+			{
+				string = 'Error';
+			}
+			else if(size < kilobyte)
+			{
+				if(showBytes)
+				{
+					string = '' + size + ' bytes';
+				}
+				else
+				{
+					string = '' + (size / kilobyte).toFixed(decimals) + ' KB';
+				}
+			}
+			else if(size < megabyte)
+			{
+				string = '' + (size / kilobyte).toFixed(decimals) + ' KB';
+			}
+			else if(size < gigabyte)
+			{
+				string = '' + (size / megabyte).toFixed(decimals) + ' MB';
+			}
+			else
+			{
+				string = '' + (size / gigabyte).toFixed(decimals) + ' GB';
+			}
+
+			return string;
+		},
 		onAjaxError: function(jqXHR, callback)
 		{
 			callback = $.getDefault(callback, function(message) { alert(message); });
 
+			var default_msg = 'Ha ocurrido un error al realizar la petición al servidor';
+
 			if(jqXHR.status != 500)
 			{
-				var data = $.parseJSON(jqXHR.responseText);
+				var data;
+
+				if($.isJson(jqXHR.responseText))
+				{
+					data = $.parseJSON(jqXHR.responseText);
+				}
+				else
+				{
+					data = {'error': default_msg};
+				}
 				
 				if($.isNotNull(data) && $.isNotEmpty(data['error']))
 				{
@@ -294,7 +347,7 @@
 				}
 			}
 
-			callback("Ha ocurrido un error al realizar la petición al servidor");
+			callback(default_msg);
 		}
 	});
 }(jQuery));

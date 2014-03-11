@@ -1,11 +1,11 @@
 
 Thumbs.db
 
-/Silex/var/cache/http/*
-/Silex/var/cache/profiler/*
-/Silex/var/cache/twig/*
-/Silex/var/logs/silex_prod.log
-/Silex/var/logs/silex_dev.log
+/App/var/cache/http/*
+/App/var/cache/profiler/*
+/App/var/cache/twig/*
+/App/var/logs/app_prod.log
+/App/var/logs/app_dev.log
 /ServerAdmin/*
 
 /#TEMP/*
