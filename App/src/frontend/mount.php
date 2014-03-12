@@ -1,4 +1,4 @@
 <?php
 
-$app->mount('/',               include('main.php'));
-$app->mount('/user',           include('user/user.php'));
+$app->mount('/',               include('main_routes.php'));
+$app->mount('/user',           include('user/routes.php'));
