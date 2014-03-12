@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/user_controller.php';
+require_once __DIR__.'/user.php';
 
 $user_controller = $app['controllers_factory'];
 
