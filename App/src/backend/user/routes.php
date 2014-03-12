@@ -2,26 +2,26 @@
 
 require_once __DIR__.'/user.php';
 
-$user_controller = $app['controllers_factory'];
+$user = $app['controllers_factory'];
 
-$user_controller->post('/register/', 'ApiUserController::register')
+$user->post('/register/', 'ApiUser::register')
 ->bind('rta_usr_register');
-$user_controller->post('/active/{token}/', 'ApiUserController::active')
+$user->post('/active/{token}/', 'ApiUser::active')
 ->bind('rta_usr_active')->assert('token', '^[a-zA-Z0-9]{64}$');
-$user_controller->post('/login/', 'ApiUserController::login')
+$user->post('/login/', 'ApiUser::login')
 ->bind('rta_usr_login');
-$user_controller->post('/password/change/', 'ApiUserController::password_change')
+$user->post('/password/change/', 'ApiUser::password_change')
 ->bind('rta_usr_password_change');
-$user_controller->post('/password/change/{token}/', 'ApiUserController::password_change_token')
+$user->post('/password/change/{token}/', 'ApiUser::password_change_token')
 ->bind('rta_usr_password_change_token')->assert('token', '^[a-zA-Z0-9]{64}$');
-$user_controller->post('/password/change/{token}/check/', 'ApiUserController::password_change_token_check')
+$user->post('/password/change/{token}/check/', 'ApiUser::password_change_token_check')
 ->bind('rta_usr_password_change_token_check')->assert('token', '^[a-zA-Z0-9]{64}$');
-$user_controller->post('/password/forgot/', 'ApiUserController::password_forgot')
+$user->post('/password/forgot/', 'ApiUser::password_forgot')
 ->bind('rta_usr_password_forgot');
-$user_controller->post('/logout/', 'ApiUserController::logout')
+$user->post('/logout/', 'ApiUser::logout')
 ->bind('rta_usr_logout');
 
-$user_controller->before(function () use ($app)
+$user->before(function () use ($app)
 {
 	$anonymous_routes = array('rta_usr_register','rta_usr_active','rta_usr_login','rta_usr_password_change_token',
 		'rta_usr_password_change_token_check','rta_usr_password_forgot','rta_usr_logout');
@@ -34,4 +34,4 @@ $user_controller->before(function () use ($app)
 	return $app['auth']->firewall($role_controlled_routes, $anonymous_routes);
 });
 
-return $user_controller;
+return $user;

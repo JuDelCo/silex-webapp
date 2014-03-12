@@ -2,12 +2,12 @@
 
 require_once __DIR__.'/util.php';
 
-$util_controller = $app['controllers_factory'];
+$util = $app['controllers_factory'];
 
-$util_controller->post('/ajax/', 'ApiUtilController::ajax_data')
+$util->post('/ajax/', 'ApiUtil::ajax_data')
 ->bind('rta_util_ajax');
 
-$util_controller->before(function () use ($app)
+$util->before(function () use ($app)
 {
 	$role_controlled_routes = array(
 		array(
@@ -18,4 +18,4 @@ $util_controller->before(function () use ($app)
 	return $app['auth']->firewall($role_controlled_routes);
 });
 
-return $util_controller;
+return $util;

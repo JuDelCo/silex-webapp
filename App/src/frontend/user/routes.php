@@ -2,24 +2,24 @@
 
 require_once __DIR__.'/user.php';
 
-$user_controller = $app['controllers_factory'];
+$user = $app['controllers_factory'];
 
-$user_controller->get('/register/', 'UserController::register')
+$user->get('/register/', 'User::register')
 ->bind('rt_usr_register');
-$user_controller->get('/active/{token}/', 'UserController::active')
+$user->get('/active/{token}/', 'User::active')
 ->bind('rt_usr_active')->assert('token', '^[a-zA-Z0-9]{64}$');
-$user_controller->match('/login/', 'UserController::login')
+$user->match('/login/', 'User::login')
 ->bind('rt_usr_login')->method('GET|POST');
-$user_controller->get('/password/change/', 'UserController::password_change')
+$user->get('/password/change/', 'User::password_change')
 ->bind('rt_usr_password_change');
-$user_controller->get('/password/change/{token}/', 'UserController::password_change_token')
+$user->get('/password/change/{token}/', 'User::password_change_token')
 ->bind('rt_usr_password_change_token')->assert('token', '^[a-zA-Z0-9]{64}$');
-$user_controller->get('/password/forgot/', 'UserController::password_forgot')
+$user->get('/password/forgot/', 'User::password_forgot')
 ->bind('rt_usr_password_forgot');
-$user_controller->get('/logout/', 'UserController::logout')
+$user->get('/logout/', 'User::logout')
 ->bind('rt_usr_logout');
 
-$user_controller->before(function () use ($app)
+$user->before(function () use ($app)
 {
 	$anonymous_routes = array('rt_usr_register','rt_usr_active','rt_usr_login',
 		'rt_usr_password_change_token','rt_usr_password_forgot','rt_usr_logout');
@@ -32,4 +32,4 @@ $user_controller->before(function () use ($app)
 	return $app['auth']->firewall($role_controlled_routes, $anonymous_routes);
 });
 
-return $user_controller;
+return $user;

@@ -4,7 +4,7 @@ use Silex\Application;
 
 require_once __DIR__.'/util_ajax.php';
 
-class ApiUtilController
+class ApiUtil
 {
 	public function ajax_data(Application $app)
 	{

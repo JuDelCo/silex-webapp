@@ -4,7 +4,7 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class ApiUserController
+class ApiUser
 {
 	function register(Application $app)
 	{
