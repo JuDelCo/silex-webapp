@@ -1,9 +1,9 @@
 /*!
- * CSS Base Util Library v1.0.5
+ * CSS Base Util Library v1.0.6
  *
  * Author: Juan Delgado Cobalea
  *
- * Last-Update: 2014-03-09
+ * Last-Update: 2014-03-13
  */
 
 /* CSS General (Base) -------------------------------------------------------------------------- */
@@ -51,7 +51,8 @@
 		resize: none !important;
 	}
 
-	button
+	button,
+	button.form-control
 	{
 		transition: background-color 0.3s ease, border-color 0.3s ease;
 	}

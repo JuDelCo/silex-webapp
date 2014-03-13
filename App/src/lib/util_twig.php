@@ -30,7 +30,7 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app)
 	$twig->addGlobal('resource_css_bootstrap_tagsinput',        create_css_tag('bootstrap-tagsinput.css',           '0.3.9'));
 	$twig->addGlobal('resource_css_bootstrap_modal',            create_css_tag('bootstrap-modal.css',               '2.2.4_1'));
 	$twig->addGlobal('resource_css_font_awesome',               create_css_tag('font-awesome.css',                  '4.0.3'));
-	$twig->addGlobal('resource_css_main',                       create_css_tag('main.css',                          '1.0.5'));
+	$twig->addGlobal('resource_css_main',                       create_css_tag('main.css',                          '1.0.6'));
 
 	$twig->addGlobal('resource_js_respond',                     create_js_tag('respond.js',                         '1.3.0'));
 	$twig->addGlobal('resource_js_jquery',                      create_js_tag('jquery.js',                          '1.11.0'));

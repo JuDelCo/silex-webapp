@@ -129,18 +129,6 @@ class ValidatorHelperUtil
 		return false;
 	}
 
-	public function isDate($date, $format = 'd/m/Y')
-	{
-		if($this->isString($date))
-		{
-			$dateTime = \DateTime::createFromFormat($format, $date);
-			
-			return ($dateTime && ($dateTime->format($format) == $date));
-		}
-
-		return false;
-	}
-
 	public function isUrl($value, $protocols = 'http|https')
 	{
 		if($this->isString($value) && $this->isNotEmpty($value))
@@ -166,6 +154,18 @@ class ValidatorHelperUtil
 		return false;
 	}
 
+	public function isDate($date, $format = 'd/m/Y')
+	{
+		if($this->isString($date))
+		{
+			$dateTime = \DateTime::createFromFormat($format, $date);
+			
+			return ($dateTime && ($dateTime->format($format) == $date));
+		}
+
+		return false;
+	}
+
 	public function isDateTime($date, $format = 'd/m/Y H:i:s')
 	{
 		return $this->isDate((string)$date, $format);
@@ -175,7 +175,7 @@ class ValidatorHelperUtil
 	{
 		$regex = '/^[a-zA-Z0-9' . ($allowSpaces ? ' ' : '') . ($allowUnderscores ? '_' : '') . ']*$/';
 		
-		return $this->regEx($value, $regex);
+		return $this->regEx((string)$value, $regex);
 	}
 
 	public function isJson($value)
