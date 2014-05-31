@@ -1,10 +1,17 @@
 
-# disable directory listing
+# Disable directory listing
 Options -Indexes
+
+<FilesMatch "\.(js|css|jpg|png|gif|eot|svg|ttf|woff)$">
+	<ifModule mod_headers.c>
+		# 1 Year cache enabled
+		Header set Cache-Control "Cache-Control: public, max-age=31536000"
+	</ifModule>
+</FilesMatch>
 
 RewriteEngine On
 
-# deny access to the top-level git repository
+# Deny access to the top-level git repository
 RewriteRule \.git - [F,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f

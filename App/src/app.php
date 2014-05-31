@@ -27,6 +27,8 @@ $app->register(new SqlHelperUtilServiceProvider());
 $app->register(new ValidatorHelperUtilServiceProvider());
 $app->register(new AppHelperUtilServiceProvider());
 $app->register(new AuthHelperUtilServiceProvider());
+$app->register(new UploadHelperUtilServiceProvider());
+$app->register(new ExcelHelperUtilServiceProvider());
 $app->register(new EmailHelperUtilServiceProvider());
 
 return $app;

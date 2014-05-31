@@ -5,14 +5,20 @@ use Symfony\Component\HttpKernel\Exception;
 
 $app->error(function (\Exception $exception, $code) use ($app)
 {
-	function to_HTML($string)
+	if(! function_exists('to_HTML'))
 	{
-		return str_replace("\t", '&#09;', str_replace("\n", '<br>', htmlspecialchars($string)));
+		function to_HTML($string)
+		{
+			return str_replace("\t", '&#09;', str_replace("\n", '<br>', htmlspecialchars($string)));
+		}
 	}
 
-	function to_SQL($string)
+	if(! function_exists('to_SQL'))
 	{
-		return str_replace('&#09;', "\t", str_replace('<br>', "\n", str_replace(array("'", '"'), '', str_replace('\\', '\\\\', $string))));
+		function to_SQL($string)
+		{
+			return str_replace('&#09;', "\t", str_replace('<br>', "\n", str_replace(array("'", '"'), '', str_replace('\\', '\\\\', $string))));
+		}
 	}
 
 	@session_start();
@@ -28,8 +34,8 @@ $app->error(function (\Exception $exception, $code) use ($app)
 	$e_get_var_dump = print_r($_GET, true);
 	$e_post_var_dump = print_r($_POST, true);
 	$e_session_var_dump = print_r($_SESSION, true);
-	$e_session_user_id = @($_SESSION['user.id'] ?: null);
-	$e_session_username = @($_SESSION['user.usuario'] ?: 'Anonymous');
+	$e_session_user_id = @($_SESSION['user_real.id'] ?: null);
+	$e_session_username = @($_SESSION['user_real.usuario'] ?: 'Anonymous');
 	$e_cookie_var_dump = print_r($_COOKIE, true);
 	$e_server_var_dump = print_r($_SERVER, true);
 	$e_server_method = @$_SERVER['REQUEST_METHOD'];

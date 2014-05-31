@@ -1,9 +1,9 @@
 /*!
- * CSS Base Util Library v1.0.6
+ * CSS Base Util Library v1.0.7
  *
  * Author: Juan Delgado Cobalea
  *
- * Last-Update: 2014-03-13
+ * Last-Update: 2014-04-01
  */
 
 /* CSS General (Base) -------------------------------------------------------------------------- */
@@ -51,8 +51,7 @@
 		resize: none !important;
 	}
 
-	button,
-	button.form-control
+	button
 	{
 		transition: background-color 0.3s ease, border-color 0.3s ease;
 	}
@@ -83,6 +82,18 @@
 		max-width: none;
 	}
 
+	a.scrollup
+	{
+		background: url("/Resources/img/icon_gototop.png") no-repeat scroll 0 0 transparent;
+		bottom: 20px;
+		display: none;
+		height: 40px;
+		position: fixed;
+		right: 20px;
+		text-indent: -9999px;
+		width: 40px;
+	}
+
 /* CSS General (Util) -------------------------------------------------------------------------- */
 
 	div.no-overflow
@@ -102,7 +113,7 @@
 	select.obligatorio,
 	textarea.obligatorio
 	{
-		background-color: #E6F3FF !important;
+		background-color: #D1E9FF !important;
 		border: 1px solid #428BCA !important;
 	}
 
@@ -114,14 +125,25 @@
 		width: 16px;
 		position: relative;
 		top: -23px;
-		left: -10px;
+		right: 15px;
 		background-image: url("/Resources/img/ajax-loader_small.gif");
 		background-size: 16px 16px;
 		cursor: progress;
 	}
 	div.ajax-loading-select
 	{
-		left: -35px;
+		right: 35px;
+	}
+
+	div.form-group
+	{
+		position: relative;
+	}
+	div.form-group > div.ajax-loading-input,
+	div.form-group > div.ajax-loading-select
+	{
+		position: absolute;
+		top: 31px;
 	}
 
 	input.datepicker[readonly]

@@ -24,11 +24,11 @@ div.container
 /* Undo custom dropdowns */
 .navbar-nav .open .dropdown-menu
 {
-	position: absolute;
+	position: absolute !important;
 	float: left;
-	background-color: #FFFFFF;
-	border: 1px solid #CCCCCC;
-	border: 1px solid rgba(0, 0, 0, 0.15);
+	background-color: #FFFFFF !important;
+	border: 1px solid #CCCCCC !important;
+	border: 1px solid rgba(0, 0, 0, 0.15) !important;
 	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 			box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }
@@ -36,7 +36,7 @@ div.container
 .navbar-nav .open .dropdown-menu .dropdown-header
 {
 	color: #333333 !important;
-	padding: 3px 20px;
+	padding: 3px 20px !important;
 }
 .navbar-nav .open .dropdown-menu .divider
 {

@@ -13,7 +13,10 @@ require_once __DIR__.'/frontend/mount.php';
 // Ruta por defecto
 $app->match('{fallback_url}', function($fallback_url) use ($app)
 {
-	$app['monolog']->addError('Ruta no encontrada: "' . rawurlencode($fallback_url) . '"');	
+	$app['monolog']->addError('Ruta no encontrada: "' . rawurlencode($fallback_url) . '"', array(
+		'session.user_real.id' => $app['session']->get('user_real.id', NULL),
+		'session.user_real.usuario' => $app['session']->get('user_real.usuario', NULL)
+	));
 	
 	return new Response($app['twig']->render('error.twig', array('mensaje' => 'Error 404 - Página no encontrada')), 404);
 })
@@ -21,6 +24,22 @@ $app->match('{fallback_url}', function($fallback_url) use ($app)
 
 $app->before(function (Request $request) use ($app)
 {
+	// Si el servidor está en mantenimiento, mostramos un mensaje de información (NO ejecutamos ningun controlador)
+	if($app['maintenance'])
+	{
+		if(! in_array($app['url_matcher']->matchRequest($app['request'])['_route'], array('_wdt','_profiler')))
+		{
+			if($request->getMethod() == "GET")
+			{
+				return new Response($app['twig']->render('info.twig', array('mensaje' => 'Aplicación en mantenimiento, por favor regresa en unos minutos')), 503);
+			}
+			else
+			{
+				return $app->json(array('error' => 'Aplicación en mantenimiento, por favor vuelve a intentarlo en unos minutos'), 503);
+			}
+		}
+	}
+
 	// Re-identificamos al usuario en caso de que la aplicación requiera de una version distinta de variables de sesión
 	if($app['auth']->isAuthenticated() && $app['session']->get('session.version') != $app['session.version'])
 	{

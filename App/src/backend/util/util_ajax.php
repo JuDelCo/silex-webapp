@@ -2,20 +2,23 @@
 
 use Silex\Application;
 
-class ApiUtilAjaxQuery
+class UtilAjaxQuery
 {
 	static public function get_data(Application $app, $request_info)
 	{
 		$data = array('data' => array(), 'error' => '');
 
-		if(empty($request_info['request_id']))
+		$request_id = $request_info['request_id'];
+		$request_filters = $request_info['request_filters'];
+
+		if(empty($request_id))
 		{
 			$data['error'] = 'No se ha especificado ningun request_id';
 
 			return $data;
 		}
 
-		switch ($request_info['request_id'])
+		switch ($request_id)
 		{
 			// ----------------------------------
 			case 'EXAMPLE_REQUEST_ID':
@@ -25,14 +28,14 @@ class ApiUtilAjaxQuery
 					break;
 				}
 
-				// TODO
-				// 		$sql = "id, value";
-				// 		$data['data'] = $app['sql']->getAll($sql);
+				// 	$sql = "id, value";
+				// 	$data['data'] = $app['sql']->getAll($sql);
 
 				break;
 			// ----------------------------------
 			default:
-				$data['error'] = 'Peticion AJAX con request_id invalido ("' . $request_info['request_id'] . '")';
+				$error_msg = 'Peticion AJAX con request_id invalido ("' . $request_id . '")';
+				$data['error'] = $error_msg;
 
 				break;
 		}

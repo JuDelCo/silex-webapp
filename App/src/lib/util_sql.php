@@ -140,13 +140,18 @@ class SqlHelperUtil
 		{
 			$result = sprintf('%F', $value);
 		}
-		else if (is_numeric($value))
-		{
-			$result = sprintf('%F', $value);
-		}
 		else if (is_string($value))
 		{
 			$result = ("'" . str_replace("'", "''", $value) . "'");
+
+			if($result == "''")
+			{
+				$result = 'NULL';
+			}
+		}
+		else if (is_numeric($value))
+		{
+			$result = floatval($value);
 		}
 		else if (is_array($value))
 		{

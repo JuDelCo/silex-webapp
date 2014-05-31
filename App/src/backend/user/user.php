@@ -208,7 +208,7 @@ class ApiUser
 		return $app->json($data, (empty($data['error']) ? 200 : 400));
 
 		// -------------------------------------------------------------------------------------------------------------------------------
-		// TODO
+		// TODO: Obtener los roles del usuario (permisos)
 		/*
 		$data_user_roles = UtilData::get_user_roles($app, $user_data['user_id']);
 		$user_roles = array();

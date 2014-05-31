@@ -1,9 +1,9 @@
 /*!
- * jQuery Util JavaScript Library v1.0.5
+ * jQuery Util JavaScript Library v1.0.6
  *
  * Author: Juan Delgado Cobalea
  *
- * Last-Update: 2014-03-09
+ * Last-Update: 2014-04-01
  */
 
 (function($)
@@ -326,6 +326,11 @@
 
 			var default_msg = 'Ha ocurrido un error al realizar la petición al servidor';
 
+			if(jqXHR.status == 0 || jqXHR.statusText == 'abort' || !jqXHR.getAllResponseHeaders()) // User Abort
+			{
+				return false;
+			}
+
 			if(jqXHR.status != 500)
 			{
 				var data;
@@ -343,11 +348,34 @@
 				{
 					callback(data.error);
 
-					return;
+					return true;
 				}
 			}
 
 			callback(default_msg);
+
+			return true;
 		}
+	});
+
+	// Scroll-to-top button show and hide
+	$(window).scroll(function()
+	{
+		if ($(this).scrollTop() > 100)
+		{
+			$('.scrollup').fadeIn();
+		}
+		else
+		{
+			$('.scrollup').fadeOut();
+		}
+	});
+
+	// Scroll-to-top animate
+	$('.scrollup').click(function()
+	{
+		$("html, body").animate({ scrollTop: 0 }, 600);
+
+		return false;
 	});
 }(jQuery));

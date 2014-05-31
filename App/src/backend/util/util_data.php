@@ -9,7 +9,7 @@ class ApiUtilData
 	{
 		$date = date('d/m/Y');
 
-		// TODO
+		// TODO: Obtener roles de un usuario
 		// 		$sql = "value";
 		// 		return $app['sql']->getAll($sql);
 
@@ -21,7 +21,7 @@ class ApiUtilData
 	{
 		$date = date('d/m/Y');
 		
-		// TODO
+		// TODO: Obtener permisos del menu de un usuario
 		// 		$sql = "menu_id, hashtag, menu_parent_id";
 		// 		return $app['sql']->getAll($sql);
 		

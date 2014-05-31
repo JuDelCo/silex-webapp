@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />	
+		<title>{{ title|default('Template') }}</title>
+		{% block header_css_main %}
+			<style type="text/css">
+
+				body
+				{
+					margin: 0px;
+					background-color: #ffffff;
+				}
+
+				a
+				{
+					font-weight: bold;
+					text-decoration: none;
+					color: #2b669a;
+				}
+
+				p, li, ul, ol, h1, h2, h3
+				{
+					padding: 0;
+					margin: 0;
+					font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+				}
+
+				h2
+				{
+					text-align: left;
+					font-size: 16px;
+					font-weight: bold;
+					color: #2b669a;
+				}
+
+				h1.title
+				{
+					text-align: left;
+					margin: 0;
+					padding: 0;
+					font-size: 22px;
+					font-weight: bold;
+					color: #2b669a;
+				}
+
+				h2.title
+				{
+					text-align: left;
+					margin: 0;
+					padding: 0;
+					font-size: 14px;
+					font-weight: bold;
+					color: #bababa;
+				}
+
+				td
+				{
+					vertical-align: top;
+				}
+
+				td.separator
+				{
+					border-bottom: 1px solid #d6d6d6;
+					vertical-align: middle;
+				}
+
+				tr.header td
+				{
+					vertical-align: middle;
+					text-align: center;
+					font-size: 11px;
+					font-weight: bold;
+					color: #8a8a8a;
+				}
+
+				tr.body p
+				{
+					line-height: 22px;
+					text-align: justify;
+					font-size: 13px;
+					color: #535353;
+				}
+
+				tr.footer td
+				{
+					height: 35px;
+					vertical-align: middle;
+					border-top: 1px solid #d6d6d6;
+				}
+
+				tr.footer p
+				{
+					text-align: center;
+					font-size: 11px;
+					font-weight: bold;
+					color: #8a8a8a;
+				}
+
+				table.styled
+				{
+					font-family: calibri, verdana, arial, sans-serif;
+					font-size: 13px;
+					color: #333333;
+					width: 100%;
+					border-collapse: collapse;
+					border: 1px solid gray;
+				}
+
+				table.styled td.td_title
+				{
+					background-color: #ffdddd;
+					text-align: center;
+				}
+
+				table.styled td.td_elem
+				{
+					background-color: #ddddff;
+					text-align: right;
+				}
+
+				table.styled td.td_valor
+				{
+					background-color: #ffffdd;
+					text-align: left;
+				}
+
+				table.styled td.td_valor_long
+				{
+					background-color: #ffffdd;
+					text-align: left;
+				}
+
+			</style>
+		{% endblock header_css_main %}
+		{% block header_css_alt %}
+		{% endblock header_css_alt %}
+	</head>
+	<body marginheight="0" topmargin="0" marginwidth="0" leftmargin="0" background="" bgcolor="#ffffff">
+		<table cellspacing="0" cellpadding="0" border="0" width="100%">
+			<tbody>
+				<tr valign="top">
+					<td>
+						<table cellspacing="0" cellpadding="0" border="0" width="100%">
+							<tbody>
+								{% block header %}
+									<tr class="header">
+										<td class="separator" valign="middle" bgcolor="#ebebeb" height="30">
+											<p>
+												Generado por {{ app|default("APP") }} el {{ "now"|date('d/m/Y') }} a las {{ "now"|date('H:i:s') }}.
+											</p>
+										</td>
+									</tr>
+								{% endblock header %}
+								{% block body %}
+									<tr class="body">
+										<td align="{{ body_align|default("center") }}">
+											<table cellspacing="0" cellpadding="0" border="0" width="{{ body_width|default("700") }}">
+												<tbody>
+													{% block body_content %}
+													{% endblock body_content %}
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								{% endblock body %}
+								{% block footer %}
+									<tr class="footer">
+										<td height="35">
+											<p>
+												Generado por {{ app|default("APP") }} el {{ "now"|date('d/m/Y') }} a las {{ "now"|date('H:i:s') }}.
+											</p>
+										</td>
+									</tr>
+								{% endblock footer %}
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

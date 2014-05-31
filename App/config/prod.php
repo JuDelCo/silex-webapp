@@ -9,9 +9,20 @@ use Doctrine\DBAL\DBALException;
 
 require_once __DIR__.'/../../../ServerConf.php';
 
+$app['maintenance'] = $server_conf['maintenance'];
 $app['session.version'] = '1.0.0';
-$app['security.salt'] = $security_conf['main']['salt'];
+$app['security.salt'] = $security_hash['salt'];
+$app['security.login_token'] = $security_hash['login'];
+$app['excel.disable_cache'] = false;
 $app['email.sender'] = $mail_conf['main']['sender'];
+$app['email.debug'] = $mail_conf['main']['debug'];
+
+$app['path.info'] = array(
+	'root'        => $path_info['root'],
+	'chunks'      => $path_info['chunks'],
+	'temp'        => $path_info['temp'],
+	'excel'       => $path_info['excel']
+);
 
 $app['db.options'] = array(
 	'driver'   => $db_conf['main']['driver'],
@@ -30,7 +41,7 @@ $app['swiftmailer.options'] = array(
 	'auth_mode'  => 'login'
 );
 
-unset($db_conf, $mail_conf, $security_conf);
+unset($db_conf, $mail_conf, $security_hash, $path_info, $server_conf);
 
 // ----------------------------------------------
 
@@ -68,11 +79,13 @@ $app->error(function(\Exception $e, $code) use ($app, $logger)
 	{
 		$query = array_pop($logger->queries); // Obtenemos la última SQL
 
-		$app['monolog']->addError($query['sql'], array(
+		$app['monolog']->addError('SQL Query', array(
+			'session.user_real.id' => ($app['session']->isStarted() ? $app['session']->get('user_real.id', 'null') : 'session_closed'), 
+			'session.user_real.usuario' => ($app['session']->isStarted() ? $app['session']->get('user_real.usuario', 'null') : 'session_closed'),
+			'query.ms' => $query['executionMS'],
+			'query.sql' => $query['sql'],
 			'query.params' => $query['params'],
-			'query.types' => $query['types'],
-			'session.user_real.id' => ($app['auth']->isAuthenticated() ? $app['session']->get('user_real.id', 'null') : 'session_closed'), 
-			'session.user_real.usuario' => ($app['auth']->isAuthenticated() ? $app['session']->get('user_real.usuario', 'null') : 'session_closed')
+			'query.types' => $query['types']
 		));
 	}
 });

@@ -34,11 +34,13 @@ $app->finish(function() use ($app, $logger)
 {
 	foreach ($logger->queries as $query)
 	{
-		$app['monolog']->addNotice($query['sql'], array(
+		$app['monolog']->addNotice('SQL Query', array(
+			'session.user_real.id' => ($app['session']->isStarted() ? $app['session']->get('user_real.id', 'null') : 'session_closed'), 
+			'session.user_real.usuario' => ($app['session']->isStarted() ? $app['session']->get('user_real.usuario', 'null') : 'session_closed'),
+			'query.ms' => $query['executionMS'],
+			'query.sql' => $query['sql'],
 			'query.params' => $query['params'],
-			'query.types' => $query['types'],
-			'session.user_real.id' => ($app['auth']->isAuthenticated() ? $app['session']->get('user_real.id', 'null') : 'session_closed'), 
-			'session.user_real.usuario' => ($app['auth']->isAuthenticated() ? $app['session']->get('user_real.usuario', 'null') : 'session_closed')
+			'query.types' => $query['types']
 		));
 	}
 });

@@ -1,4 +1,5 @@
 // Downloaded from Github -> 2014.01.21
+// Edited (Juan Delgado Cobalea) -> 2014.05.12 (Two new filters, Fix latin chars)
 // 
 // Stupid jQuery table plugin.
 
@@ -140,16 +141,37 @@
       return parseFloat(a) - parseFloat(b);
     },
     "string": function(a, b) {
-      if (a < b) return -1;
-      if (a > b) return +1;
-      return 0;
+      return a.localeCompare(b);
     },
     "string-ins": function(a, b) {
-      a = a.toLowerCase();
-      b = b.toLowerCase();
-      if (a < b) return -1;
-      if (a > b) return +1;
-      return 0;
+      a = a.toLocaleLowerCase();
+      b = b.toLocaleLowerCase();
+      return a.localeCompare(b);
+    },
+    "euro-date": function(a, b) {
+      var euro_date_from_string = function(str) {
+        var datepart = str.split("/");
+        return new Date(datepart[2], (datepart[1] - 1), datepart[0]);
+      }
+
+      aDate = euro_date_from_string(a);
+      bDate = euro_date_from_string(b);
+
+      return aDate - bDate;
+    },
+    "euro-datetime": function(a, b) {
+      var euro_datetime_from_string = function(str) {
+        var date = str.substring(0, 10);
+        var time = str.substring(11);
+        var datepart = date.split("/");
+        var timepart = time.split(":");
+        return new Date(datepart[2], (datepart[1] - 1), datepart[0], timepart[0], timepart[1], timepart[2]);
+      }
+
+      aDate = euro_datetime_from_string(a);
+      bDate = euro_datetime_from_string(b);
+
+      return aDate - bDate;
     }
   };
 

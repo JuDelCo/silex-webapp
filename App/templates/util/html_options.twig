@@ -1,8 +1,14 @@
-{% if options is not empty %}
-	<option value="{{ options.default_id|default(0) }}">{{ options.default_value|default('Selecciona') }}</option>
-{% endif %}
-{% if data is not empty %}
-	{% for data_option in data %}
-		<option value="{{ data_option.id }}">{% autoescape false %}{{ data_option.value }}{% endautoescape %}</option>
-	{% endfor %}
+{% if data is empty %}
+	{% if options is not empty and options.default_append|default(true) == true %}
+		<option value="0"></option>
+	{% endif %}
+{% else %}
+	{% if options is not empty and options.default_append|default(true) == true %}
+		<option value="{{ options.default_id|default(0) }}">{{ options.default_value|default('Selecciona') }}</option>
+	{% endif %}
+	{% if data is not empty %}
+		{% for data_option in data %}
+			<option value="{{ data_option.id }}">{% autoescape false %}{{ data_option.value }}{% endautoescape %}</option>
+		{% endfor %}
+	{% endif %}
 {% endif %}

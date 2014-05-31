@@ -6,16 +6,26 @@ require_once __DIR__.'/util_ajax.php';
 
 class ApiUtil
 {
-	public function ajax_data(Application $app)
+	public function ajax_datos(Application $app)
 	{
 		$request_info = array(
-			'request_id' =>      $app['request']->request->get('request_id', NULL),
-			'request_type' =>    $app['request']->request->get('request_type', NULL),
+			'request_id' => $app['request']->request->get('request_id', NULL),
+			'request_type' => $app['request']->request->get('request_type', NULL),
 			'request_filters' => $app['request']->request->get('request_filters', NULL),
 			'request_options' => $app['request']->request->get('request_options', NULL)
 		);
 
-		$data = ApiUtilAjaxQuery::get_data($app, $request_info);
+		// Desbloqueamos la sesión (para que se puedan realizar otras peticiones al servidor)
+		$app['session']->save(); // session_write_close();
+
+		try
+		{
+			$data = UtilAjaxQuery::get_data($app, $request_info);
+		}
+		catch (Exception $e)
+		{
+			$data['error'] = $e->getMessage();
+		}
 
 		if($request_info['request_type'] == 'options' && empty($data['error']))
 		{
@@ -26,5 +36,43 @@ class ApiUtil
 		}
 
 		return $app->json($data, (empty($data['error']) ? 200 : 400));
+	}
+
+	public function excel_json(Application $app)
+	{
+		// Ejemplo:
+		// 		/api/util/excel/json/?data=[{%22campo1%22:%20%22valor1%22,%22campo2%22:%20%22valor2%22,%22campo3%22:%20%22valor3%22}]
+
+		$data = array();
+
+		if($app['request']->getMethod() == "GET")
+		{
+			$data = $app['request']->query->get('data', array());
+		}
+		else
+		{
+			$data = $app['request']->request->get('data', array());
+		}
+
+		if(! $app['validator']->isArray($data))
+		{
+			try
+			{
+				$data = json_decode($data, true);
+			}
+			catch (Exception $e)
+			{
+				return $app->json(array('error' => 'Error al parsear el JSON'), 400);
+			}
+		}
+
+		if(empty($data))
+		{
+			return $app->json(array('error' => 'Debes especificar los datos a convertir'), 400);
+		}
+
+		$app['excel']->writeData($data);
+
+		return $app['excel']->getResponse(date('Y-m-d_H-i-s') . '_excel_json');
 	}
 }

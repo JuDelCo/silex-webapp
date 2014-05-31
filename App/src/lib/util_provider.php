@@ -7,6 +7,8 @@ require_once __DIR__.'/util_sql.php';
 require_once __DIR__.'/util_validator.php';
 require_once __DIR__.'/util_app.php';
 require_once __DIR__.'/util_auth.php';
+require_once __DIR__.'/util_fileupload.php';
+require_once __DIR__.'/util_excel.php';
 require_once __DIR__.'/util_email.php';
 require_once __DIR__.'/util_twig.php';
 
@@ -64,6 +66,36 @@ class AuthHelperUtilServiceProvider implements ServiceProviderInterface
 			$AuthHelperUtilClass = new AuthHelperUtil($app);
 
 			return $AuthHelperUtilClass;
+		});
+	}
+
+	public function boot(Application $app) {}
+}
+
+class UploadHelperUtilServiceProvider implements ServiceProviderInterface
+{
+	public function register(Application $app)
+	{
+		$app['upload'] = $app->share(function ($app)
+		{
+			$UploadHelperUtilClass = new UploadHelperUtil($app);
+
+			return $UploadHelperUtilClass;
+		});
+	}
+
+	public function boot(Application $app) {}
+}
+
+class ExcelHelperUtilServiceProvider implements ServiceProviderInterface
+{
+	public function register(Application $app)
+	{
+		$app['excel'] = $app->share(function ($app)
+		{
+			$ExcelHelperUtilClass = new ExcelHelperUtil($app);
+
+			return $ExcelHelperUtilClass;
 		});
 	}
 

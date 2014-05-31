@@ -4,6 +4,11 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
+/*
+ * Changes (3.1.0_1):
+ *   Changed the way to tag the versions in fonts of bootstrap (glyphicons) to be like in font-awesome.
+ */
+
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
