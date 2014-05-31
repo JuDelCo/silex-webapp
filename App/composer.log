@@ -1,45 +1,46 @@
 // -----------------------------------
 
-Updated (05/03/2014 20:51:00 GMT+1):
+Updated (31/05/2014 17:10:00 GMT+1):
 
 	fabpot/silex-skeleton (v1.0.1)
-		silex/silex (v1.1.2)
+		silex/silex (v1.2.0)
 			pimple/pimple (v1.1.1)
-			symfony/event-dispatcher (v2.4.2)
-			symfony/routing (v2.4.2)
-			symfony/http-foundation (v2.4.2)
-			symfony/http-kernel (v2.4.2)
+			symfony/event-dispatcher (v2.4.5)
+			symfony/routing (v2.4.5)
+			symfony/http-foundation (v2.4.5)
+			symfony/http-kernel (v2.4.5)
 				symfony/event-dispatcher
 				symfony/http-foundation
 				symfony/debug
 				psr/log (1.0.0)
 		silex/web-profiler (v1.0.2)
-			symfony/stopwatch (v2.4.2)
-			symfony/web-profiler-bundle (v2.4.2)
+			symfony/stopwatch (v2.4.5)
+			symfony/web-profiler-bundle (v2.4.5)
 				symfony/http-kernel
 				symfony/routing
 				symfony/twig-bridge
-		symfony/class-loader (v2.4.2)
-		symfony/console (v2.4.2)
-		symfony/debug (v2.4.2)
-		symfony/filesystem (v2.4.2)
-		symfony/finder (v2.4.2)
-		symfony/monolog-bridge (v2.4.2)
-			monolog/monolog (1.7.0)
+		symfony/class-loader (v2.4.5)
+		symfony/console (v2.4.5)
+		symfony/debug (v2.4.5)
+		symfony/filesystem (v2.4.5)
+		symfony/finder (v2.4.5)
+		symfony/monolog-bridge (v2.4.5)
+			monolog/monolog (1.9.1)
 				psr/log
-		symfony/translation (v2.4.2)
-		symfony/twig-bridge (v2.4.2)
+		symfony/translation (v2.4.5)
+		symfony/twig-bridge (v2.4.5)
 			twig/twig (v1.15.1)
-			symfony/security-csrf (v2.4.2)
-				symfony/security-core (v2.4.2)
+			symfony/security-csrf (v2.4.5)
+				symfony/security-core (v2.4.5)
 		doctrine/dbal (2.3.4)
-			doctrine/common (v2.4.1)
+			doctrine/common (v2.4.2)
 				doctrine/annotations (v1.1.2)
 				doctrine/cache (v1.3.0)
 				doctrine/collections (v1.2)
 				doctrine/inflector (v1.0)
 				doctrine/lexer (v1.0)
-		swiftmailer/swiftmailer (v5.0.3)
+		swiftmailer/swiftmailer (v5.2.0)
+		phpoffice/phpexcel (v1.8.0)
 
 // -----------------------------------
 
