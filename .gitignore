@@ -1,6 +1,8 @@
 
 Thumbs.db
 
+/App/.tags
+/App/.tags_sorted_by_file
 /App/var/cache/http/*
 /App/var/cache/profiler/*
 /App/var/cache/twig/*

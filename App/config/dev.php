@@ -27,7 +27,6 @@ $app->register(new ServiceControllerServiceProvider());
 $app->register($p = new WebProfilerServiceProvider(), array(
     'profiler.cache_dir' => __DIR__.'/../var/cache/profiler',
 ));
-$app->mount('/_profiler', $p);
 
 // Escribimos todas las consultas SQL ejecutadas en el log
 $app->finish(function() use ($app, $logger)

@@ -48,6 +48,7 @@ unset($db_conf, $mail_conf, $security_hash, $path_info, $server_conf);
 // TranslationServiceProvider
 $app['locale'] = 'es';
 $app['locale_fallback'] = 'es';
+$app['session.default_locale'] = 'es';
 
 // TwigServiceProvider
 $app['twig.path'] = array(__DIR__.'/../templates');
