@@ -29,7 +29,7 @@ class ApiUtil
 
 		if($request_info['request_type'] == 'options' && empty($data['error']))
 		{
-			$data['html_options'] = $app['twig']->render('util/html_options.twig', 
+			$data['html_options'] = $app['twig']->render('util/html_options.twig',
 				array('data' => $data['data'], 'options' => $request_info['request_options']));
 
 			unset($data['data']);

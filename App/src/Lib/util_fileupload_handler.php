@@ -143,7 +143,7 @@ class UploadHandler
 			{
 				$target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $name));
 				//$target = $this->getUniqueTargetPath($uploadDirectory, $name);
-				
+
 				$this->uploadName = basename($target);
 
 				if (!file_exists($target))
@@ -337,7 +337,7 @@ class UploadHandler
 	{
 		$isWin = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
 		$folderInaccessible = ($isWin) ? !is_writable($directory) : ( !is_writable($directory) && !is_executable($directory) );
-		
+
 		return $folderInaccessible;
 	}
 }

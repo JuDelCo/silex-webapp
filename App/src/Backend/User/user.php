@@ -41,7 +41,7 @@ class ApiUser
 			}
 
 			$sql = "SELECT user_id from user where username like '$username'";
-			
+
 			if($app['sql']->hasResults($sql))
 			{
 				$data['error'] = 'Ya existe un usuario con ese nombre';
@@ -49,7 +49,7 @@ class ApiUser
 			}
 
 			$sql = "SELECT user_id from user where email like '$email'";
-			
+
 			if($app['sql']->hasResults($sql))
 			{
 				$data['error'] = 'Ya existe un usuario con ese email';
@@ -77,7 +77,7 @@ class ApiUser
 			$sql = "INSERT into token (token, user_id, token_type_id, date_expire, active)
 				values ('$token', $user_id, $token_type_id, FROM_UNIXTIME(" . strtotime("+1 week") . "), 1)";
 			$token_id = $app['sql']->runInsert($sql);
-			
+
 			$user_email = $app['sql']->getValue("SELECT email from user where user_id = $user_id");
 			$user_active_path = $app['url_generator']->generate('rt_usr_active', array('token' => $token));
 
@@ -100,14 +100,14 @@ class ApiUser
 			$data['msg'] = 'ok';
 		}
 		while(0);
-		
+
 		return $app->json($data, (empty($data['error']) ? 200 : 400));
 	}
 
 	function active(Application $app, $token)
 	{
 		$data = array();
-		
+
 		do
 		{
 			$token = $app['sql']->toSQL($token, false);
@@ -177,7 +177,7 @@ class ApiUser
 			$app->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
 
 			$user_data = $app['sql']->getFirstRow($sql);
-			
+
 			if($user_data['active'] == 0)
 			{
 				$data['error'] = 'Debes activar el usuario antes de iniciar sesión. Revisa la bandeja de entrada de tu correo y en spam.';
@@ -193,14 +193,14 @@ class ApiUser
 			$app['session']->set('user_real.id',       $user_data['user_id']);
 			$app['session']->set('user_real.username', $user_data['username']);
 			$app['session']->set('user_real.email',    $user_data['email']);
-			
+
 			if($app['request']->request->get('remindme', NULL))
 			{
 				$app['session']->migrate(false, (30*24*60*60)); // 30 días
 			}
 
 			$app['monolog']->addNotice("Sesión iniciada -> Usuario: $user (ID: {$user_data['user_id']})");
-			
+
 			$data['msg'] = 'ok';
 		}
 		while(0);
@@ -270,7 +270,7 @@ class ApiUser
 			$sql = "SELECT user_id from user
 				where user_id = $user_id
 					and password = '$old_password'";
-			
+
 			if($app['sql']->hasNotResults($sql))
 			{
 				$data['error'] = 'Contraseña anterior incorrecta';
@@ -282,7 +282,7 @@ class ApiUser
 
 			$sql = "UPDATE user set password = '$password' where user_id = $user_id";
 			$app['sql']->run($sql);
-			
+
 			$data['msg'] = 'ok';
 		}
 		while(0);
@@ -324,10 +324,10 @@ class ApiUser
 				$data['error'] = 'Debes especificar una contraseña valida';
 				break;
 			}
-			
+
 			$password .= $app['security.salt'];
 			$password = hash('sha256', $password);
-			
+
 			$sql = "UPDATE user set active = 1, password = '$password' where user_id = " . $row['user_id'];
 			$app['sql']->run($sql);
 
@@ -344,7 +344,7 @@ class ApiUser
 	function password_change_token_check(Application $app, $token)
 	{
 		$data = array();
-		
+
 		do
 		{
 			$token = $app['sql']->toSQL($token, false);
@@ -414,7 +414,7 @@ class ApiUser
 			$password_change_path = $app['url_generator']->generate('rt_usr_password_change_token', array('token' => $token));
 
 			$email_dev = $app['email.sender'];
-			
+
 			$email_msg = \Swift_Message::newInstance();
 			$email_msg->setSubject("Cambiar contraseña")
 				->setFrom($email_dev)
@@ -432,7 +432,7 @@ class ApiUser
 			$data['msg'] = 'ok';
 		}
 		while(0);
-		
+
 		return $app->json($data, (empty($data['error']) ? 200 : 400));
 	}
 
@@ -443,9 +443,9 @@ class ApiUser
 
 		if($user_id)
 		{
-			$app['monolog']->addNotice("Sesión cerrada  -> Usuario: $user_username (ID: $user_id)");	
+			$app['monolog']->addNotice("Sesión cerrada  -> Usuario: $user_username (ID: $user_id)");
 		}
-		
+
 		$app['session']->clear(); // Redundante, pero por si acaso...
 		$app['session']->invalidate();
 

@@ -130,7 +130,7 @@ class UploadHelperUtil
 				{
 					continue;
 				}
-				
+
 				$sourcePath = str_replace('\\', '/', realpath($sourcePath));
 
 				if(is_dir($sourcePath) === true)
@@ -167,7 +167,7 @@ class UploadHelperUtil
 					//$zip->addFromString(mb_convert_encoding(basename($sourceName), 'IBM850', 'auto'), file_get_contents($sourcePath));
 				}
 			}
-			
+
 			return ($zip->close() && file_exists($destination));
 		}
 		else

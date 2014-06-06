@@ -99,7 +99,7 @@ class AuthHelperUtil
 					'error' => 'Debes identificarte primero para poder realizar esa accion'), 400);
 			}
 
-			return new Response($this->app['twig']->render('user/login_redirect.twig', 
+			return new Response($this->app['twig']->render('user/login_redirect.twig',
 				array('redirect_path' => $this->app->escape($this->app['request']->getRequestUri()))));
 		}
 
@@ -119,7 +119,7 @@ class AuthHelperUtil
 				break;
 			}
 		}
-		
+
 		if(! $authorized)
 		{
 			if($this->app['request']->getMethod() != "GET")

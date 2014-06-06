@@ -3,7 +3,7 @@
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app)
 {
 	// Recursos Web -----------------------------
-	
+
 	function create_css_tag($lib_path, $version)
 	{
 		return "<link type='text/css' rel='stylesheet' href='/Resources/css/$lib_path?v=$version' />";

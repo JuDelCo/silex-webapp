@@ -34,7 +34,7 @@ $app->finish(function() use ($app, $logger)
 	foreach ($logger->queries as $query)
 	{
 		$app['monolog']->addNotice('SQL Query', array(
-			'session.user_real.id' => ($app['session']->isStarted() ? $app['session']->get('user_real.id', 'null') : 'session_closed'), 
+			'session.user_real.id' => ($app['session']->isStarted() ? $app['session']->get('user_real.id', 'null') : 'session_closed'),
 			'session.user_real.usuario' => ($app['session']->isStarted() ? $app['session']->get('user_real.usuario', 'null') : 'session_closed'),
 			'query.ms' => $query['executionMS'],
 			'query.sql' => $query['sql'],

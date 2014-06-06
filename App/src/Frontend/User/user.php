@@ -86,7 +86,7 @@ class User
 
 		$subRequest = Request::create($app['url_generator']->generate('rta_usr_logout'), 'POST');
 		$app->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
-		
+
 		return new Response($app['twig']->render('info.twig', array('mensaje' => 'Sesión cerrada')));
 	}
 }

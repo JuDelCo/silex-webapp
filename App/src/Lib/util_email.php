@@ -30,7 +30,7 @@ class EmailHelperUtil
 
 		$this->reset();
 	}
-	
+
 	// Resetea todas las variables (direcciones, variables, contenido, etc...)
 	function reset()
 	{

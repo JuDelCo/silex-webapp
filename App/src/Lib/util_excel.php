@@ -26,7 +26,7 @@ class ExcelHelperUtil
 	}
 
 	// General ----------------------------------
-	
+
 	public function getExcelObj()
 	{
 		return $this->objPHPExcel;
@@ -108,7 +108,7 @@ class ExcelHelperUtil
 		}
 
 		array_unshift($data, $title_array);
-		
+
 		return $this->writeData($data, $sheetIndex, $position);
 	}
 
@@ -171,7 +171,7 @@ class ExcelHelperUtil
 		{
 			return $this->app->json(array('error' => 'No se ha encontrado la excel'), 400);
 		}
-		
+
 		$fs = new Filesystem();
 
 		if (! $fs->exists($excel_data['ruta']))
@@ -205,7 +205,7 @@ class ExcelHelperUtil
 	public function getResponse($excel_filename)
 	{
 		$this->setCursorPosition('A1');
-		
+
 		$response = new Response();
 		$response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8');
 		$response->headers->set('Content-Disposition', "attachment;filename=$excel_filename.xlsx");
@@ -220,7 +220,7 @@ class ExcelHelperUtil
 
 		return $response;
 	}
-	
+
 	// Metadata ---------------------------------
 
 	public function setCreator($username)

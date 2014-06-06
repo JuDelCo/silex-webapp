@@ -6,7 +6,7 @@ $main = $app['controllers_factory'];
 
 $main->get('/', function () use ($app)
 {
-	return new Response($app['twig']->render('info.twig', 
+	return new Response($app['twig']->render('info.twig',
 		array('mensaje' => 'Página principal', 'menu_alt_info_label' => 'Menú principal', 'titulo' => 'Página Principal')));
 })
 ->bind('rt_root');
@@ -19,7 +19,7 @@ $main->get('/index.{extension}', function () use ($app)
 
 $main->get('/inicio/', function () use ($app)
 {
-	return new Response($app['twig']->render('info.twig', 
+	return new Response($app['twig']->render('info.twig',
 		array('mensaje' => 'Página principal (posterior al login)', 'menu_alt_info_label' => 'Menú principal', 'titulo' => 'Página Principal')));
 })
 ->bind('rt_main');

@@ -17,7 +17,7 @@ $app->match('{fallback_url}', function($fallback_url) use ($app)
 		'session.user_real.id' => $app['session']->get('user_real.id', NULL),
 		'session.user_real.usuario' => $app['session']->get('user_real.usuario', NULL)
 	));
-	
+
 	return new Response($app['twig']->render('error.twig', array('mensaje' => 'Error 404 - Página no encontrada')), 404);
 })
 ->bind('rt_error_not_found')->assert('fallback_url', '^(?!_profiler/)(.+)');
@@ -48,7 +48,7 @@ $app->before(function (Request $request) use ($app)
 			return $app->json(array('error' => 'Sesion caducada/invalida, por favor refresca la pagina'), 400);
 		}
 
-		return new Response($app['twig']->render('user/login_redirect.twig', 
+		return new Response($app['twig']->render('user/login_redirect.twig',
 			array('redirect_path' => $app->escape($request->getRequestUri()))));
 	}
 

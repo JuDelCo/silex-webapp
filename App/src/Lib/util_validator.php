@@ -125,7 +125,7 @@ class ValidatorHelperUtil
 
 			return $this->regEx($value, $email_regex);
 		}
-	
+
 		return false;
 	}
 
@@ -159,7 +159,7 @@ class ValidatorHelperUtil
 		if($this->isString($date))
 		{
 			$dateTime = \DateTime::createFromFormat($format, $date);
-			
+
 			return ($dateTime && ($dateTime->format($format) == $date));
 		}
 
@@ -174,7 +174,7 @@ class ValidatorHelperUtil
 	public function isAlphaNumeric($value, $allowSpaces = true, $allowUnderscores = true)
 	{
 		$regex = '/^[a-zA-Z0-9' . ($allowSpaces ? ' ' : '') . ($allowUnderscores ? '_' : '') . ']*$/';
-		
+
 		return $this->regEx((string)$value, $regex);
 	}
 

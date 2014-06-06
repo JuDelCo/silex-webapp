@@ -48,13 +48,13 @@ $console->register('clear:cache')
 		$output->writeln('-------------------------------------------------------------------------------');
 
 		$cacheDir = __DIR__ . "/../var/cache/";
-		
+
 		$finder = new Finder();
 		$finder->in($cacheDir)->notName('.htaccess');
-		
+
 		$fs = new Filesystem();
 		$fs->remove($finder);
-		
+
 		$output->writeln(' Cache cleared');
 
 		$output->writeln('-------------------------------------------------------------------------------');

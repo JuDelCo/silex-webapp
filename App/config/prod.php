@@ -81,7 +81,7 @@ $app->error(function(\Exception $e, $code) use ($app, $logger)
 		$query = array_pop($logger->queries); // Obtenemos la última SQL
 
 		$app['monolog']->addError('SQL Query', array(
-			'session.user_real.id' => ($app['session']->isStarted() ? $app['session']->get('user_real.id', 'null') : 'session_closed'), 
+			'session.user_real.id' => ($app['session']->isStarted() ? $app['session']->get('user_real.id', 'null') : 'session_closed'),
 			'session.user_real.usuario' => ($app['session']->isStarted() ? $app['session']->get('user_real.usuario', 'null') : 'session_closed'),
 			'query.ms' => $query['executionMS'],
 			'query.sql' => $query['sql'],
