@@ -1,9 +1,10 @@
 <?php
 
+namespace Src\Lib;
+
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-
-require_once __DIR__.'/app.php';
+use Src\Lib\AppHelper;
 
 class AppHelperServiceProvider implements ServiceProviderInterface
 {

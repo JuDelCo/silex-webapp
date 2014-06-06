@@ -1,5 +1,7 @@
 <?php
 
+namespace Src\Lib;
+
 class FileUploadHelperHandler
 {
 	public $allowedExtensions = array();

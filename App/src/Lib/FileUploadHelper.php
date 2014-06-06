@@ -1,9 +1,10 @@
 <?php
 
+namespace Src\Lib;
+
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
-
-require_once __DIR__.'/fileupload_handler.php';
+use Src\Lib\FileUploadHelperHandler;
 
 class FileUploadHelper
 {
@@ -20,7 +21,7 @@ class FileUploadHelper
 	{
 		$this->app = $app;
 
-		$this->uploader = new UploadHandler();
+		$this->uploader = new FileUploadHelperHandler();
 
 		$this->allowedExtensions = array(); // all (empty)
 		$this->sizeLimit = (10 * 1024 * 1024); // 10 MB
@@ -112,9 +113,9 @@ class FileUploadHelper
 				return false;
 			}
 
-			$zip = new ZipArchive();
+			$zip = new \ZipArchive();
 
-			if($zip->open($destination, $overwrite ? ZIPARCHIVE::OVERWRITE : ZIPARCHIVE::CREATE) !== true)
+			if($zip->open($destination, $overwrite ? \ZIPARCHIVE::OVERWRITE : \ZIPARCHIVE::CREATE) !== true)
 			{
 				return false;
 			}

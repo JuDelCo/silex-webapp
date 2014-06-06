@@ -1,9 +1,10 @@
 <?php
 
+namespace Src\Lib;
+
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-
-require_once __DIR__.'/auth.php';
+use Src\Lib\AuthHelper;
 
 class AuthHelperServiceProvider implements ServiceProviderInterface
 {

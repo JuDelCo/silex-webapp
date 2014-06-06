@@ -1,9 +1,10 @@
 <?php
 
+namespace Src\Lib;
+
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-
-require_once __DIR__.'/email.php';
+use Src\Lib\EmailHelper;
 
 class EmailHelperServiceProvider implements ServiceProviderInterface
 {

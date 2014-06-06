@@ -1,5 +1,7 @@
 <?php
 
+namespace Src\Backend\User;
+
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;

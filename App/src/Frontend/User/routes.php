@@ -1,22 +1,20 @@
 <?php
 
-require_once __DIR__.'/user.php';
-
 $user = $app['controllers_factory'];
 
-$user->get('/register/', 'User::register')
+$user->get('/register/', 'Src\\Frontend\\User\\User::register')
 ->bind('rt_usr_register');
-$user->get('/active/{token}/', 'User::active')
+$user->get('/active/{token}/', 'Src\\Frontend\\User\\User::active')
 ->bind('rt_usr_active')->assert('token', '^[a-zA-Z0-9]{64}$');
-$user->match('/login/', 'User::login')
+$user->match('/login/', 'Src\\Frontend\\User\\User::login')
 ->bind('rt_usr_login')->method('GET|POST');
-$user->get('/password/change/', 'User::password_change')
+$user->get('/password/change/', 'Src\\Frontend\\User\\User::password_change')
 ->bind('rt_usr_password_change');
-$user->get('/password/change/{token}/', 'User::password_change_token')
+$user->get('/password/change/{token}/', 'Src\\Frontend\\User\\User::password_change_token')
 ->bind('rt_usr_password_change_token')->assert('token', '^[a-zA-Z0-9]{64}$');
-$user->get('/password/forgot/', 'User::password_forgot')
+$user->get('/password/forgot/', 'Src\\Frontend\\User\\User::password_forgot')
 ->bind('rt_usr_password_forgot');
-$user->get('/logout/', 'User::logout')
+$user->get('/logout/', 'Src\\Frontend\\User\\User::logout')
 ->bind('rt_usr_logout');
 
 $user->before(function () use ($app)

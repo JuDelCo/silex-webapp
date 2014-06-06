@@ -1,8 +1,10 @@
 <?php
 
+namespace Src\Backend\Util;
+
 use Silex\Application;
 
-class ApiUtilData
+class UtilData
 {
 	// Obtiene un array con los permisos de un usuario
 	static function get_user_roles(Application $app, $user_id)

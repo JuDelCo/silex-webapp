@@ -1,12 +1,10 @@
 <?php
 
-require_once __DIR__.'/util.php';
-
 $util = $app['controllers_factory'];
 
-$util->post('/ajax_datos/', 'ApiUtil::ajax_datos')
+$util->post('/ajax_datos/', 'Src\\Backend\\Util\\ApiUtil::ajax_datos')
 ->bind('rta_util_ajax_datos');
-$util->match('/excel/json/', 'ApiUtil::excel_json')
+$util->match('/excel/json/', 'Src\\Backend\\Util\\ApiUtil::excel_json')
 ->bind('rta_util_excel_json')->method('GET|POST');
 
 $util->before(function () use ($app)

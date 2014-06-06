@@ -1,9 +1,10 @@
 <?php
 
+namespace Src\Lib;
+
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-
-require_once __DIR__.'/excel.php';
+use Src\Lib\ExcelHelper;
 
 class ExcelHelperServiceProvider implements ServiceProviderInterface
 {

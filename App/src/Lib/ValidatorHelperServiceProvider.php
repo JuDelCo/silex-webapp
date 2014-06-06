@@ -1,9 +1,10 @@
 <?php
 
+namespace Src\Lib;
+
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-
-require_once __DIR__.'/validator.php';
+use Src\Lib\ValidatorHelper;
 
 class ValidatorHelperServiceProvider implements ServiceProviderInterface
 {

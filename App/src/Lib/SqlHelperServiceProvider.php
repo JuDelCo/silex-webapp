@@ -1,9 +1,10 @@
 <?php
 
+namespace Src\Lib;
+
 use Silex\Application;
 use Silex\ServiceProviderInterface;
-
-require_once __DIR__.'/sql.php';
+use Src\Lib\SqlHelper;
 
 class SqlHelperServiceProvider implements ServiceProviderInterface
 {

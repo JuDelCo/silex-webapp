@@ -1,8 +1,10 @@
 <?php
 
+namespace Src\Backend\Util;
+
 use Silex\Application;
 
-class UtilAjaxQuery
+class UtilAjax
 {
 	static public function get_data(Application $app, $request_info)
 	{

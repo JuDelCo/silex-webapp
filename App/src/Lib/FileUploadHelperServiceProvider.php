@@ -1,11 +1,12 @@
 <?php
 
+namespace Src\Lib;
+
 use Silex\Application;
 use Silex\ServiceProviderInterface;
+use Src\Lib\FileUploadHelper;
 
-require_once __DIR__.'/fileupload.php';
-
-class UploadHelperServiceProvider implements ServiceProviderInterface
+class FileUploadHelperServiceProvider implements ServiceProviderInterface
 {
 	public function register(Application $app)
 	{

@@ -1,8 +1,9 @@
 <?php
 
-use Silex\Application;
+namespace Src\Backend\Util;
 
-require_once __DIR__.'/util_ajax.php';
+use Silex\Application;
+use Src\Backend\Util\UtilAjax;
 
 class ApiUtil
 {
@@ -20,9 +21,9 @@ class ApiUtil
 
 		try
 		{
-			$data = UtilAjaxQuery::get_data($app, $request_info);
+			$data = UtilAjax::get_data($app, $request_info);
 		}
-		catch (Exception $e)
+		catch (\Exception $e)
 		{
 			$data['error'] = $e->getMessage();
 		}
@@ -60,7 +61,7 @@ class ApiUtil
 			{
 				$data = json_decode($data, true);
 			}
-			catch (Exception $e)
+			catch (\Exception $e)
 			{
 				return $app->json(array('error' => 'Error al parsear el JSON'), 400);
 			}

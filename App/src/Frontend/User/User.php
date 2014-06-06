@@ -1,5 +1,7 @@
 <?php
 
+namespace Src\Frontend\User;
+
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

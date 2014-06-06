@@ -1,5 +1,7 @@
 <?php
 
+namespace Src\Lib;
+
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
 
