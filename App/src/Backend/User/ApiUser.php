@@ -3,17 +3,14 @@
 namespace Src\Backend\User;
 
 use Src\Lib\ControllerBase;
-use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class ApiUser extends ControllerBase
 {
 	function register()
 	{
-		$username = trim($this->request()->request->get('username', NULL));
-		$email = trim($this->request()->request->get('email', NULL));
-		$password = trim($this->request()->request->get('password', NULL));
+		$username = trim($this->requestData('POST', 'username', NULL));
+		$email = trim($this->requestData('POST', 'email', NULL));
+		$password = trim($this->requestData('POST', 'password', NULL));
 
 		$data = array();
 
@@ -82,7 +79,7 @@ class ApiUser extends ControllerBase
 			$token_id = $this->db()->runInsert($sql);
 
 			$user_email = $this->db()->getValue("SELECT email from user where user_id = $user_id");
-			$user_active_path = $this->app()['url_generator']->generate('rt_usr_active', array('token' => $token));
+			$user_active_path = $this->generateUrl('rt_usr_active', array('token' => $token));
 
 			$email_dev = $this->app()['email.sender'];
 
@@ -104,7 +101,7 @@ class ApiUser extends ControllerBase
 		}
 		while(0);
 
-		return $this->app()->json($data, (empty($data['error']) ? 200 : 400));
+		return $this->jsonResponse($data, (empty($data['error']) ? 200 : 400));
 	}
 
 	function active($token)
@@ -144,13 +141,13 @@ class ApiUser extends ControllerBase
 		}
 		while(0);
 
-		return $this->app()->json($data, (empty($data['error']) ? 200 : 400));
+		return $this->jsonResponse($data, (empty($data['error']) ? 200 : 400));
 	}
 
 	function login()
 	{
-		$user = trim($this->request()->request->get('username', NULL));
-		$password = trim($this->request()->request->get('password', NULL));
+		$user = trim($this->requestData('POST', 'username', NULL));
+		$password = trim($this->requestData('POST', 'password', NULL));
 
 		$data = array();
 
@@ -176,8 +173,7 @@ class ApiUser extends ControllerBase
 				break;
 			}
 
-			$subRequest = Request::create($this->app()['url_generator']->generate('rta_usr_logout'), 'POST');
-			$this->app()->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+			$this->subRequestRoute('rta_usr_logout');
 
 			$user_data = $this->db()->getFirstRow($sql);
 
@@ -197,7 +193,7 @@ class ApiUser extends ControllerBase
 			$this->session()->set('user_real.username', $user_data['username']);
 			$this->session()->set('user_real.email',    $user_data['email']);
 
-			if($this->request()->request->get('remindme', NULL))
+			if($this->requestData('POST', 'remindme', NULL))
 			{
 				$this->session()->migrate(false, (30*24*60*60)); // 30 días
 			}
@@ -208,7 +204,7 @@ class ApiUser extends ControllerBase
 		}
 		while(0);
 
-		return $this->app()->json($data, (empty($data['error']) ? 200 : 400));
+		return $this->jsonResponse($data, (empty($data['error']) ? 200 : 400));
 
 		// -------------------------------------------------------------------------------------------------------------------------------
 		// TODO: Obtener los roles del usuario (permisos)
@@ -241,8 +237,8 @@ class ApiUser extends ControllerBase
 	{
 		$data = array();
 
-		$old_password = trim($this->request()->request->get('old_password', NULL));
-		$password = trim($this->request()->request->get('password', NULL));
+		$old_password = trim($this->requestData('POST', 'old_password', NULL));
+		$password = trim($this->requestData('POST', 'password', NULL));
 
 		do
 		{
@@ -290,14 +286,14 @@ class ApiUser extends ControllerBase
 		}
 		while(0);
 
-		return $this->app()->json($data, (empty($data['error']) ? 200 : 400));
+		return $this->jsonResponse($data, (empty($data['error']) ? 200 : 400));
 	}
 
 	function password_change_token($token)
 	{
 		$data = array();
 
-		$password = trim($this->request()->request->get('password', NULL));
+		$password = trim($this->requestData('POST', 'password', NULL));
 
 		do
 		{
@@ -341,7 +337,7 @@ class ApiUser extends ControllerBase
 		}
 		while(0);
 
-		return $this->app()->json($data, (empty($data['error']) ? 200 : 400));
+		return $this->jsonResponse($data, (empty($data['error']) ? 200 : 400));
 	}
 
 	function password_change_token_check($token)
@@ -377,14 +373,14 @@ class ApiUser extends ControllerBase
 		}
 		while(0);
 
-		return $this->app()->json($data, (empty($data['error']) ? 200 : 400));
+		return $this->jsonResponse($data, (empty($data['error']) ? 200 : 400));
 	}
 
 	function password_forgot()
 	{
 		$data = array();
 
-		$username = trim($this->request()->request->get('username', NULL));
+		$username = trim($this->requestData('POST', 'username', NULL));
 
 		do
 		{
@@ -414,7 +410,7 @@ class ApiUser extends ControllerBase
 			$token_id = $this->db()->runInsert($sql);
 
 			$user_email = $this->db()->getValue("SELECT email from user where user_id = $user_id");
-			$password_change_path = $this->app()['url_generator']->generate('rt_usr_password_change_token', array('token' => $token));
+			$password_change_path = $this->generateUrl('rt_usr_password_change_token', array('token' => $token));
 
 			$email_dev = $this->app()['email.sender'];
 
@@ -436,7 +432,7 @@ class ApiUser extends ControllerBase
 		}
 		while(0);
 
-		return $this->app()->json($data, (empty($data['error']) ? 200 : 400));
+		return $this->jsonResponse($data, (empty($data['error']) ? 200 : 400));
 	}
 
 	function logout()
@@ -452,6 +448,6 @@ class ApiUser extends ControllerBase
 		$this->session()->clear(); // Redundante, pero por si acaso...
 		$this->session()->invalidate();
 
-		return $this->app()->json(array('msg' => 'ok'), 200);
+		return $this->jsonResponse(array('msg' => 'ok'), 200);
 	}
 }

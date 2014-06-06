@@ -3,7 +3,6 @@
 namespace Src\Lib;
 
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Response;
 use Src\Lib\FileUploadHelperHandler;
 
 class FileUploadHelper

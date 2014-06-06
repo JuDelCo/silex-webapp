@@ -3,7 +3,6 @@
 namespace Src\Backend\Util;
 
 use Src\Lib\ControllerBase;
-use Silex\Application;
 use Src\Backend\Util\UtilAjax;
 
 class ApiUtil extends ControllerBase
@@ -11,10 +10,10 @@ class ApiUtil extends ControllerBase
 	public function ajax_datos()
 	{
 		$request_info = array(
-			'request_id' => $this->request()->request->get('request_id', NULL),
-			'request_type' => $this->request()->request->get('request_type', NULL),
-			'request_filters' => $this->request()->request->get('request_filters', NULL),
-			'request_options' => $this->request()->request->get('request_options', NULL)
+			'request_id' => $this->requestData('POST', 'request_id', NULL),
+			'request_type' => $this->requestData('POST', 'request_type', NULL),
+			'request_filters' => $this->requestData('POST', 'request_filters', NULL),
+			'request_options' => $this->requestData('POST', 'request_options', NULL)
 		);
 
 		// Desbloqueamos la sesión (para que se puedan realizar otras peticiones al servidor)
@@ -31,13 +30,13 @@ class ApiUtil extends ControllerBase
 
 		if($request_info['request_type'] == 'options' && empty($data['error']))
 		{
-			$data['html_options'] = $this->twig()->render('util/html_options.twig',
+			$data['html_options'] = $this->render('util/html_options.twig',
 				array('data' => $data['data'], 'options' => $request_info['request_options']));
 
 			unset($data['data']);
 		}
 
-		return $this->app()->json($data, (empty($data['error']) ? 200 : 400));
+		return $this->jsonResponse($data, (empty($data['error']) ? 200 : 400));
 	}
 
 	public function excel_json()
@@ -47,14 +46,7 @@ class ApiUtil extends ControllerBase
 
 		$data = array();
 
-		if($this->request()->getMethod() == "GET")
-		{
-			$data = $this->request()->query->get('data', array());
-		}
-		else
-		{
-			$data = $this->request()->request->get('data', array());
-		}
+		$data = $this->requestData($this->request()->getMethod(), 'data', array());
 
 		if(! $this->validator()->isArray($data))
 		{
@@ -64,13 +56,13 @@ class ApiUtil extends ControllerBase
 			}
 			catch (\Exception $e)
 			{
-				return $this->app()->json(array('error' => 'Error al parsear el JSON'), 400);
+				return $this->jsonResponse(array('error' => 'Error al parsear el JSON'), 400);
 			}
 		}
 
 		if(empty($data))
 		{
-			return $this->app()->json(array('error' => 'Debes especificar los datos a convertir'), 400);
+			return $this->jsonResponse(array('error' => 'Debes especificar los datos a convertir'), 400);
 		}
 
 		$this->excel()->writeData($data);
