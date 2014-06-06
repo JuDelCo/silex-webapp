@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 require_once __DIR__.'/error_handler.php';
 
 // Controladores
-require_once __DIR__.'/backend/mount.php';
-require_once __DIR__.'/frontend/mount.php';
+require_once __DIR__.'/Backend/mount.php';
+require_once __DIR__.'/Frontend/mount.php';
 
 // Ruta por defecto
 $app->match('{fallback_url}', function($fallback_url) use ($app)
