@@ -1,4 +1,7 @@
 <?php
 
-$app->mount('api/util',        include('Util/routes.php'));
-$app->mount('api/user',        include('User/routes.php'));
+use Src\Backend\Util\ApiUtilProvider;
+use Src\Backend\User\ApiUserProvider;
+
+$app->mount('api/util',     new ApiUtilProvider());
+$app->mount('api/user',     new ApiUserProvider());

@@ -1,4 +1,7 @@
 <?php
 
-$app->mount('/',               include('main_routes.php'));
-$app->mount('/user',           include('User/routes.php'));
+use Src\Frontend\MainProvider;
+use Src\Frontend\User\UserProvider;
+
+$app->mount('/',            new MainProvider());
+$app->mount('/user',        new UserProvider());
