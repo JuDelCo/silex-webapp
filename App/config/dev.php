@@ -5,6 +5,7 @@ use Silex\Provider\WebProfilerServiceProvider;
 use Monolog\Logger;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
+use Whoops\Provider\Silex\WhoopsServiceProvider;
 
 require __DIR__.'/prod.php';
 
@@ -23,7 +24,9 @@ if (isset($app['monolog.handler.debug']))
 	$app['monolog']->pushHandler($app['monolog.handler.debug']);
 }
 
-$app->register(new ServiceControllerServiceProvider());
+$app->register(new WhoopsServiceProvider());
+$app['whoops.error_page_handler']->setEditor('sublime');
+
 $app->register($p = new WebProfilerServiceProvider(), array(
     'profiler.cache_dir' => __DIR__.'/../var/cache/profiler',
 ));
