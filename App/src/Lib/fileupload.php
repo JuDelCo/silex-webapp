@@ -3,9 +3,9 @@
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
 
-require_once __DIR__.'/util_fileupload_handler.php';
+require_once __DIR__.'/fileupload_handler.php';
 
-class UploadHelperUtil
+class FileUploadHelper
 {
 	private $uploader;
 	protected $app;

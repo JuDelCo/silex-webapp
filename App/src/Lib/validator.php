@@ -2,7 +2,7 @@
 
 use Silex\Application;
 
-class ValidatorHelperUtil
+class ValidatorHelper
 {
 	protected $app;
 

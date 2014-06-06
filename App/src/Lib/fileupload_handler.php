@@ -1,6 +1,6 @@
 <?php
 
-class UploadHandler
+class FileUploadHelperHandler
 {
 	public $allowedExtensions = array();
 	public $sizeLimit = null;

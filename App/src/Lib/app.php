@@ -2,7 +2,7 @@
 
 use Silex\Application;
 
-class AppHelperUtil
+class AppHelper
 {
 	protected $app;
 

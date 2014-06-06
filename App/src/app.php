@@ -21,14 +21,14 @@ $app->register(new ServiceControllerServiceProvider());
 $app->register(new TwigServiceProvider());
 $app->register(new SwiftmailerServiceProvider());
 
-require_once __DIR__.'/lib/util_provider.php';
+require_once __DIR__.'/lib/__services.php';
 
-$app->register(new SqlHelperUtilServiceProvider());
-$app->register(new ValidatorHelperUtilServiceProvider());
-$app->register(new AppHelperUtilServiceProvider());
-$app->register(new AuthHelperUtilServiceProvider());
-$app->register(new UploadHelperUtilServiceProvider());
-$app->register(new ExcelHelperUtilServiceProvider());
-$app->register(new EmailHelperUtilServiceProvider());
+$app->register(new SqlHelperServiceProvider());
+$app->register(new ValidatorHelperServiceProvider());
+$app->register(new AppHelperServiceProvider());
+$app->register(new AuthHelperServiceProvider());
+$app->register(new UploadHelperServiceProvider());
+$app->register(new ExcelHelperServiceProvider());
+$app->register(new EmailHelperServiceProvider());
 
 return $app;

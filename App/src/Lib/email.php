@@ -2,7 +2,7 @@
 
 use Silex\Application;
 
-class EmailHelperUtil
+class EmailHelper
 {
 	protected $app;
 

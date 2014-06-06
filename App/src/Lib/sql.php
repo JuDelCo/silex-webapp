@@ -2,7 +2,7 @@
 
 use Silex\Application;
 
-class SqlHelperUtil
+class SqlHelper
 {
 	protected $app;
 

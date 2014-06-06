@@ -4,7 +4,7 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Filesystem\Filesystem;
 
-class ExcelHelperUtil
+class ExcelHelper
 {
 	protected $app;
 	protected $objPHPExcel;

@@ -3,7 +3,7 @@
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthHelperUtil
+class AuthHelper
 {
 	protected $app;
 
