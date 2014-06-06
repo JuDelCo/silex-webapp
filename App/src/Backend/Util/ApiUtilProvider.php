@@ -4,16 +4,22 @@ namespace Src\Backend\Util;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
+use Src\Backend\Util\ApiUtil;
 
 class ApiUtilProvider implements ControllerProviderInterface
 {
 	public function connect(Application $app)
 	{
+		$app['controller.api.util'] = $app->share(function() use ($app)
+		{
+			return new ApiUtil($app);
+		});
+
 		$util = $app['controllers_factory'];
 
-		$util->post('/ajax_datos/', 'Src\\Backend\\Util\\ApiUtil::ajax_datos')
+		$util->post('/ajax_datos/', 'controller.api.util:ajax_datos')
 		->bind('rta_util_ajax_datos');
-		$util->match('/excel/json/', 'Src\\Backend\\Util\\ApiUtil::excel_json')
+		$util->match('/excel/json/', 'controller.api.util:excel_json')
 		->bind('rta_util_excel_json')->method('GET|POST');
 
 		$util->before(function () use ($app)

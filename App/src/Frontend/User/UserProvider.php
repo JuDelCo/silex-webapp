@@ -4,26 +4,32 @@ namespace Src\Frontend\User;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
+use Src\Frontend\User\User;
 
 class UserProvider implements ControllerProviderInterface
 {
 	public function connect(Application $app)
 	{
+		$app['controller.util'] = $app->share(function() use ($app)
+		{
+			return new User($app);
+		});
+
 		$user = $app['controllers_factory'];
 
-		$user->get('/register/', 'Src\\Frontend\\User\\User::register')
+		$user->get('/register/', 'controller.util:register')
 		->bind('rt_usr_register');
-		$user->get('/active/{token}/', 'Src\\Frontend\\User\\User::active')
+		$user->get('/active/{token}/', 'controller.util:active')
 		->bind('rt_usr_active')->assert('token', '^[a-zA-Z0-9]{64}$');
-		$user->match('/login/', 'Src\\Frontend\\User\\User::login')
+		$user->match('/login/', 'controller.util:login')
 		->bind('rt_usr_login')->method('GET|POST');
-		$user->get('/password/change/', 'Src\\Frontend\\User\\User::password_change')
+		$user->get('/password/change/', 'controller.util:password_change')
 		->bind('rt_usr_password_change');
-		$user->get('/password/change/{token}/', 'Src\\Frontend\\User\\User::password_change_token')
+		$user->get('/password/change/{token}/', 'controller.util:password_change_token')
 		->bind('rt_usr_password_change_token')->assert('token', '^[a-zA-Z0-9]{64}$');
-		$user->get('/password/forgot/', 'Src\\Frontend\\User\\User::password_forgot')
+		$user->get('/password/forgot/', 'controller.util:password_forgot')
 		->bind('rt_usr_password_forgot');
-		$user->get('/logout/', 'Src\\Frontend\\User\\User::logout')
+		$user->get('/logout/', 'controller.util:logout')
 		->bind('rt_usr_logout');
 
 		$user->before(function () use ($app)

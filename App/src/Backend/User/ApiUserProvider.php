@@ -4,28 +4,34 @@ namespace Src\Backend\User;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
+use Src\Backend\User\ApiUser;
 
 class ApiUserProvider implements ControllerProviderInterface
 {
 	public function connect(Application $app)
 	{
+		$app['controller.api.user'] = $app->share(function() use ($app)
+		{
+			return new ApiUser($app);
+		});
+
 		$user = $app['controllers_factory'];
 
-		$user->post('/register/', 'Src\\Backend\\User\\ApiUser::register')
+		$user->post('/register/', 'controller.api.user:register')
 		->bind('rta_usr_register');
-		$user->post('/active/{token}/', 'Src\\Backend\\User\\ApiUser::active')
+		$user->post('/active/{token}/', 'controller.api.user:active')
 		->bind('rta_usr_active')->assert('token', '^[a-zA-Z0-9]{64}$');
-		$user->post('/login/', 'Src\\Backend\\User\\ApiUser::login')
+		$user->post('/login/', 'controller.api.user:login')
 		->bind('rta_usr_login');
-		$user->post('/password/change/', 'Src\\Backend\\User\\ApiUser::password_change')
+		$user->post('/password/change/', 'controller.api.user:password_change')
 		->bind('rta_usr_password_change');
-		$user->post('/password/change/{token}/', 'Src\\Backend\\User\\ApiUser::password_change_token')
+		$user->post('/password/change/{token}/', 'controller.api.user:password_change_token')
 		->bind('rta_usr_password_change_token')->assert('token', '^[a-zA-Z0-9]{64}$');
-		$user->post('/password/change/{token}/check/', 'Src\\Backend\\User\\ApiUser::password_change_token_check')
+		$user->post('/password/change/{token}/check/', 'controller.api.user:password_change_token_check')
 		->bind('rta_usr_password_change_token_check')->assert('token', '^[a-zA-Z0-9]{64}$');
-		$user->post('/password/forgot/', 'Src\\Backend\\User\\ApiUser::password_forgot')
+		$user->post('/password/forgot/', 'controller.api.user:password_forgot')
 		->bind('rta_usr_password_forgot');
-		$user->post('/logout/', 'Src\\Backend\\User\\ApiUser::logout')
+		$user->post('/logout/', 'controller.api.user:logout')
 		->bind('rta_usr_logout');
 
 		$user->before(function () use ($app)
