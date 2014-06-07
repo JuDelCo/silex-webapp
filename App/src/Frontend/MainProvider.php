@@ -4,32 +4,24 @@ namespace Src\Frontend;
 
 use Silex\Application;
 use Silex\ControllerProviderInterface;
-use Symfony\Component\HttpFoundation\Response;
+use Src\Frontend\Main;
 
 class MainProvider implements ControllerProviderInterface
 {
 	public function connect(Application $app)
 	{
+		$app['controller.main'] = $app->share(function() use ($app)
+		{
+			return new Main($app);
+		});
+
 		$main = $app['controllers_factory'];
 
-		$main->get('/', function () use ($app)
-		{
-			return new Response($app['twig']->render('info.twig',
-				array('mensaje' => 'Página principal', 'menu_alt_info_label' => 'Menú principal', 'titulo' => 'Página Principal')));
-		})
+		$main->get('/', 'controller.main:root')
 		->bind('rt_root');
-
-		$main->get('/index.{extension}', function () use ($app)
-		{
-			return $app->redirect($app['url_generator']->generate('rt_root'));
-		})
+		$main->get('/index.{extension}', 'controller.main:index')
 		->bind('rt_index')->assert('extension', '^(php)|(html)$');
-
-		$main->get('/inicio/', function () use ($app)
-		{
-			return new Response($app['twig']->render('info.twig',
-				array('mensaje' => 'Página principal (posterior al login)', 'menu_alt_info_label' => 'Menú principal', 'titulo' => 'Página Principal')));
-		})
+		$main->get('/inicio/', 'controller.main:main')
 		->bind('rt_main');
 
 		$main->before(function () use ($app)

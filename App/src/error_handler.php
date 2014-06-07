@@ -130,21 +130,15 @@ $app->error(function (\Exception $exception, $code) use ($app)
 	{
 		$email_dev = $app['email.sender'];
 
-		$email_msg = \Swift_Message::newInstance();
-		$email_msg->setSubject("[ERROR] $e_app_id ($e_environment) - Reporte del Error ($e_date)")
-			->setFrom($email_dev)
-			->setSender($email_dev)
-			->setReplyTo($email_dev)
-			->setReturnPath($email_dev)
-			->setTo($email_dev)
-			->setMaxLineLength(1000) // Nunca mayor de 1000 líneas! (RFC 2822)
-			->setPriority(2) // Highest (1), High (2), Normal (3), Low (4), Lowest (5)
-			->setContentType('text/html')
-			->setCharset('utf-8')
-			->setBody("<!DOCTYPE html><html><body><pre>$exception_msg<br /></pre></body></html>", 'text/html');
-
 		// Intenta enviar un email con el error
-		$app['mailer']->send($email_msg);
+		$app['email']->setSubject("[ERROR] $e_app_id ($e_environment) - Reporte del Error ($e_date)");
+		$app['email']->setFrom(array($email_dev));
+		$app['email']->setSender(array($email_dev));
+		$app['email']->setReplyTo(array($email_dev));
+		$app['email']->setReturnPath($email_dev);
+		$app['email']->setTo(array($email_dev));
+		$app['email']->setBody("<!DOCTYPE html><html><body><pre>$exception_msg<br /></pre></body></html>");
+		$app['email']->send();
 	}
 	catch(\Exception $e) {}
 

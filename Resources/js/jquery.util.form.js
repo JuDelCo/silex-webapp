@@ -1,9 +1,9 @@
 /*!
- * jQuery Util Form JavaScript Library v1.0.1
+ * jQuery Util Form JavaScript Library v1.0.2
  *
  * Author: Juan Delgado Cobalea
  *
- * Last-Update: 2014-04-03
+ * Last-Update: 2014-06-04
  */
 
 (function($)
@@ -114,7 +114,7 @@
 							$('input:radio[name="' + obj_id + '"]').filter('[value="' + data.data[0].value + '"]').prop('checked', true);
 						}
 					}
-					
+
 					return;
 				}
 
@@ -125,7 +125,7 @@
 						var old_data = $(element).data('old_value');
 						var old_value = old_data.value;
 						var old_text = old_data.text;
-						
+
 						$(element).removeData('old_value');
 						$(element).html(data.html_options);
 
@@ -195,7 +195,7 @@
 					{
 						$('input:radio[name="' + obj_id + '"]').prop('checked', false);
 					}
-					
+
 					return;
 				}
 

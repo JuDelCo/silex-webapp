@@ -1,9 +1,9 @@
 /*!
- * jQuery Util JavaScript Library v1.0.6
+ * jQuery Util JavaScript Library v1.0.7
  *
  * Author: Juan Delgado Cobalea
  *
- * Last-Update: 2014-04-01
+ * Last-Update: 2014-06-04
  */
 
 (function($)
@@ -31,10 +31,10 @@
 		// JQUERY NATIVE:
 		// 		$.isArray(object)
 		// 		$.trim(string)
-		
+
 		// TODO:
 		// 		$.isDateTime( value, format )
-		
+
 		log: function(argument)
 		{
 			if(window['console'] !== undefined)
@@ -210,7 +210,7 @@
 
 				return $.regEx(value, email_regex);
 			}
-		
+
 			return false;
 		},
 		isDate: function(value)
@@ -234,7 +234,7 @@
 			year = result_array[5];
 			if (month < 1 || month > 12)
 			{
-				return false;	
+				return false;
 			}
 			else if (day < 1 || day > 31)
 			{
@@ -250,7 +250,7 @@
 
 				if (day > 29 || (day == 29 && !isLeap))
 				{
-					return false;	
+					return false;
 				}
 			}
 
@@ -343,7 +343,7 @@
 				{
 					data = {'error': default_msg};
 				}
-				
+
 				if($.isNotNull(data) && $.isNotEmpty(data['error']))
 				{
 					callback(data.error);

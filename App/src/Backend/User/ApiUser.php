@@ -83,19 +83,14 @@ class ApiUser extends ControllerBase
 
 			$email_dev = $this->app()['email.sender'];
 
-			$email_msg = \Swift_Message::newInstance();
-			$email_msg->setSubject("Activar cuenta")
-				->setFrom($email_dev)
-				->setSender($email_dev)
-				->setReplyTo($email_dev)
-				->setReturnPath($email_dev)
-				->setTo($user_email)
-				->setMaxLineLength(1000) // Nunca mayor de 1000 líneas! (RFC 2822)
-				->setPriority(2) // Highest (1), High (2), Normal (3), Low (4), Lowest (5)
-				->setContentType('text/html')
-				->setCharset('utf-8')
-				->setBody("<!DOCTYPE html><html><body><pre>Activar cuenta:\n\n$user_active_path</pre></body></html>", 'text/html');
-			$this->app()['mailer']->send($email_msg);
+			$this->email()->setSubject("Activar cuenta");
+			$this->email()->setFrom(array($email_dev));
+			$this->email()->setSender(array($email_dev));
+			$this->email()->setReplyTo(array($email_dev));
+			$this->email()->setReturnPath($email_dev);
+			$this->email()->setTo(array($user_email));
+			$this->email()->setBody("<!DOCTYPE html><html><body><pre>Activar cuenta:\n\n$user_active_path</pre></body></html>");
+			$this->email()->send();
 
 			$data['msg'] = 'ok';
 		}
@@ -184,14 +179,13 @@ class ApiUser extends ControllerBase
 			}
 
 			$this->session()->start();
-			$this->session()->set('session.version', $this->app()['session.version']);
-
-			$this->session()->set('user.id',            $user_data['user_id']);
-			$this->session()->set('user.username',      $user_data['username']);
-			$this->session()->set('user.email',         $user_data['email']);
-			$this->session()->set('user_real.id',       $user_data['user_id']);
-			$this->session()->set('user_real.username', $user_data['username']);
-			$this->session()->set('user_real.email',    $user_data['email']);
+			$this->setSessionData('session.version',    $this->app()['session.version']);
+			$this->setSessionData('user.id',            $user_data['user_id']);
+			$this->setSessionData('user.username',      $user_data['username']);
+			$this->setSessionData('user.email',         $user_data['email']);
+			$this->setSessionData('user_real.id',       $user_data['user_id']);
+			$this->setSessionData('user_real.username', $user_data['username']);
+			$this->setSessionData('user_real.email',    $user_data['email']);
 
 			if($this->requestData('POST', 'remindme', NULL))
 			{
@@ -217,8 +211,8 @@ class ApiUser extends ControllerBase
 			$user_roles[] = $rol['value'];
 		}
 
-		$this->session()->set('user.rol', $user_roles);
-		$this->session()->set('user_real.rol', $user_roles);
+		$this->setSessionData('user.rol',      $user_roles);
+		$this->setSessionData('user_real.rol', $user_roles);
 
 		$data_user_menu = UtilData::get_user_menu_roles($this->app(), $user_data['user_id']);
 		$user_menu = array();
@@ -228,7 +222,7 @@ class ApiUser extends ControllerBase
 			$user_menu[] = $menu['value'];
 		}
 
-		$this->session()->set('user.menu', $user_menu);
+		$this->setSessionData('user.menu', $user_menu);
 		*/
 		// -------------------------------------------------------------------------------------------------------------------------------
 	}
@@ -261,7 +255,7 @@ class ApiUser extends ControllerBase
 				break;
 			}
 
-			$user_id = $this->session()->get('user_real.id');
+			$user_id = $this->getSessionData('user_real.id');
 
 			$old_password .= $this->app()['security.salt'];
 			$old_password = hash('sha256', $old_password);
@@ -414,19 +408,14 @@ class ApiUser extends ControllerBase
 
 			$email_dev = $this->app()['email.sender'];
 
-			$email_msg = \Swift_Message::newInstance();
-			$email_msg->setSubject("Cambiar contraseña")
-				->setFrom($email_dev)
-				->setSender($email_dev)
-				->setReplyTo($email_dev)
-				->setReturnPath($email_dev)
-				->setTo($user_email)
-				->setMaxLineLength(1000) // Nunca mayor de 1000 líneas! (RFC 2822)
-				->setPriority(2) // Highest (1), High (2), Normal (3), Low (4), Lowest (5)
-				->setContentType('text/html')
-				->setCharset('utf-8')
-				->setBody("<!DOCTYPE html><html><body><pre>Cambiar contraseña:\n\n$password_change_path</pre></body></html>", 'text/html');
-			$this->app()['mailer']->send($email_msg);
+			$this->email()->setSubject("Cambiar contraseña");
+			$this->email()->setFrom(array($email_dev));
+			$this->email()->setSender(array($email_dev));
+			$this->email()->setReplyTo(array($email_dev));
+			$this->email()->setReturnPath($email_dev);
+			$this->email()->setTo(array($user_email));
+			$this->email()->setBody("<!DOCTYPE html><html><body><pre>Cambiar contraseña:\n\n$password_change_path</pre></body></html>");
+			$this->email()->send();
 
 			$data['msg'] = 'ok';
 		}
@@ -437,8 +426,8 @@ class ApiUser extends ControllerBase
 
 	function logout()
 	{
-		$user_id = $this->session()->get('user_real.id');
-		$user_username = $this->session()->get('user_real.username');
+		$user_id = $this->getSessionData('user_real.id');
+		$user_username = $this->getSessionData('user_real.username');
 
 		if($user_id)
 		{

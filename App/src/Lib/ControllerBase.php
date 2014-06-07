@@ -21,6 +21,11 @@ class ControllerBase
 		return $this->app;
 	}
 
+	public function isDebug()
+	{
+		return $this->app['debug'];
+	}
+
 	public function request()
 	{
 		return $this->app['request'];
@@ -28,7 +33,7 @@ class ControllerBase
 
 	public function requestData($type, $name, $default = null)
 	{
-		if($type == 'POST')
+		if(strtoupper($type) == 'POST')
 		{
 			return self::request()->request->get($name, $default);
 		}
@@ -43,6 +48,16 @@ class ControllerBase
 		return $this->app['session'];
 	}
 
+	public function setSessionData($name, $data)
+	{
+		return self::session()->set($name, $data);
+	}
+
+	public function getSessionData($name)
+	{
+		return self::session()->get($name);
+	}
+
 	public function twig()
 	{
 		return $this->app['twig'];
@@ -50,7 +65,7 @@ class ControllerBase
 
 	public function render($twigTemplate, $parameters = array())
 	{
-		return self::twig()->render($twigTemplate, $parameters = array());
+		return self::twig()->render($twigTemplate, $parameters);
 	}
 
 	public function translator()
@@ -63,11 +78,6 @@ class ControllerBase
 		return $this->app['monolog'];
 	}
 
-	public function isDebug()
-	{
-		return $this->app['debug'];
-	}
-
 	public function jsonResponse($data = array(), $status = 200, array $headers = array())
 	{
 		return $this->app->json($data, $status, $headers);
@@ -78,14 +88,19 @@ class ControllerBase
 		return new Response(self::render($twigTemplate, $parameters));
 	}
 
+	public function generateUrl($routeName, $parameters = array())
+	{
+		return $this->app['url_generator']->generate($routeName, $parameters);
+	}
+
 	public function redirect($url, $status = 302)
 	{
 		return $this->app->redirect($url, $status);
 	}
 
-	public function generateUrl($routeName, $parameters = array())
+	public function redirectRoute($routeName, $parameters = array(), $status = 302)
 	{
-		return $this->app['url_generator']->generate($routeName, $parameters);
+		return self::redirect(self::generateUrl($routeName, $parameters, $status));
 	}
 
 	public function subRequest($url, $method = 'POST')

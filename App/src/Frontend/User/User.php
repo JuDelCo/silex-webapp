@@ -10,7 +10,7 @@ class User extends ControllerBase
 	{
 		if($this->auth()->isAuthenticated())
 		{
-			return $this->redirect($this->generateUrl('rt_root'));
+			return $this->redirectRoute('rt_root');
 		}
 
 		return $this->renderResponse('user/register.twig');
@@ -32,7 +32,7 @@ class User extends ControllerBase
 	{
 		if($this->auth()->isAuthenticated())
 		{
-			return $this->redirect($this->generateUrl('rt_main'));
+			return $this->redirectRoute('rt_main');
 		}
 
 		return $this->renderResponse('user/login.twig', array('redirect_path' => $this->requestData('POST', 'redirect_path')));
@@ -42,7 +42,7 @@ class User extends ControllerBase
 	{
 		if(! $this->auth()->isAuthenticated())
 		{
-			return $this->redirect($this->generateUrl('rt_root'));
+			return $this->redirectRoute('rt_root');
 		}
 
 		return $this->renderResponse('user/password_change.twig');
@@ -64,7 +64,7 @@ class User extends ControllerBase
 	{
 		if($this->auth()->isAuthenticated())
 		{
-			return $this->redirect($this->generateUrl('rt_root'));
+			return $this->redirectRoute('rt_root');
 		}
 
 		return $this->renderResponse('user/password_forgot.twig');
@@ -74,7 +74,7 @@ class User extends ControllerBase
 	{
 		if(! $this->auth()->isAuthenticated())
 		{
-			return $this->redirect($this->generateUrl('rt_root'));
+			return $this->redirectRoute('rt_root');
 		}
 
 		$this->subRequestRoute('rta_usr_logout');
