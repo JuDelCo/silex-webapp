@@ -27,9 +27,11 @@ if (isset($app['monolog.handler.debug']))
 $app->register(new WhoopsServiceProvider());
 $app['whoops.error_page_handler']->setEditor('sublime');
 
-$app->register($p = new WebProfilerServiceProvider(), array(
-    'profiler.cache_dir' => __DIR__.'/../var/cache/profiler',
+$app->register(new WebProfilerServiceProvider(), array(
+	'profiler.cache_dir' 	=> __DIR__.'/../var/cache/profiler',
+	'profiler.mount_prefix' => '/_profiler'
 ));
+$app['profiler']->add(new \Symfony\Component\HttpKernel\DataCollector\EventDataCollector($app['dispatcher']));
 
 // Escribimos todas las consultas SQL ejecutadas en el log
 $app->finish(function() use ($app, $logger)
