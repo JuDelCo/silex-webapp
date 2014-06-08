@@ -26,6 +26,11 @@ class ControllerBase
 		return $this->app['debug'];
 	}
 
+	public function stopwatch()
+	{
+		return $this->app['stopwatch'];
+	}
+
 	public function request()
 	{
 		return $this->app['request'];

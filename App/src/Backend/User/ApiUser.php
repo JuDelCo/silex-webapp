@@ -83,14 +83,22 @@ class ApiUser extends ControllerBase
 
 			$email_dev = $this->app()['email.sender'];
 
-			$this->email()->setSubject("Activar cuenta");
-			$this->email()->setFrom(array($email_dev));
-			$this->email()->setSender(array($email_dev));
-			$this->email()->setReplyTo(array($email_dev));
-			$this->email()->setReturnPath($email_dev);
-			$this->email()->setTo(array($user_email));
-			$this->email()->setBody("<!DOCTYPE html><html><body><pre>Activar cuenta:\n\n$user_active_path</pre></body></html>");
-			$this->email()->send();
+			try
+			{
+				$this->email()->setSubject("Activar cuenta");
+				$this->email()->setFrom(array($email_dev));
+				$this->email()->setSender(array($email_dev));
+				$this->email()->setReplyTo(array($email_dev));
+				$this->email()->setReturnPath($email_dev);
+				$this->email()->setTo(array($user_email));
+				$this->email()->setBody("<!DOCTYPE html><html><body><pre>Activar cuenta:\n\n$user_active_path</pre></body></html>");
+				$this->email()->send();
+			}
+			catch(\Exception $e)
+			{
+				$data['error'] = 'Cuenta creada, pero ha ocurrido un error al enviar el email de activacion de la cuenta';
+				break;
+			}
 
 			$data['msg'] = 'ok';
 		}
@@ -408,14 +416,22 @@ class ApiUser extends ControllerBase
 
 			$email_dev = $this->app()['email.sender'];
 
-			$this->email()->setSubject("Cambiar contraseña");
-			$this->email()->setFrom(array($email_dev));
-			$this->email()->setSender(array($email_dev));
-			$this->email()->setReplyTo(array($email_dev));
-			$this->email()->setReturnPath($email_dev);
-			$this->email()->setTo(array($user_email));
-			$this->email()->setBody("<!DOCTYPE html><html><body><pre>Cambiar contraseña:\n\n$password_change_path</pre></body></html>");
-			$this->email()->send();
+			try
+			{
+				$this->email()->setSubject("Cambiar contraseña");
+				$this->email()->setFrom(array($email_dev));
+				$this->email()->setSender(array($email_dev));
+				$this->email()->setReplyTo(array($email_dev));
+				$this->email()->setReturnPath($email_dev);
+				$this->email()->setTo(array($user_email));
+				$this->email()->setBody("<!DOCTYPE html><html><body><pre>Cambiar contraseña:\n\n$password_change_path</pre></body></html>");
+				$this->email()->send();
+			}
+			catch(\Exception $e)
+			{
+				$data['error'] = 'Ha ocurrido un error al enviar el email de cambio de contraseña';
+				break;
+			}
 
 			$data['msg'] = 'ok';
 		}
