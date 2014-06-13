@@ -16,7 +16,7 @@ class FileUploadHelper
 	public $chunksFolder;
 	public $defaultFolder;
 
-	public function __construct(Application $app)
+	function __construct(Application $app)
 	{
 		$this->app = $app;
 
@@ -31,7 +31,7 @@ class FileUploadHelper
 		$this->defaultFolder = $app['path.info']['temp'];
 	}
 
-	public function handleUpload($uploadFolder = null, $fileName = null)
+	function handleUpload($uploadFolder = null, $fileName = null)
 	{
 		if(empty($uploadFolder))
 		{

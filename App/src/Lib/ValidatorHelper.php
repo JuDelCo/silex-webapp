@@ -8,13 +8,13 @@ class ValidatorHelper
 {
 	protected $app;
 
-	public function __construct(Application $app)
+	function __construct(Application $app)
 	{
 		$this->app = $app;
 	}
 
 	// Comprueba una expresión regular
-	public function regEx($value, $regEx)
+	function regEx($value, $regEx)
 	{
 		if($this->isString($value))
 		{
@@ -29,7 +29,7 @@ class ValidatorHelper
 		return false;
 	}
 
-	public function isInteger($value)
+	function isInteger($value)
 	{
 		if(is_int($value))
 		{
@@ -39,7 +39,7 @@ class ValidatorHelper
 		return false;
 	}
 
-	public function isDecimal($value)
+	function isDecimal($value)
 	{
 		if(is_float($value))
 		{
@@ -49,7 +49,7 @@ class ValidatorHelper
 		return false;
 	}
 
-	public function isNumeric($value)
+	function isNumeric($value)
 	{
 		if($this->isInteger($value) || $this->isDecimal($value))
 		{
@@ -59,7 +59,7 @@ class ValidatorHelper
 		return false;
 	}
 
-	public function isString($value)
+	function isString($value)
 	{
 		if(is_string($value))
 		{
@@ -69,7 +69,7 @@ class ValidatorHelper
 		return false;
 	}
 
-	public function isArray($value)
+	function isArray($value)
 	{
 		if(is_array($value))
 		{
@@ -79,7 +79,7 @@ class ValidatorHelper
 		return false;
 	}
 
-	public function isBool($value)
+	function isBool($value)
 	{
 		if($value === true || $value === false)
 		{
@@ -89,12 +89,12 @@ class ValidatorHelper
 		return false;
 	}
 
-	public function isScalar($value)
+	function isScalar($value)
 	{
 		return is_scalar($value);
 	}
 
-	public function isEmpty($value, $trim = false)
+	function isEmpty($value, $trim = false)
 	{
 		if($trim && $this->isString($value))
 		{
@@ -104,22 +104,22 @@ class ValidatorHelper
 		return empty($value);
 	}
 
-	public function isNotEmpty($value, $trim = false)
+	function isNotEmpty($value, $trim = false)
 	{
 		return (!$this->isEmpty($value, $trim));
 	}
 
-	public function isNull($value)
+	function isNull($value)
 	{
 		return is_null($value);
 	}
 
-	public function isNotNull($value)
+	function isNotNull($value)
 	{
 		return (!$this->isNull($value));
 	}
 
-	public function isEmail($value)
+	function isEmail($value)
 	{
 		if($this->isString($value) && $this->isNotEmpty($value))
 		{
@@ -131,7 +131,7 @@ class ValidatorHelper
 		return false;
 	}
 
-	public function isUrl($value, $protocols = 'http|https')
+	function isUrl($value, $protocols = 'http|https')
 	{
 		if($this->isString($value) && $this->isNotEmpty($value))
 		{
@@ -156,7 +156,7 @@ class ValidatorHelper
 		return false;
 	}
 
-	public function isDate($date, $format = 'd/m/Y')
+	function isDate($date, $format = 'd/m/Y')
 	{
 		if($this->isString($date))
 		{
@@ -168,19 +168,19 @@ class ValidatorHelper
 		return false;
 	}
 
-	public function isDateTime($date, $format = 'd/m/Y H:i:s')
+	function isDateTime($date, $format = 'd/m/Y H:i:s')
 	{
 		return $this->isDate((string)$date, $format);
 	}
 
-	public function isAlphaNumeric($value, $allowSpaces = true, $allowUnderscores = true)
+	function isAlphaNumeric($value, $allowSpaces = true, $allowUnderscores = true)
 	{
 		$regex = '/^[a-zA-Z0-9' . ($allowSpaces ? ' ' : '') . ($allowUnderscores ? '_' : '') . ']*$/';
 
 		return $this->regEx((string)$value, $regex);
 	}
 
-	public function isJson($value)
+	function isJson($value)
 	{
 		json_decode($value);
 

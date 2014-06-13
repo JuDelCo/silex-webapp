@@ -8,7 +8,7 @@ use Src\Lib\AuthHelper;
 
 class AuthHelperServiceProvider implements ServiceProviderInterface
 {
-	public function register(Application $app)
+	function register(Application $app)
 	{
 		$app['auth'] = $app->share(function ($app)
 		{
@@ -18,5 +18,5 @@ class AuthHelperServiceProvider implements ServiceProviderInterface
 		});
 	}
 
-	public function boot(Application $app) {}
+	function boot(Application $app) {}
 }

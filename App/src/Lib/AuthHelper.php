@@ -9,17 +9,17 @@ class AuthHelper
 {
 	protected $app;
 
-	public function __construct(Application $app)
+	function __construct(Application $app)
 	{
 		$this->app = $app;
 	}
 
-	public function generateToken()
+	function generateToken()
 	{
 		return hash('sha256', base_convert(sha1(uniqid(mt_rand() . $this->app['security.salt'], true)), 16, 36));
 	}
 
-	public function generateUniqueToken()
+	function generateUniqueToken()
 	{
 		$existe = true;
 
@@ -35,7 +35,7 @@ class AuthHelper
 		return $token;
 	}
 
-	public function isAuthenticated()
+	function isAuthenticated()
 	{
 		$user_id = $this->app['session']->get('user_real.id', null);
 
@@ -47,7 +47,7 @@ class AuthHelper
 		return false;
 	}
 
-	public function isAuthorised($roles)
+	function isAuthorised($roles)
 	{
 		if(! $this->isAuthenticated())
 		{
@@ -82,7 +82,7 @@ class AuthHelper
 		return false;
 	}
 
-	public function firewall($role_controlled_routes, $anonymous_routes = array())
+	function firewall($role_controlled_routes, $anonymous_routes = array())
 	{
 		$matched_route = $this->app['url_matcher']->matchRequest($this->app['request'])['_route'];
 

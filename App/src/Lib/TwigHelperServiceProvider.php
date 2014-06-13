@@ -7,7 +7,7 @@ use Silex\ServiceProviderInterface;
 
 class TwigHelperServiceProvider implements ServiceProviderInterface
 {
-	public function register(Application $app)
+	function register(Application $app)
 	{
 		$app['twig'] = $app->share($app->extend('twig', function($twig, $app)
 		{
@@ -121,5 +121,5 @@ class TwigHelperServiceProvider implements ServiceProviderInterface
 		}));
 	}
 
-	public function boot(Application $app) {}
+	function boot(Application $app) {}
 }

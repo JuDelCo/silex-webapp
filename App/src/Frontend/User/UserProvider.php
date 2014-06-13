@@ -8,7 +8,7 @@ use Src\Frontend\User\User;
 
 class UserProvider implements ControllerProviderInterface
 {
-	public function connect(Application $app)
+	function connect(Application $app)
 	{
 		$app['controller.util'] = $app->share(function() use ($app)
 		{

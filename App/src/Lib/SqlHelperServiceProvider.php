@@ -8,7 +8,7 @@ use Src\Lib\SqlHelper;
 
 class SqlHelperServiceProvider implements ServiceProviderInterface
 {
-	public function register(Application $app)
+	function register(Application $app)
 	{
 		$app['sql'] = $app->share(function ($app)
 		{
@@ -18,5 +18,5 @@ class SqlHelperServiceProvider implements ServiceProviderInterface
 		});
 	}
 
-	public function boot(Application $app) {}
+	function boot(Application $app) {}
 }

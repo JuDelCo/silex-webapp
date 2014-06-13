@@ -8,7 +8,7 @@ use Src\Backend\Util\ApiUtil;
 
 class ApiUtilProvider implements ControllerProviderInterface
 {
-	public function connect(Application $app)
+	function connect(Application $app)
 	{
 		$app['controller.api.util'] = $app->share(function() use ($app)
 		{

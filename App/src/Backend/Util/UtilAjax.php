@@ -6,7 +6,7 @@ use Silex\Application;
 
 class UtilAjax
 {
-	static public function get_data(Application $app, $request_info)
+	static function get_data(Application $app, $request_info)
 	{
 		$data = array('data' => array(), 'error' => '');
 

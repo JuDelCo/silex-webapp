@@ -26,7 +26,7 @@ class EmailHelper
 	protected $image_attachments;
 	protected $error;
 
-	public function __construct(Application $app)
+	function __construct(Application $app)
 	{
 		$this->app = $app;
 

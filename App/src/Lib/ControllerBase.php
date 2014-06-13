@@ -11,32 +11,32 @@ class ControllerBase
 {
 	protected $app;
 
-	public function __construct(Application $app)
+	function __construct(Application $app)
 	{
 		$this->app = $app;
 	}
 
-	public function app()
+	function app()
 	{
 		return $this->app;
 	}
 
-	public function isDebug()
+	function isDebug()
 	{
 		return $this->app['debug'];
 	}
 
-	public function stopwatch()
+	function stopwatch()
 	{
 		return $this->app['stopwatch'];
 	}
 
-	public function request()
+	function request()
 	{
 		return $this->app['request'];
 	}
 
-	public function requestData($type, $name, $default = null)
+	function requestData($type, $name, $default = null)
 	{
 		if(strtoupper($type) == 'POST')
 		{
@@ -48,86 +48,86 @@ class ControllerBase
 		}
 	}
 
-	public function session()
+	function session()
 	{
 		return $this->app['session'];
 	}
 
-	public function setSessionData($name, $data)
+	function setSessionData($name, $data)
 	{
 		return self::session()->set($name, $data);
 	}
 
-	public function getSessionData($name)
+	function getSessionData($name)
 	{
 		return self::session()->get($name);
 	}
 
-	public function twig()
+	function twig()
 	{
 		return $this->app['twig'];
 	}
 
-	public function render($twigTemplate, $parameters = array())
+	function render($twigTemplate, $parameters = array())
 	{
 		return self::twig()->render($twigTemplate, $parameters);
 	}
 
-	public function translator()
+	function translator()
 	{
 		return $this->app['translator'];
 	}
 
-	public function log()
+	function log()
 	{
 		return $this->app['monolog'];
 	}
 
-	public function jsonResponse($data = array(), $status = 200, array $headers = array())
+	function jsonResponse($data = array(), $status = 200, array $headers = array())
 	{
 		return $this->app->json($data, $status, $headers);
 	}
 
-	public function renderResponse($twigTemplate, $parameters = array())
+	function renderResponse($twigTemplate, $parameters = array())
 	{
 		return new Response(self::render($twigTemplate, $parameters));
 	}
 
-	public function generateUrl($routeName, $parameters = array())
+	function generateUrl($routeName, $parameters = array())
 	{
 		return $this->app['url_generator']->generate($routeName, $parameters);
 	}
 
-	public function redirect($url, $status = 302)
+	function redirect($url, $status = 302)
 	{
 		return $this->app->redirect($url, $status);
 	}
 
-	public function redirectRoute($routeName, $parameters = array(), $status = 302)
+	function redirectRoute($routeName, $parameters = array(), $status = 302)
 	{
 		return self::redirect(self::generateUrl($routeName, $parameters, $status));
 	}
 
-	public function subRequest($url, $method = 'POST')
+	function subRequest($url, $method = 'POST')
 	{
 		$subRequest = Request::create($url, $method);
 
 		return $this->app->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
 	}
 
-	public function subRequestJson($url, $method = 'POST')
+	function subRequestJson($url, $method = 'POST')
 	{
 		$response = self::subRequest($url, $method);
 
 		return json_decode($response->getContent(), true);
 	}
 
-	public function subRequestRoute($routeName, $parameters = array(), $method = 'POST')
+	function subRequestRoute($routeName, $parameters = array(), $method = 'POST')
 	{
 		return self::subRequest(self::generateUrl($routeName, $parameters), $method);
 	}
 
-	public function subRequestRouteJson($routeName, $parameters = array(), $method = 'POST')
+	function subRequestRouteJson($routeName, $parameters = array(), $method = 'POST')
 	{
 		$response = self::subRequestRoute($routeName, $parameters, $method);
 
@@ -136,37 +136,37 @@ class ControllerBase
 
 	// ------------------------------------------
 
-	public function db()
+	function db()
 	{
 		return $this->app['sql'];
 	}
 
-	public function validator()
+	function validator()
 	{
 		return $this->app['validator'];
 	}
 
-	public function util()
+	function util()
 	{
 		return $this->app['util'];
 	}
 
-	public function auth()
+	function auth()
 	{
 		return $this->app['auth'];
 	}
 
-	public function upload()
+	function upload()
 	{
 		return $this->app['upload'];
 	}
 
-	public function excel()
+	function excel()
 	{
 		return $this->app['excel'];
 	}
 
-	public function email()
+	function email()
 	{
 		return $this->app['email'];
 	}

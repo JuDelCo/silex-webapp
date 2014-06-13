@@ -8,37 +8,37 @@ class SqlHelper
 {
 	protected $app;
 
-	public function __construct(Application $app)
+	function __construct(Application $app)
 	{
 		$this->app = $app;
 	}
 
 	// Conecta a la base de datos
-	public function connect()
+	function connect()
 	{
 		return $this->app['db']->connect();
 	}
 
 	// Comprueba si está conectado a la base de datos
-	public function isConnected()
+	function isConnected()
 	{
 		return $this->app['db']->isConnected();
 	}
 
 	// Ejecuta la sentencia SQL y devuelve el numero total de filas afectadas (0 si no afectó a ninguna)
-	public function run($sql)
+	function run($sql)
 	{
 		return $this->app['db']->exec($sql);
 	}
 
 	// Array de resultados (Array vacío si no devuelve ninguno)
-	public function getAll($sql)
+	function getAll($sql)
 	{
 		return $this->app['db']->fetchAll($sql);
 	}
 
 	// Array con la primera fila de los resultados (Array vacío si no devuelve ninguno)
-	public function getFirstRow($sql)
+	function getFirstRow($sql)
 	{
 		$rows = $this->getAll($sql);
 
@@ -51,13 +51,13 @@ class SqlHelper
 	}
 
 	// Devolver valor de la primera columna del primer resultado (false si no devuelve nada)
-	public function getValue($sql)
+	function getValue($sql)
 	{
 		return $this->app['db']->fetchColumn($sql);
 	}
 
 	// Devuelve el ID de la ultima inserción (false si no devuelve nada)
-	public function getLastInsertId($tableName = null)
+	function getLastInsertId($tableName = null)
 	{
 		$lastInsertId = $this->app['db']->lastInsertId($tableName);
 
@@ -65,7 +65,7 @@ class SqlHelper
 	}
 
 	// Ejecuta y devuelve el ID de la última fila insertada (false si no insertó nada)
-	public function runInsert($sql)
+	function runInsert($sql)
 	{
 		if ($this->run($sql) > 0)
 		{
@@ -76,55 +76,55 @@ class SqlHelper
 	}
 
 	// Devuelve el numero de filas del resultado (0 si no devuelve ninguna)
-	public function getRowCount($sql)
+	function getRowCount($sql)
 	{
 		return count($this->getAll($sql));
 	}
 
 	// Devuelve true o false dependiendo si la consulta devuelve resultados
-	public function hasResults($sql)
+	function hasResults($sql)
 	{
 		return ($this->getRowCount($sql) ? true : false);
 	}
 
 	// Devuelve true o false dependiendo si la consulta no devuelve resultados
-	public function hasNotResults($sql)
+	function hasNotResults($sql)
 	{
 		return (! $this->hasResults($sql));
 	}
 
 	// Empezar una transacción
-	public function transBegin()
+	function transBegin()
 	{
 		return $this->app['db']->beginTransaction();
 	}
 
 	// Confirmar una transacción
-	public function transCommit()
+	function transCommit()
 	{
 		return $this->app['db']->commit();
 	}
 
 	// Deshacer una transacción
-	public function transRollBack()
+	function transRollBack()
 	{
 		return $this->app['db']->rollback();
 	}
 
 	// Cambia el modo de devolver los resultados (\PDO::FETCH_ASSOC [Por defecto], \PDO::FETCH_NUM, \PDO::FETCH_BOTH)
-	public function setFetchMode($fetchMode)
+	function setFetchMode($fetchMode)
 	{
 		$this->app['db']->setFetchMode($fetchMode);
 	}
 
 	// Array con información sobre el error
-	public function getErrorInfo()
+	function getErrorInfo()
 	{
 		return $this->app['db']->errorInfo();
 	}
 
 	// Transforma el valor en un parámetro válido (y seguro) para concatenar en una SQL
-	public function toSQL($value, $appendComma = true)
+	function toSQL($value, $appendComma = true)
 	{
 		if ($value === true)
 		{
@@ -170,7 +170,7 @@ class SqlHelper
 	}
 
 	// Transforma y devuelve un array de valores a parámetros válidos (y seguros) para concatenar en una SQL
-	public function toSQLArray($array_values, $appendComma = false)
+	function toSQLArray($array_values, $appendComma = false)
 	{
 		$final_array = array();
 
@@ -186,7 +186,7 @@ class SqlHelper
 	}
 
 	// Genera la cadena SQL necesaria para formatear un campo de fecha (date)
-	public function dateFormat($field_name, $alias = null)
+	function dateFormat($field_name, $alias = null)
 	{
 		if($alias === null)
 		{
@@ -204,7 +204,7 @@ class SqlHelper
 	}
 
 	// Genera la cadena SQL necesaria para formatear un campo de fecha (datetime)
-	public function dateTimeFormat($field_name, $alias = null)
+	function dateTimeFormat($field_name, $alias = null)
 	{
 		if($alias === null)
 		{

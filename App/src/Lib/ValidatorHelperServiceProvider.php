@@ -8,7 +8,7 @@ use Src\Lib\ValidatorHelper;
 
 class ValidatorHelperServiceProvider implements ServiceProviderInterface
 {
-	public function register(Application $app)
+	function register(Application $app)
 	{
 		$app['validator'] = $app->share(function ($app)
 		{
@@ -18,5 +18,5 @@ class ValidatorHelperServiceProvider implements ServiceProviderInterface
 		});
 	}
 
-	public function boot(Application $app) {}
+	function boot(Application $app) {}
 }

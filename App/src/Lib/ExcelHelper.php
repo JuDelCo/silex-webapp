@@ -11,7 +11,7 @@ class ExcelHelper
 	protected $app;
 	protected $objPHPExcel;
 
-	public function __construct(Application $app)
+	function __construct(Application $app)
 	{
 		$this->app = $app;
 
@@ -29,12 +29,12 @@ class ExcelHelper
 
 	// General ----------------------------------
 
-	public function getExcelObj()
+	function getExcelObj()
 	{
 		return $this->objPHPExcel;
 	}
 
-	public function getExcelWriter()
+	function getExcelWriter()
 	{
 		$objWriter = \PHPExcel_IOFactory::createWriter($this->objPHPExcel, 'Excel2007');
 		$objWriter->setPreCalculateFormulas(false);
@@ -42,7 +42,7 @@ class ExcelHelper
 		return $objWriter;
 	}
 
-	public function reset($reset_metadata = false)
+	function reset($reset_metadata = false)
 	{
 		if($reset_metadata)
 		{
@@ -64,7 +64,7 @@ class ExcelHelper
 		$this->setDefaultHeight(15);
 	}
 
-	public function intToCellColumn($number)
+	function intToCellColumn($number)
 	{
 		for($column = ""; $number >= 0; $number = intval($number / 26) - 1)
 		{
@@ -74,12 +74,12 @@ class ExcelHelper
 		return $column;
 	}
 
-	public function setCellValue($cell, $value, $sheetIndex = 0)
+	function setCellValue($cell, $value, $sheetIndex = 0)
 	{
 		$this->objPHPExcel->setActiveSheetIndex($sheetIndex)->setCellValue($cell, $value);
 	}
 
-	public function writeData($data, $sheetIndex = 0, $position = 'A1')
+	function writeData($data, $sheetIndex = 0, $position = 'A1')
 	{
 		if(! $this->app['validator']->isArray($data) || empty($data))
 		{
@@ -93,7 +93,7 @@ class ExcelHelper
 		return true;
 	}
 
-	public function writeSqlData($data, $sheetIndex = 0, $position = 'A1')
+	function writeSqlData($data, $sheetIndex = 0, $position = 'A1')
 	{
 		if(! $this->app['validator']->isArray($data) || empty($data))
 		{
@@ -114,12 +114,12 @@ class ExcelHelper
 		return $this->writeData($data, $sheetIndex, $position);
 	}
 
-	public function setCursorPosition($cell = 'A1', $sheetIndex = 0)
+	function setCursorPosition($cell = 'A1', $sheetIndex = 0)
 	{
 		$this->objPHPExcel->setActiveSheetIndex($sheetIndex)->getStyle($cell);
 	}
 
-	public function saveToFile($name, $tipo = 'general', $root_path = null)
+	function saveToFile($name, $tipo = 'general', $root_path = null)
 	{
 		$sql = "SELECT top 1 tipo_excel_id from excel_tipo where nombre = '$tipo'";
 		$tipo_excel_id = $this->app['sql']->getValue($sql);
@@ -158,7 +158,7 @@ class ExcelHelper
 		return $this->app['sql']->runInsert($sql);
 	}
 
-	public function download($excel_id)
+	function download($excel_id)
 	{
 		$excel_id = intval($excel_id);
 
@@ -204,7 +204,7 @@ class ExcelHelper
 		return $response;
 	}
 
-	public function getResponse($excel_filename)
+	function getResponse($excel_filename)
 	{
 		$this->setCursorPosition('A1');
 
@@ -225,89 +225,89 @@ class ExcelHelper
 
 	// Metadata ---------------------------------
 
-	public function setCreator($username)
+	function setCreator($username)
 	{
 		$this->objPHPExcel->getProperties()->setCreator($username)->setLastModifiedBy($username);
 	}
 
-	public function setTitle($title)
+	function setTitle($title)
 	{
 		$this->objPHPExcel->getProperties()->setTitle($title);
 	}
 
-	public function setSubject($subject)
+	function setSubject($subject)
 	{
 		$this->objPHPExcel->getProperties()->setSubject($subject);
 	}
 
-	public function setDescription($description)
+	function setDescription($description)
 	{
 		$this->objPHPExcel->getProperties()->setDescription($description);
 	}
 
-	public function setKeywords($keywords)
+	function setKeywords($keywords)
 	{
 		$this->objPHPExcel->getProperties()->setKeywords($keywords);
 	}
 
-	public function setCategory($category)
+	function setCategory($category)
 	{
 		$this->objPHPExcel->getProperties()->setCategory($category);
 	}
 
-	public function setSheetTitle($title, $sheetIndex = 0)
+	function setSheetTitle($title, $sheetIndex = 0)
 	{
 		$this->objPHPExcel->setActiveSheetIndex($sheetIndex)->setTitle($title);
 	}
 
-	public function setZoom($zoom, $sheetIndex = 0)
+	function setZoom($zoom, $sheetIndex = 0)
 	{
 		$this->objPHPExcel->setActiveSheetIndex($sheetIndex)->getSheetView()->setZoomScale($zoom);
 	}
 
 	// Estilos ----------------------------------
 
-	public function setDefaultHeight($height = 15, $sheetIndex = 0)
+	function setDefaultHeight($height = 15, $sheetIndex = 0)
 	{
 		$this->objPHPExcel->setActiveSheetIndex($sheetIndex)->getDefaultRowDimension()->setRowHeight($height);
 	}
 
-	public function setWidth($column, $width = 12, $sheetIndex = 0)
+	function setWidth($column, $width = 12, $sheetIndex = 0)
 	{
 		$this->objPHPExcel->setActiveSheetIndex($sheetIndex)->getColumnDimension($column)->setWidth($width);
 	}
 
-	public function setAutoSize($column, $autosize = false, $sheetIndex = 0)
+	function setAutoSize($column, $autosize = false, $sheetIndex = 0)
 	{
 		$this->objPHPExcel->setActiveSheetIndex($sheetIndex)->getColumnDimension($column)->setAutoSize($autosize);
 	}
 
-	public function setVisible($column, $visible = true, $sheetIndex = 0)
+	function setVisible($column, $visible = true, $sheetIndex = 0)
 	{
 		$this->objPHPExcel->setActiveSheetIndex($sheetIndex)->getColumnDimension($column)->setVisible($visible);
 	}
 
-	public function setCellUrl($cell, $url, $sheetIndex = 0)
+	function setCellUrl($cell, $url, $sheetIndex = 0)
 	{
 		$this->objPHPExcel->setActiveSheetIndex($sheetIndex)->getCell($cell)->getHyperlink()->setUrl($url);
 	}
 
-	public function setFont($fontName, $cellRange, $sheetIndex = 0)
+	function setFont($fontName, $cellRange, $sheetIndex = 0)
 	{
 		$this->objPHPExcel->setActiveSheetIndex($sheetIndex)->getStyle($cellRange)->getFont()->setName($fontName);
 	}
 
-	public function setBold($bold, $cellRange, $sheetIndex = 0)
+	function setBold($bold, $cellRange, $sheetIndex = 0)
 	{
 		$this->objPHPExcel->setActiveSheetIndex($sheetIndex)->getStyle($cellRange)->getFont()->setBold($bold);
 	}
 
-	public function setColor($color, $cellRange, $sheetIndex = 0)
+	function setColor($color, $cellRange, $sheetIndex = 0)
 	{
 		$this->objPHPExcel->setActiveSheetIndex($sheetIndex)->getStyle($cellRange)->getFont()->getColor()->setRGB($color);
 	}
 
-	public function setBorder($side, $type, $cellRange, $sheetIndex = 0)
+	function setBorder($side, $type, $cellRange, $sheetIndex = 0)
 	{
 		$borderObj;
 
@@ -353,7 +353,7 @@ class ExcelHelper
 		}
 	}
 
-	public function setHorizontalAlign($type, $cellRange, $sheetIndex = 0)
+	function setHorizontalAlign($type, $cellRange, $sheetIndex = 0)
 	{
 		$alignment = $this->objPHPExcel->setActiveSheetIndex($sheetIndex)->getStyle($cellRange)->getAlignment();
 

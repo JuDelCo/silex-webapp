@@ -22,7 +22,7 @@ class FileUploadHelperHandler
 	/**
 	 * Get the original filename
 	 */
-	public function getName()
+	function getName()
 	{
 		if (isset($_REQUEST['qqfilename']))
 		{
@@ -38,7 +38,7 @@ class FileUploadHelperHandler
 	/**
 	 * Get the name of the uploaded file
 	 */
-	public function getUploadName()
+	function getUploadName()
 	{
 		return $this->uploadName;
 	}
@@ -48,7 +48,7 @@ class FileUploadHelperHandler
 	 * @param string $uploadDirectory Target directory.
 	 * @param string $name Overwrites the name of the file.
 	 */
-	public function handleUpload($uploadDirectory, $name = null)
+	function handleUpload($uploadDirectory, $name = null)
 	{
 		if (is_writable($this->chunksFolder) && 1 == mt_rand(1, 1/$this->chunksCleanupProbability))
 		{

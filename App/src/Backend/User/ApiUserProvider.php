@@ -8,7 +8,7 @@ use Src\Backend\User\ApiUser;
 
 class ApiUserProvider implements ControllerProviderInterface
 {
-	public function connect(Application $app)
+	function connect(Application $app)
 	{
 		$app['controller.api.user'] = $app->share(function() use ($app)
 		{

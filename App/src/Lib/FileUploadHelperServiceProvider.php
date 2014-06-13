@@ -8,7 +8,7 @@ use Src\Lib\FileUploadHelper;
 
 class FileUploadHelperServiceProvider implements ServiceProviderInterface
 {
-	public function register(Application $app)
+	function register(Application $app)
 	{
 		$app['upload'] = $app->share(function ($app)
 		{
@@ -18,5 +18,5 @@ class FileUploadHelperServiceProvider implements ServiceProviderInterface
 		});
 	}
 
-	public function boot(Application $app) {}
+	function boot(Application $app) {}
 }

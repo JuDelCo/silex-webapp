@@ -8,7 +8,7 @@ use Src\Frontend\Main;
 
 class MainProvider implements ControllerProviderInterface
 {
-	public function connect(Application $app)
+	function connect(Application $app)
 	{
 		$app['controller.main'] = $app->share(function() use ($app)
 		{

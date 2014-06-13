@@ -8,12 +8,12 @@ class AppHelper
 {
 	protected $app;
 
-	public function __construct(Application $app)
+	function __construct(Application $app)
 	{
 		$this->app = $app;
 	}
 
-	public function getClientIp()
+	function getClientIp()
 	{
 		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && eregi("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$",$_SERVER['HTTP_X_FORWARDED_FOR']))
 		{
@@ -27,18 +27,18 @@ class AppHelper
 		return $ip;
 	}
 
-	public function getHostname($ip)
+	function getHostname($ip)
 	{
 		return gethostbyaddr($ip);
 	}
 
-	public function getClientHostname()
+	function getClientHostname()
 	{
 		return $this->getHostname($this->getClientIp());
 	}
 
 	// Envuelve la variable proporcionada entre 2 tags HTML (útil para debugguear)
-	public function wrap($value, $wrap_start = '<pre>', $wrap_end = '</pre>')
+	function wrap($value, $wrap_start = '<pre>', $wrap_end = '</pre>')
 	{
 		if($this->app['validator']->isArray($value))
 		{

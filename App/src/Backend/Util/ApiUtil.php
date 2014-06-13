@@ -7,7 +7,7 @@ use Src\Backend\Util\UtilAjax;
 
 class ApiUtil extends ControllerBase
 {
-	public function ajax_datos()
+	function ajax_datos()
 	{
 		$request_info = array(
 			'request_id' => $this->requestData('POST', 'request_id', NULL),
@@ -39,7 +39,7 @@ class ApiUtil extends ControllerBase
 		return $this->jsonResponse($data, (empty($data['error']) ? 200 : 400));
 	}
 
-	public function excel_json()
+	function excel_json()
 	{
 		// Ejemplo:
 		// 		/api/util/excel/json/?data=[{%22campo1%22:%20%22valor1%22,%22campo2%22:%20%22valor2%22,%22campo3%22:%20%22valor3%22}]
