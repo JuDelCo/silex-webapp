@@ -2,17 +2,10 @@
 
 namespace Src\Lib;
 
-use Silex\Application;
+use Src\Lib\Application;
 
-class AppHelper
+class AppHelper extends Application
 {
-	protected $app;
-
-	function __construct(Application $app)
-	{
-		$this->app = $app;
-	}
-
 	function getClientIp()
 	{
 		if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && eregi("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$",$_SERVER['HTTP_X_FORWARDED_FOR']))
@@ -40,11 +33,11 @@ class AppHelper
 	// Envuelve la variable proporcionada entre 2 tags HTML (útil para debugguear)
 	function wrap($value, $wrap_start = '<pre>', $wrap_end = '</pre>')
 	{
-		if($this->app['validator']->isArray($value))
+		if($this->validator()->isArray($value))
 		{
 			return $wrap_start . print_r($value, true) . $wrap_end;
 		}
-		else if($this->app['validator']->isString($value))
+		else if($this->validator()->isString($value))
 		{
 			return $wrap_start . $value . $wrap_end;
 		}

@@ -2,21 +2,13 @@
 
 namespace Src\Lib;
 
-use Silex\Application;
-use Symfony\Component\HttpFoundation\Response;
+use Src\Lib\Application;
 
-class AuthHelper
+class AuthHelper extends Application
 {
-	protected $app;
-
-	function __construct(Application $app)
-	{
-		$this->app = $app;
-	}
-
 	function generateToken()
 	{
-		return hash('sha256', base_convert(sha1(uniqid(mt_rand() . $this->app['security.salt'], true)), 16, 36));
+		return hash('sha256', base_convert(sha1(uniqid(mt_rand() . $this->app('security.salt'), true)), 16, 36));
 	}
 
 	function generateUniqueToken()
@@ -28,7 +20,7 @@ class AuthHelper
 			$token = $this->generateToken();
 
 			$sql = "SELECT token_id from token where token = '$token'";
-			$existe = $this->app['sql']->hasResults($sql);
+			$existe = $this->db()->hasResults($sql);
 		}
 		while($existe);
 
@@ -37,7 +29,7 @@ class AuthHelper
 
 	function isAuthenticated()
 	{
-		$user_id = $this->app['session']->get('user_real.id', null);
+		$user_id = $this->getSessionData('user_real.id');
 
 		if(! empty($user_id))
 		{
@@ -54,7 +46,7 @@ class AuthHelper
 			return false;
 		}
 
-		$user_roles = $this->app['session']->get('user.rol', array()); // user_real
+		$user_roles = $this->getSessionData('user.rol', array()); // user_real
 
 		if(empty($user_roles))
 		{
@@ -84,7 +76,7 @@ class AuthHelper
 
 	function firewall($role_controlled_routes, $anonymous_routes = array())
 	{
-		$matched_route = $this->app['url_matcher']->matchRequest($this->app['request'])['_route'];
+		$matched_route = $this->app('url_matcher')->matchRequest($this->request())['_route'];
 
 		// Autentificación (rutas que se puedan visitar sin estar identificado)
 		if(in_array($matched_route, $anonymous_routes))
@@ -95,14 +87,13 @@ class AuthHelper
 		// La ruta no puede ser visitada anónimamente (se ha revisado el array anterior)
 		if(! $this->isAuthenticated())
 		{
-			if($this->app['request']->getMethod() != "GET")
+			if($this->request()->getMethod() != "GET")
 			{
-				return $this->app->json(array(
-					'error' => 'Debes identificarte primero para poder realizar esa accion'), 400);
+				return $this->jsonResponse(array('error' => 'Debes identificarte primero para poder realizar esa accion'), 400);
 			}
 
-			return new Response($this->app['twig']->render('user/login_redirect.twig',
-				array('redirect_path' => $this->app->escape($this->app['request']->getRequestUri()))));
+			return $this->renderResponse('user/login_redirect.twig',
+				array('redirect_path' => $this->app()->escape($this->request()->getRequestUri())));
 		}
 
 		$authorized = false;
@@ -124,14 +115,12 @@ class AuthHelper
 
 		if(! $authorized)
 		{
-			if($this->app['request']->getMethod() != "GET")
+			if($this->request()->getMethod() != "GET")
 			{
-				return $this->app->json(array(
-					'error' => 'No tienes permisos suficientes para realizar esa accion'), 400);
+				return $this->jsonResponse(array('error' => 'No tienes permisos suficientes para realizar esa accion'), 400);
 			}
 
-			return new Response($this->app['twig']->render('error.twig', array(
-				'mensaje' => 'Error - No tienes permisos suficientes para acceder')), 404);
+			return $this->renderResponse('error.twig', array('mensaje' => 'Error - No tienes permisos suficientes para acceder'), 404);
 		}
 
 		return null;

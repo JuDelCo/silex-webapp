@@ -2,13 +2,12 @@
 
 namespace Src\Lib;
 
-use Silex\Application;
+use Src\Lib\Application;
 use Src\Lib\FileUploadHelperHandler;
 
-class FileUploadHelper
+class FileUploadHelper extends Application
 {
 	private $uploader;
-	protected $app;
 	public $allowedExtensions;
 	public $sizeLimit;
 	public $inputName;
@@ -16,19 +15,17 @@ class FileUploadHelper
 	public $chunksFolder;
 	public $defaultFolder;
 
-	function __construct(Application $app)
+	function __construct()
 	{
-		$this->app = $app;
-
 		$this->uploader = new FileUploadHelperHandler();
 
 		$this->allowedExtensions = array(); // all (empty)
 		$this->sizeLimit = (10 * 1024 * 1024); // 10 MB
 		$this->inputName = 'tempfile';
 
-		$this->rootFolder = $app['path.info']['root'];
-		$this->chunksFolder = $app['path.info']['chunks'];
-		$this->defaultFolder = $app['path.info']['temp'];
+		$this->rootFolder = $this->app('path.info')['root'];
+		$this->chunksFolder = $this->app('path.info')['chunks'];
+		$this->defaultFolder = $this->app('path.info')['temp'];
 	}
 
 	function handleUpload($uploadFolder = null, $fileName = null)

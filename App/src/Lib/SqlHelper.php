@@ -2,39 +2,32 @@
 
 namespace Src\Lib;
 
-use Silex\Application;
+use Src\Lib\Application;
 
-class SqlHelper
+class SqlHelper extends Application
 {
-	protected $app;
-
-	function __construct(Application $app)
-	{
-		$this->app = $app;
-	}
-
 	// Conecta a la base de datos
 	function connect()
 	{
-		return $this->app['db']->connect();
+		return $this->app('db')->connect();
 	}
 
 	// Comprueba si está conectado a la base de datos
 	function isConnected()
 	{
-		return $this->app['db']->isConnected();
+		return $this->app('db')->isConnected();
 	}
 
 	// Ejecuta la sentencia SQL y devuelve el numero total de filas afectadas (0 si no afectó a ninguna)
 	function run($sql)
 	{
-		return $this->app['db']->exec($sql);
+		return $this->app('db')->exec($sql);
 	}
 
 	// Array de resultados (Array vacío si no devuelve ninguno)
 	function getAll($sql)
 	{
-		return $this->app['db']->fetchAll($sql);
+		return $this->app('db')->fetchAll($sql);
 	}
 
 	// Array con la primera fila de los resultados (Array vacío si no devuelve ninguno)
@@ -53,13 +46,13 @@ class SqlHelper
 	// Devolver valor de la primera columna del primer resultado (false si no devuelve nada)
 	function getValue($sql)
 	{
-		return $this->app['db']->fetchColumn($sql);
+		return $this->app('db')->fetchColumn($sql);
 	}
 
 	// Devuelve el ID de la ultima inserción (false si no devuelve nada)
 	function getLastInsertId($tableName = null)
 	{
-		$lastInsertId = $this->app['db']->lastInsertId($tableName);
+		$lastInsertId = $this->app('db')->lastInsertId($tableName);
 
 		return ($lastInsertId === '' ? false : $lastInsertId);
 	}
@@ -96,31 +89,31 @@ class SqlHelper
 	// Empezar una transacción
 	function transBegin()
 	{
-		return $this->app['db']->beginTransaction();
+		return $this->app('db')->beginTransaction();
 	}
 
 	// Confirmar una transacción
 	function transCommit()
 	{
-		return $this->app['db']->commit();
+		return $this->app('db')->commit();
 	}
 
 	// Deshacer una transacción
 	function transRollBack()
 	{
-		return $this->app['db']->rollback();
+		return $this->app('db')->rollback();
 	}
 
 	// Cambia el modo de devolver los resultados (\PDO::FETCH_ASSOC [Por defecto], \PDO::FETCH_NUM, \PDO::FETCH_BOTH)
 	function setFetchMode($fetchMode)
 	{
-		$this->app['db']->setFetchMode($fetchMode);
+		$this->app('db')->setFetchMode($fetchMode);
 	}
 
 	// Array con información sobre el error
 	function getErrorInfo()
 	{
-		return $this->app['db']->errorInfo();
+		return $this->app('db')->errorInfo();
 	}
 
 	// Transforma el valor en un parámetro válido (y seguro) para concatenar en una SQL
@@ -185,6 +178,12 @@ class SqlHelper
 		return $final_array;
 	}
 
+	// Devuelve el tipo de driver utilizado
+	function getDriver()
+	{
+		return $this->app('db.options')['driver'];
+	}
+
 	// Genera la cadena SQL necesaria para formatear un campo de fecha (date)
 	function dateFormat($field_name, $alias = null)
 	{
@@ -193,7 +192,7 @@ class SqlHelper
 			$alias = $field_name;
 		}
 
-		if($app['db.options']['driver'] == 'pdo_sqlsrv')
+		if($this->getDriver() == 'pdo_sqlsrv')
 		{
 			return "convert(varchar, $field_name, 103) as $alias";
 		}
@@ -211,7 +210,7 @@ class SqlHelper
 			$alias = $field_name;
 		}
 
-		if($app['db.options']['driver'] == 'pdo_sqlsrv')
+		if($this->getDriver() == 'pdo_sqlsrv')
 		{
 			return "convert(varchar, $field_name, 103) + ' ' + convert(varchar, $field_name, 108) as $alias";
 		}

@@ -2,12 +2,10 @@
 
 namespace Src\Lib;
 
-use Silex\Application;
+use Src\Lib\Application;
 
-class EmailHelper
+class EmailHelper extends Application
 {
-	protected $app;
-
 	protected $swift_message;
 	protected $charset;
 	protected $date;
@@ -26,10 +24,8 @@ class EmailHelper
 	protected $image_attachments;
 	protected $error;
 
-	function __construct(Application $app)
+	function __construct()
 	{
-		$this->app = $app;
-
 		$this->reset();
 	}
 
@@ -85,7 +81,7 @@ class EmailHelper
 	{
 		$data['image_attachments'] = $this->image_attachments;
 
-		$this->setBody($this->app['twig']->render($template, $data));
+		$this->setBody($this->render($template, $data));
 	}
 
 	// Especifica el cuerpo alternativo del mensaje
@@ -337,7 +333,7 @@ class EmailHelper
 			->addPart($this->altBody, 'text/plain')
 			->setBody($this->body, 'text/html');
 
-		if(! $this->app['debug'])
+		if(! $this->isDebug())
 		{
 			$this->swift_message
 				->setTo($this->address_to)
@@ -347,7 +343,7 @@ class EmailHelper
 		else
 		{
 			$this->swift_message
-				->setTo(array($this->app['email.debug']))
+				->setTo(array($this->app('email.debug')))
 				->setBody($this->body . '<br><br><pre>'.
 					print_r($this->address_to, true) .
 					print_r($this->address_cc, true) .
@@ -362,7 +358,7 @@ class EmailHelper
 
 		try
 		{
-			if (!$this->app['mailer']->send($this->swift_message, $failures))
+			if (!$this->app('mailer')->send($this->swift_message, $failures))
 			{
 				$this->error = $failures;
 

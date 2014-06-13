@@ -2,21 +2,17 @@
 
 namespace Src\Lib;
 
-use Silex\Application;
-use Symfony\Component\HttpFoundation\Response;
+use Src\Lib\Application;
 use Symfony\Component\Filesystem\Filesystem;
 
-class ExcelHelper
+class ExcelHelper extends Application
 {
-	protected $app;
 	protected $objPHPExcel;
 
-	function __construct(Application $app)
+	function __construct()
 	{
-		$this->app = $app;
-
 		// Caché habilitada por defecto !
-		if(! $this->app['excel.disable_cache'])
+		if(! $this->app('excel.disable_cache'))
 		{
 			// Opcional: Sin caché es 2 veces más rapido, pero consume 3 veces más RAM !
 			$cacheMethod = \PHPExcel_CachedObjectStorageFactory::cache_to_sqlite3;
@@ -81,7 +77,7 @@ class ExcelHelper
 
 	function writeData($data, $sheetIndex = 0, $position = 'A1')
 	{
-		if(! $this->app['validator']->isArray($data) || empty($data))
+		if(! $this->validator()->isArray($data) || empty($data))
 		{
 			$this->setCellValue($position, '', $sheetIndex);
 
@@ -95,7 +91,7 @@ class ExcelHelper
 
 	function writeSqlData($data, $sheetIndex = 0, $position = 'A1')
 	{
-		if(! $this->app['validator']->isArray($data) || empty($data))
+		if(! $this->validator()->isArray($data) || empty($data))
 		{
 			$this->setCellValue($position, '', $sheetIndex);
 
@@ -122,19 +118,19 @@ class ExcelHelper
 	function saveToFile($name, $tipo = 'general', $root_path = null)
 	{
 		$sql = "SELECT top 1 tipo_excel_id from excel_tipo where nombre = '$tipo'";
-		$tipo_excel_id = $this->app['sql']->getValue($sql);
+		$tipo_excel_id = $this->db()->getValue($sql);
 		$excel_path = '';
 
 		if(! $root_path)
 		{
-			$root_path = $this->app['path.info']['root'] . $this->app['path.info']['excel'];
+			$root_path = $this->app('path.info')['root'] . $this->app('path.info')['excel'];
 		}
 
 		$fs = new Filesystem();
 
 		do
 		{
-			$excel_path = $root_path . $this->app['auth']->generateToken() . '.xlsx';
+			$excel_path = $root_path . $this->auth()->generateToken() . '.xlsx';
 		}
 		while($fs->exists($excel_path));
 
@@ -147,7 +143,7 @@ class ExcelHelper
 		$sql = "INSERT into excel (usuario_id, tipo_excel_id, nombre, ruta, fecha, existe_sn)
 			values
 			(
-				" . $this->app['session']->get('user_real.id') . ",
+				" . $this->getSessionData('user_real.id') . ",
 				" . ($tipo_excel_id ? $tipo_excel_id : 'null') . ",
 				'$name',
 				'$excel_path',
@@ -155,7 +151,7 @@ class ExcelHelper
 				1
 			)";
 
-		return $this->app['sql']->runInsert($sql);
+		return $this->db()->runInsert($sql);
 	}
 
 	function download($excel_id)
@@ -166,19 +162,19 @@ class ExcelHelper
 			from excel
 			where excel_id = $excel_id
 				and existe_sn = 1
-				and usuario_id = " . $this->app['session']->get('user.id');
-		$excel_data = $this->app['sql']->getFirstRow($sql);
+				and usuario_id = " . $this->getSessionData('user.id');
+		$excel_data = $this->db()->getFirstRow($sql);
 
 		if(! $excel_data)
 		{
-			return $this->app->json(array('error' => 'No se ha encontrado la excel'), 400);
+			return $this->jsonResponse(array('error' => 'No se ha encontrado la excel'), 400);
 		}
 
 		$fs = new Filesystem();
 
 		if (! $fs->exists($excel_data['ruta']))
 		{
-			return $this->app->json(array('error' => 'No existe el archivo'), 400);
+			return $this->jsonResponse(array('error' => 'No existe el archivo'), 400);
 		}
 
 		$size = filesize($excel_data['ruta']);
@@ -186,7 +182,7 @@ class ExcelHelper
 
 		$excel_filename = stripslashes($excel_data['nombre']);
 
-		$user_agent = $this->app['request']->server->get('HTTP_USER_AGENT');
+		$user_agent = $this->request()->server->get('HTTP_USER_AGENT');
 
 		// Arreglamos el nombre del archivo si es Internet Explorer...
 		if (isset($user_agent) && (strpos($user_agent, 'MSIE') !== false))
@@ -194,7 +190,7 @@ class ExcelHelper
 			$excel_filename = rawurlencode($excel_filename);
 		}
 
-		$response = new Response($excel_string);
+		$response = $this->response($excel_string);
 
 		$response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8');
 		$response->headers->set('Content-Disposition', 'attachment; filename="' . $excel_filename . '.xlsx"');
@@ -208,7 +204,7 @@ class ExcelHelper
 	{
 		$this->setCursorPosition('A1');
 
-		$response = new Response();
+		$response = $this->response();
 		$response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; charset=utf-8');
 		$response->headers->set('Content-Disposition', "attachment;filename=$excel_filename.xlsx");
 		$response->headers->set('Cache-Control', 'max-age=0');

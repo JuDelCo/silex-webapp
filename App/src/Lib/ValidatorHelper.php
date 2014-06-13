@@ -2,17 +2,10 @@
 
 namespace Src\Lib;
 
-use Silex\Application;
+use Src\Lib\Application;
 
-class ValidatorHelper
+class ValidatorHelper extends Application
 {
-	protected $app;
-
-	function __construct(Application $app)
-	{
-		$this->app = $app;
-	}
-
 	// Comprueba una expresión regular
 	function regEx($value, $regEx)
 	{
