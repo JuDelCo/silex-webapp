@@ -24,6 +24,7 @@ $app->register(new SwiftmailerServiceProvider());
 // ----------------------------------------------
 
 use Src\Lib\SqlHelperServiceProvider;
+use Src\Lib\ErrorHandlerServiceProvider;
 use Src\Lib\ValidatorHelperServiceProvider;
 use Src\Lib\AppHelperServiceProvider;
 use Src\Lib\AuthHelperServiceProvider;
@@ -33,6 +34,7 @@ use Src\Lib\EmailHelperServiceProvider;
 use Src\Lib\TwigHelperServiceProvider;
 
 $app->register(new SqlHelperServiceProvider());
+$app->register(new ErrorHandlerServiceProvider());
 $app->register(new ValidatorHelperServiceProvider());
 $app->register(new AppHelperServiceProvider());
 $app->register(new AuthHelperServiceProvider());

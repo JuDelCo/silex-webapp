@@ -3,9 +3,6 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-// Control de errores
-require_once __DIR__.'/error_handler.php';
-
 // Controladores
 require_once __DIR__.'/Backend/mount.php';
 require_once __DIR__.'/Frontend/mount.php';
@@ -22,6 +19,7 @@ $app->match('{fallback_url}', function($fallback_url) use ($app)
 })
 ->bind('rt_error_not_found')->assert('fallback_url', '^(?!_profiler/)(.+)');
 
+// Para todas las rutas
 $app->before(function (Request $request) use ($app)
 {
 	// Si el servidor está en mantenimiento, mostramos un mensaje de información (NO ejecutamos ningun controlador)
@@ -60,6 +58,7 @@ $app->before(function (Request $request) use ($app)
 	}
 });
 
+// Para todas las rutas
 $app->after(function (Request $request, Response $response)
 {
 	// Añadimos cabeceras para evitar que el navegador cree caché
