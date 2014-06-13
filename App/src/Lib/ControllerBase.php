@@ -6,6 +6,7 @@ use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ControllerBase
 {
@@ -16,9 +17,14 @@ class ControllerBase
 		$this->app = $app;
 	}
 
-	function app()
+	function app($service = null)
 	{
-		return $this->app;
+		if(empty($service))
+		{
+			return $this->app;
+		}
+
+		return $this->app[$service];
 	}
 
 	function isDebug()
@@ -38,13 +44,29 @@ class ControllerBase
 
 	function requestData($type, $name, $default = null)
 	{
-		if(strtoupper($type) == 'POST')
+		if(strtoupper($type) == 'ALL')
+		{
+			return self::request()->get($name, $default);
+		}
+		else if(strtoupper($type) == 'GET')
+		{
+			return self::request()->query->get($name, $default);
+		}
+		else // $_POST fallback
 		{
 			return self::request()->request->get($name, $default);
 		}
-		else // $_GET by default
+	}
+
+	function requestAllData($type)
+	{
+		if(strtoupper($type) == 'GET')
 		{
-			return self::request()->query->get($name, $default);
+			return self::request()->query->all();
+		}
+		else // $_POST fallback
+		{
+			return self::request()->request->all();
 		}
 	}
 
@@ -58,9 +80,14 @@ class ControllerBase
 		return self::session()->set($name, $data);
 	}
 
-	function getSessionData($name)
+	function getSessionData($name, $default = null)
 	{
-		return self::session()->get($name);
+		return self::session()->get($name, $default);
+	}
+
+	function sessionClose()
+	{
+		return self::session()->save();
 	}
 
 	function twig()
@@ -83,19 +110,29 @@ class ControllerBase
 		return $this->app['monolog'];
 	}
 
-	function jsonResponse($data = array(), $status = 200, array $headers = array())
+	function response($html = '', $status = 200, $headers = array())
+	{
+		return new Response($html, $status, $headers);
+	}
+
+	function jsonResponse($data = array(), $status = 200, $headers = array())
 	{
 		return $this->app->json($data, $status, $headers);
 	}
 
-	function renderResponse($twigTemplate, $parameters = array())
+	function renderResponse($twigTemplate, $parameters = array(), $status = 200, $headers = array())
 	{
-		return new Response(self::render($twigTemplate, $parameters));
+		return self::response(self::render($twigTemplate, $parameters), $status, $headers);
+	}
+
+	function generatePath($routeName, $parameters = array())
+	{
+		return $this->app['url_generator']->generate($routeName, $parameters, UrlGeneratorInterface::ABSOLUTE_PATH);
 	}
 
 	function generateUrl($routeName, $parameters = array())
 	{
-		return $this->app['url_generator']->generate($routeName, $parameters);
+		return $this->app['url_generator']->generate($routeName, $parameters, UrlGeneratorInterface::ABSOLUTE_URL);
 	}
 
 	function redirect($url, $status = 302)
@@ -108,28 +145,28 @@ class ControllerBase
 		return self::redirect(self::generateUrl($routeName, $parameters, $status));
 	}
 
-	function subRequest($url, $method = 'POST')
+	function subRequest($url, $parameters = array(), $method = 'POST')
 	{
-		$subRequest = Request::create($url, $method);
+		$subRequest = Request::create($url, $method, $parameters);
 
 		return $this->app->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
 	}
 
-	function subRequestJson($url, $method = 'POST')
+	function subRequestJson($url, $parameters = array(), $method = 'POST')
 	{
-		$response = self::subRequest($url, $method);
+		$response = self::subRequest($url, $parameters, $method);
 
 		return json_decode($response->getContent(), true);
 	}
 
-	function subRequestRoute($routeName, $parameters = array(), $method = 'POST')
+	function subRequestRoute($routeName, $routeParameters = array(), $parameters = array(), $method = 'POST')
 	{
-		return self::subRequest(self::generateUrl($routeName, $parameters), $method);
+		return self::subRequest(self::generateUrl($routeName, $routeParameters), $parameters, $method);
 	}
 
-	function subRequestRouteJson($routeName, $parameters = array(), $method = 'POST')
+	function subRequestRouteJson($routeName, $routeParameters = array(), $parameters = array(), $method = 'POST')
 	{
-		$response = self::subRequestRoute($routeName, $parameters, $method);
+		$response = self::subRequestRoute($routeName, $routeParameters, $parameters, $method);
 
 		return json_decode($response->getContent(), true);
 	}
