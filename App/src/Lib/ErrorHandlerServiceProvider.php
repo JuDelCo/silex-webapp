@@ -42,8 +42,8 @@ class ErrorHandlerServiceProvider implements ServiceProviderInterface
 			$e_get_var_dump = print_r($_GET, true);
 			$e_post_var_dump = print_r($_POST, true);
 			$e_session_var_dump = print_r($_SESSION, true);
-			$e_session_user_id = @($_SESSION['user_real.id'] ?: null);
-			$e_session_username = @($_SESSION['user_real.usuario'] ?: 'Anonymous');
+			$e_session_user_id = @($_SESSION['_sf2_attributes']['user_real.id'] ?: null);
+			$e_session_username = @($_SESSION['_sf2_attributes']['user_real.usuario'] ?: 'Anonymous');
 			$e_cookie_var_dump = print_r($_COOKIE, true);
 			$e_server_var_dump = print_r($_SERVER, true);
 			$e_server_method = @$_SERVER['REQUEST_METHOD'];
