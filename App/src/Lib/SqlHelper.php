@@ -124,7 +124,7 @@ class SqlHelper
 	}
 
 	// Transforma el valor en un parámetro válido (y seguro) para concatenar en una SQL
-	function toSQL($value, $appendComma = true)
+	function toSQL($value, $appendComma = false)
 	{
 		if ($value === true)
 		{

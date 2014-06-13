@@ -113,7 +113,7 @@ class ApiUser extends ControllerBase
 
 		do
 		{
-			$token = $this->db()->toSQL($token, false);
+			$token = $this->db()->toSQL($token);
 
 			$sql = "SELECT token_id, user_id, active
 				from token
@@ -299,7 +299,7 @@ class ApiUser extends ControllerBase
 
 		do
 		{
-			$token = $this->db()->toSQL($token, false);
+			$token = $this->db()->toSQL($token);
 
 			$sql = "SELECT token_id, user_id, active
 				from token
@@ -348,7 +348,7 @@ class ApiUser extends ControllerBase
 
 		do
 		{
-			$token = $this->db()->toSQL($token, false);
+			$token = $this->db()->toSQL($token);
 
 			$sql = "SELECT token_id, user_id, active
 				from token
