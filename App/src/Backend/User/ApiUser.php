@@ -2,9 +2,9 @@
 
 namespace Src\Backend\User;
 
-use Src\Lib\ControllerBase;
+use Src\Lib\Application;
 
-class ApiUser extends ControllerBase
+class ApiUser extends Application
 {
 	function register()
 	{

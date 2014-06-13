@@ -2,10 +2,10 @@
 
 namespace Src\Backend\Util;
 
-use Src\Lib\ControllerBase;
+use Src\Lib\Application;
 use Src\Backend\Util\UtilAjax;
 
-class ApiUtil extends ControllerBase
+class ApiUtil extends Application
 {
 	function ajax_datos()
 	{

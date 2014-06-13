@@ -47,8 +47,8 @@ class TwigHelperServiceProvider implements ServiceProviderInterface
 			$twig->addGlobal('resource_js_jquery',                      create_js_tag('jquery.js',                          '1.11.0'));
 			$twig->addGlobal('resource_js_jquery2',                     create_js_tag('jquery2.js',                         '2.1.0'));
 			$twig->addGlobal('resource_js_jquery_ui_custom',            create_js_tag('jquery.ui.custom.js',                '1.10.4'));
-			$twig->addGlobal('resource_js_jquery_util',                 create_js_tag('jquery.util.js',                     '1.0.6'));
-			$twig->addGlobal('resource_js_jquery_util_form',            create_js_tag('jquery.util.form.js',                '1.0.1'));
+			$twig->addGlobal('resource_js_jquery_util',                 create_js_tag('jquery.util.js',                     '1.0.7'));
+			$twig->addGlobal('resource_js_jquery_util_form',            create_js_tag('jquery.util.form.js',                '1.0.2'));
 			$twig->addGlobal('resource_js_jquery_sha256',               create_js_tag('jquery.sha256.js',                   '1.1.0'));
 			$twig->addGlobal('resource_js_jquery_hotkeys',              create_js_tag('jquery.hotkeys.js',                  '0.1.0'));
 			$twig->addGlobal('resource_js_jquery_meio_mask',            create_js_tag('jquery.meio-mask.js',                '1.1.11'));

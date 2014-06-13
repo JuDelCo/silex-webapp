@@ -2,9 +2,9 @@
 
 namespace Src\Frontend\User;
 
-use Src\Lib\ControllerBase;
+use Src\Lib\Application;
 
-class User extends ControllerBase
+class User extends Application
 {
 	function register()
 	{

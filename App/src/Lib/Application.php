@@ -2,17 +2,17 @@
 
 namespace Src\Lib;
 
-use Silex\Application;
+use Silex\Application as BaseApplication;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class ControllerBase
+class Application
 {
 	protected $app;
 
-	function __construct(Application $app)
+	function __construct(BaseApplication $app)
 	{
 		$this->app = $app;
 	}

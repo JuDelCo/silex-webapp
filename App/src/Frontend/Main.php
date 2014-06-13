@@ -2,9 +2,9 @@
 
 namespace Src\Frontend;
 
-use Src\Lib\ControllerBase;
+use Src\Lib\Application;
 
-class Main extends ControllerBase
+class Main extends Application
 {
 	function root()
 	{
