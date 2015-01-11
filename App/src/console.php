@@ -21,6 +21,7 @@ $console->register('show:routes')
 		$output->writeln(' Silex Configured Routes:');
 		$output->writeln('-------------------------------------------------------------------------------');
 
+		$app->flush();
 		$routes = $app['routes']->getIterator();
 
 		foreach ($routes as $key => $route)
@@ -50,7 +51,7 @@ $console->register('clear:cache')
 		$cacheDir = __DIR__ . "/../var/cache/";
 
 		$finder = new Finder();
-		$finder->in($cacheDir)->notName('.htaccess');
+		$finder->depth('== 0')->in($cacheDir)->notName('.htaccess');
 
 		$fs = new Filesystem();
 		$fs->remove($finder);
@@ -59,5 +60,7 @@ $console->register('clear:cache')
 
 		$output->writeln('-------------------------------------------------------------------------------');
 	});
+
+require_once __DIR__.'/Console/mount.php';
 
 return $console;
