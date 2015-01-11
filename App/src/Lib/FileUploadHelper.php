@@ -15,8 +15,10 @@ class FileUploadHelper extends Application
 	public $chunksFolder;
 	public $defaultFolder;
 
-	function __construct()
+	function __construct($app)
 	{
+		parent::__construct($app);
+
 		$this->uploader = new FileUploadHelperHandler();
 
 		$this->allowedExtensions = array(); // all (empty)
@@ -57,19 +59,23 @@ class FileUploadHelper extends Application
 		if(! empty($result['size']) && $result['size'] >= (1024 * 256) // Mayor 256 KB
 			&& ! in_array(pathinfo($result['uploadName'], PATHINFO_EXTENSION), $compressed_ext))
 		{
-			$oldPath = $uploadFolder . DIRECTORY_SEPARATOR . $result['uploadName'];
-			$zipPath = $oldPath . '_TEMP_ZIP';
+			$filePath = $uploadFolder . DIRECTORY_SEPARATOR . $result['uploadName'];
+			$zipPath = $filePath . '_TEMP_ZIP';
 
-			if($this->create_zip(array($oldPath => $result['fileName']), $zipPath))
+			if($this->create_zip(array($filePath => $result['fileName']), $zipPath))
 			{
 				$newSize = filesize($zipPath);
-				$percentaje_gained = (($newSize * 100) / $result['size']);
+				$result['unpacked_gained'] = (($newSize * 100) / $result['size']);
 
-				if($percentaje_gained <= 80.0)
+				if($result['unpacked_gained'] <= 80.0) // Percentage %
 				{
-					rename($zipPath, $oldPath);
+					rename($zipPath, $filePath);
+
+					$result['unpacked_size'] = $result['size'];
+					$result['unpacked_md5'] = $result['md5'];
 
 					$result['size'] = $newSize;
+					$result['md5'] = md5_file($filePath);
 					$result['fileName'] .= '.zip';
 				}
 				else

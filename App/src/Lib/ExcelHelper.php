@@ -9,8 +9,10 @@ class ExcelHelper extends Application
 {
 	protected $objPHPExcel;
 
-	function __construct()
+	function __construct($app)
 	{
+		parent::__construct($app);
+
 		// Caché habilitada por defecto !
 		if(! $this->app('excel.disable_cache'))
 		{

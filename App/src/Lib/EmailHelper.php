@@ -24,8 +24,10 @@ class EmailHelper extends Application
 	protected $image_attachments;
 	protected $error;
 
-	function __construct()
+	function __construct($app)
 	{
+		parent::__construct($app);
+
 		$this->reset();
 	}
 
@@ -50,6 +52,31 @@ class EmailHelper extends Application
 		$this->error = '';
 
 		$this->swift_message = \Swift_Message::newInstance();
+	}
+
+	// Elimina todos los destinatarios del email
+	function clearRecipients()
+	{
+		$this->address_to = array();
+		$this->address_cc = array();
+		$this->address_bcc = array();
+
+		$this->swift_message = \Swift_Message::newInstance();
+	}
+
+	// Elimina todos los ficheros adjuntos (incluyendo imagenes)
+	function clearAllAttachments()
+	{
+		if(! empty($this->attachments))
+		{
+			$this->attachments = array();
+
+			$this->swift_message = \Swift_Message::newInstance();
+
+			return true;
+		}
+
+		return false;
 	}
 
 	// Especifica la codificacion del email
