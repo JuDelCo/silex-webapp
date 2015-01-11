@@ -9,7 +9,9 @@ use Doctrine\DBAL\DBALException;
 
 require_once __DIR__.'/../../../ServerConf.php';
 
+$app['user_admin_id'] = 1;
 $app['maintenance'] = $server_conf['maintenance'];
+$app['maintenance_msg'] = $server_conf['maintenance_msg'];
 $app['session.version'] = '1.0.0';
 $app['security.salt'] = $security_hash['salt'];
 $app['security.login_token'] = $security_hash['login'];

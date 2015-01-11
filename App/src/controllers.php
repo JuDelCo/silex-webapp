@@ -29,11 +29,11 @@ $app->before(function (Request $request) use ($app)
 		{
 			if($request->getMethod() == "GET")
 			{
-				return new Response($app['twig']->render('info.twig', array('mensaje' => 'Aplicación en mantenimiento, por favor regresa en unos minutos')), 503);
+				return new Response($app['twig']->render('info.twig', array('mensaje' => $app['maintenance_msg'])), 503);
 			}
 			else
 			{
-				return $app->json(array('error' => 'Aplicación en mantenimiento, por favor vuelve a intentarlo en unos minutos'), 503);
+				return $app->json(array('error' => $app['maintenance_msg']), 503);
 			}
 		}
 	}
