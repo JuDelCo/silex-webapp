@@ -32,6 +32,19 @@
 	{% block body_footer %}
 	{% endblock body_footer %}
 
+	<div id="modal_working" class="modal fade" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog" style="width: 250px;">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div style="text-align: center; width: 100%; margin: 30px 0px;">
+						<img src="/Resources/img/ajax-loader_big.gif" title="Espere..."><br>
+						<h4>Espere...</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	{% block body_javascript_main %}
 		{{ resource_js_jquery2|raw }}
 		{{ resource_js_bootstrap|raw }}

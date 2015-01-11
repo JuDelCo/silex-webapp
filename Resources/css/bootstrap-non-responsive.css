@@ -66,3 +66,19 @@ div.container
 	-webkit-transition: color 0.2s ease-out, background-color 0.2s ease-out;
 	        transition: color 0.2s ease-out, background-color 0.2s ease-out;
 }
+
+/* Description lists */
+.dl-horizontal dt
+{
+	float: left;
+	width: 160px;
+	overflow: hidden;
+	clear: left;
+	text-align: right;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.dl-horizontal dd
+{
+	margin-left: 180px;
+}

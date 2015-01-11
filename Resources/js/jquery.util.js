@@ -1,9 +1,9 @@
 /*!
- * jQuery Util JavaScript Library v1.0.7
+ * jQuery Util JavaScript Library v1.0.8
  *
  * Author: Juan Delgado Cobalea
  *
- * Last-Update: 2014-06-04
+ * Last-Update: 2014-06-17
  */
 
 (function($)
@@ -355,6 +355,10 @@
 			callback(default_msg);
 
 			return true;
+		},
+		modalWorking: function(value)
+		{
+			$('#modal_working').modal(value);
 		}
 	});
 
